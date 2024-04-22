@@ -18,10 +18,10 @@
 		CD7C56682B9F03260040ED3C /* Lottery.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD7C56662B9F03260040ED3C /* Lottery.xcdatamodeld */; };
 		CD7C568B2B9F050A0040ED3C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C568A2B9F050A0040ED3C /* DataModel.swift */; };
 		CDA1392D2BB1BACB004A2D50 /* lottery.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDA1392C2BB1BACB004A2D50 /* lottery.txt */; };
-		CDA139382BB1BBA5004A2D50 /* ResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA139372BB1BBA5004A2D50 /* ResultTests.swift */; };
 		CDB4B72A2BA44C5D00DFEE32 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4B7292BA44C5D00DFEE32 /* Number.swift */; };
 		CDB4B72C2BA44C6B00DFEE32 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4B72B2BA44C6B00DFEE32 /* Result.swift */; };
 		CDF7700B2BB0D8D6003313FD /* ResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF7700A2BB0D8D6003313FD /* ResultsModel.swift */; };
+		D3A643A42BD65B4100C8AF8F /* ResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A643A32BD65B4100C8AF8F /* ResultTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,10 +49,10 @@
 		CD7C568A2B9F050A0040ED3C /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		CD7C568C2B9F3BBE0040ED3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CDA1392C2BB1BACB004A2D50 /* lottery.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lottery.txt; sourceTree = "<group>"; };
-		CDA139372BB1BBA5004A2D50 /* ResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResultTests.swift; path = Lottery/ResultTests.swift; sourceTree = SOURCE_ROOT; };
 		CDB4B7292BA44C5D00DFEE32 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		CDB4B72B2BA44C6B00DFEE32 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		CDF7700A2BB0D8D6003313FD /* ResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsModel.swift; sourceTree = "<group>"; };
+		D3A643A32BD65B4100C8AF8F /* ResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +102,7 @@
 				CD7C565F2B9F03260040ED3C /* Assets.xcassets */,
 				CD7C56642B9F03260040ED3C /* Persistence.swift */,
 				CD7C56662B9F03260040ED3C /* Lottery.xcdatamodeld */,
-				CDA139352BB1BB7C004A2D50 /* UT */,
+				D3A643A22BD65B0600C8AF8F /* Tests */,
 				CD7C56612B9F03260040ED3C /* Preview Content */,
 			);
 			path = Lottery;
@@ -114,14 +114,6 @@
 				CD7C56622B9F03260040ED3C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		CDA139352BB1BB7C004A2D50 /* UT */ = {
-			isa = PBXGroup;
-			children = (
-				CDA139372BB1BBA5004A2D50 /* ResultTests.swift */,
-			);
-			path = UT;
 			sourceTree = "<group>";
 		};
 		CDB4B7282BA44C3500DFEE32 /* DataTypes */ = {
@@ -151,6 +143,14 @@
 				CDF7700A2BB0D8D6003313FD /* ResultsModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D3A643A22BD65B0600C8AF8F /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D3A643A32BD65B4100C8AF8F /* ResultTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,7 +208,7 @@
 					};
 					CD7C566C2B9F03260040ED3C = {
 						CreatedOnToolsVersion = 15.1;
-						LastSwiftMigration = 1510;
+						LastSwiftMigration = 1500;
 						TestTargetID = CD7C56572B9F03240040ED3C;
 					};
 				};
@@ -277,7 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDA139382BB1BBA5004A2D50 /* ResultTests.swift in Sources */,
+				D3A643A42BD65B4100C8AF8F /* ResultTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +428,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -458,6 +459,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -481,7 +483,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TLG3B7BL39;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = sus.LotteryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -504,7 +506,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TLG3B7BL39;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = sus.LotteryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -36,7 +36,6 @@ final class ResultTests: XCTestCase {
         XCTAssertThrowsError(try Result.numbersFromString(string)) { error in
             XCTAssertEqual(error as! ResultError, .wrongNumbersRange)
         }
-       // XCTFail("Error should be thrown.")
     }
 
     func test_NumbersFromString_CorrectString() {
