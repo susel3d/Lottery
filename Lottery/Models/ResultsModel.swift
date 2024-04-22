@@ -17,7 +17,9 @@ class ResultsModel: ObservableObject {
     @Published var futureResult: Result = .empty()
 
     private var subscriptions = Set<AnyCancellable>()
-
+    
+    private let model = DataModel.shared
+    
     init() {
         model.savedCoupons.assign(to: &$savedCoupons)
         model.pastResults.sink { _ in
@@ -33,8 +35,6 @@ class ResultsModel: ObservableObject {
         model.loadData()
     }
 
-    let model = DataModel.shared
-
     func saveCoupon() {
         let nextIdx = (savedCoupons.last?.idx ?? 0) + 1
         let numbers = futureResult.numbersAsString()
@@ -45,10 +45,12 @@ class ResultsModel: ObservableObject {
     func loadCoupons() {
         model.loadCoupons()
     }
+    
     func clearSavedCoupons() {
         model.clearSavedCoupons()
         model.loadCoupons()
     }
+    
     func clearSavedCoupon(_ couponIdx: Int) {
         model.clearSavedCoupon(couponIdx)
         model.loadCoupons()
@@ -88,16 +90,13 @@ class ResultsModel: ObservableObject {
             }
         }
 
-        futureResult = Result(idx: 0, date: .now, numbers: futureNumbers.sorted(by: >))
+        futureResult = Result(idx: 0, date: .now, numbers: futureNumbers.sorted(by: <))
     }
 
     func updateResultsWithAge() {
         if resultsWithAge.isEmpty {
             updateResultsAge()
         }
-    }
-    func savePastResult() {
-
     }
 
     private func updateNumbersAge() {
@@ -118,7 +117,6 @@ class ResultsModel: ObservableObject {
                     resultNumbers[number.value-1].age = pastResultIdx
                 }
             }
-
         }
         numbersWithAge = resultNumbers
     }

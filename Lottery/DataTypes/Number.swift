@@ -10,7 +10,7 @@ import Foundation
 struct Number: Hashable, Comparable, Identifiable {
     var id = UUID()
     static func < (lhs: Number, rhs: Number) -> Bool {
-        lhs.value > rhs.value
+        lhs.value < rhs.value
     }
 
     let value: Int

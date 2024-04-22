@@ -10,8 +10,6 @@ import SwiftUI
 @main
 struct LotteryApp: App {
 
-    let model = DataModel.shared
-
     var body: some Scene {
         WindowGroup {
             MainView(model: ResultsModel())

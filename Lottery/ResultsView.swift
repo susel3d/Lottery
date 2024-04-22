@@ -39,7 +39,8 @@ struct ResultsView: View {
             }
             .swipeActions(edge: .trailing) {
                 Button("Save real result") {
-                    model.savePastResult()
+                    // TODO: implement me
+                    //model.savePastResult()
                 }
                 .tint(.yellow)
             }
