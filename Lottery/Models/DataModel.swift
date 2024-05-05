@@ -36,7 +36,7 @@ class DataModel: ObservableObject {
             return
         }
         result.idx = idx + 1
-        result.numbers.sort(by: >)
+        result.numbers.sort(by: <)
         savePastResultsToDB([result])
         loadPastResultsFromDB()
         result = .empty()
@@ -78,7 +78,7 @@ extension DataModel {
 
     private func fetchDataFromServer() {
 
-        let url = URL(string: "http://www.mbnet.com.pl/dl.txt")!
+        let url = URL(string: "")!
 
         URLSession.shared.dataTaskPublisher(for: url)
             .receive(on: RunLoop.main)
@@ -97,15 +97,15 @@ extension DataModel {
 // MARK: CoreData
 
 extension DataModel {
-
+    
     private func loadPastResultsFromDB() {
-
+        
         let request = PastResults.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "idx", ascending: false)]
         request.fetchLimit = 200
-
+        
         var results: [Result] = []
-
+        
         do {
             let pastResults = try context.fetch(request)
             for pastResult in pastResults {
@@ -119,9 +119,9 @@ extension DataModel {
         }
         self.pastResults.send(results)
     }
-
+    
     private func savePastResultsToDB(_ results: [Result]) {
-
+        
         for result in results {
             let pastResult = PastResults(context: context)
             pastResult.idx = Int32(result.idx)
@@ -132,10 +132,9 @@ extension DataModel {
             try? context.save()
         }
     }
-
-    func clearSavedCoupons() {
-
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Coupon")
+    
+    private func clearDBForEntityName(_ entityName: String) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let batchRequest = NSBatchDeleteRequest(fetchRequest: request)
         batchRequest.resultType = .resultTypeObjectIDs
 
@@ -144,6 +143,14 @@ extension DataModel {
         } catch {
             print(error)
         }
+    }
+
+    func clearPastResults() {
+        clearDBForEntityName("PastResults")
+    }
+
+    func clearSavedCoupons() {
+        clearDBForEntityName("Coupon")
     }
 
     func clearSavedCoupon(_ couponIdx: Int) {

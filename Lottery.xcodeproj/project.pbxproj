@@ -21,6 +21,7 @@
 		CDB4B72A2BA44C5D00DFEE32 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4B7292BA44C5D00DFEE32 /* Number.swift */; };
 		CDB4B72C2BA44C6B00DFEE32 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4B72B2BA44C6B00DFEE32 /* Result.swift */; };
 		CDF7700B2BB0D8D6003313FD /* ResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF7700A2BB0D8D6003313FD /* ResultsModel.swift */; };
+		D37B900A2BE7DED50056D22C /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37B90092BE7DED50056D22C /* DataModelTests.swift */; };
 		D3A643A42BD65B4100C8AF8F /* ResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A643A32BD65B4100C8AF8F /* ResultTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		CDB4B7292BA44C5D00DFEE32 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		CDB4B72B2BA44C6B00DFEE32 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		CDF7700A2BB0D8D6003313FD /* ResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsModel.swift; sourceTree = "<group>"; };
+		D37B90092BE7DED50056D22C /* DataModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
 		D3A643A32BD65B4100C8AF8F /* ResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				D3A643A32BD65B4100C8AF8F /* ResultTests.swift */,
+				D37B90092BE7DED50056D22C /* DataModelTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A643A42BD65B4100C8AF8F /* ResultTests.swift in Sources */,
+				D37B900A2BE7DED50056D22C /* DataModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

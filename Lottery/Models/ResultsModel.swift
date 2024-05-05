@@ -75,7 +75,7 @@ class ResultsModel: ObservableObject {
 
         for positionAge in positionMeanAge {
 
-            let almostSameAge = numbersWithAge.filter { $0.age! >= positionAge - 1 && $0.age! <= positionAge + 1 }
+            let almostSameAge = numbersWithAge.filter { $0.age! >= positionAge - 2 && $0.age! <= positionAge + 2 }
             if almostSameAge.isEmpty {
                 assertionFailure("consider broader variation range")
             }
