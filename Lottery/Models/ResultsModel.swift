@@ -12,8 +12,8 @@ class ResultsModel: ObservableObject {
 
     @Published var pastResultToAddManually: Result = .empty()
     @Published var savedCoupons: [Result] = []
-    @Published var numbersWithAge: [Number] = []
-    @Published var resultsWithAge: [Result] = []
+    @Published var numbers: [Number] = []
+    @Published var results: [Result] = []
     @Published var futureResult: Result = .empty()
 
     private var subscriptions = Set<AnyCancellable>()
@@ -57,44 +57,14 @@ class ResultsModel: ObservableObject {
     }
 
     func randomizeNextResult() {
-
         guard model.pastResults.value.count > 0 else {
             return
         }
-
-        let count = resultsWithAge.count
-        var positionMeanAge = Array(repeating: Int(0), count: Result.validNumbersCount)
-
-        for result in resultsWithAge {
-            let sortedAges = result.numbers.compactMap({$0.age}).sorted(by: <)
-            positionMeanAge = zip(positionMeanAge, sortedAges).map(+)
-        }
-        positionMeanAge = positionMeanAge.map { Int($0/count) }
-
-        var futureNumbers: [Number] = []
-
-        for positionAge in positionMeanAge {
-
-            let almostSameAge = numbersWithAge.filter { $0.age! >= positionAge - 2 && $0.age! <= positionAge + 2 }
-            if almostSameAge.isEmpty {
-                assertionFailure("consider broader variation range")
-            }
-            var randomNumber: Number?
-
-            repeat {
-                randomNumber = almostSameAge.randomElement()
-            } while futureNumbers.contains { $0.value == randomNumber?.value ?? -1 }
-
-            if let randomNumber {
-                futureNumbers.append(randomNumber)
-            }
-        }
-
-        futureResult = Result(idx: 0, date: .now, numbers: futureNumbers.sorted(by: <))
+        futureResult = ResultRandomizer.randomFor(results: results, numbers: numbers)
     }
 
     func updateResultsWithAge() {
-        if resultsWithAge.isEmpty {
+        if results.isEmpty {
             updateResultsAge()
         }
     }
@@ -118,7 +88,7 @@ class ResultsModel: ObservableObject {
                 }
             }
         }
-        numbersWithAge = resultNumbers
+        numbers = resultNumbers
     }
 
     private func updateResultsAge() {
@@ -149,7 +119,7 @@ class ResultsModel: ObservableObject {
 
             result.append(Result(idx: pastResult.idx, date: pastResult.date, numbers: newNumbers))
         }
-        resultsWithAge = result
+        results = result
     }
 
 }

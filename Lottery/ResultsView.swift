@@ -44,7 +44,7 @@ struct ResultsView: View {
                 }
                 .tint(.yellow)
             }
-            ForEach(model.resultsWithAge, id: \.self) { result in
+            ForEach(model.results, id: \.self) { result in
                 HStack {
                     ForEach(result.numbers) { number in
                         SingleNumberInfo(model: model, number: number)

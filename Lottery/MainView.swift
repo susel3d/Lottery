@@ -21,7 +21,7 @@ struct MainView: View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: adaptiveColumn, spacing: 20) {
-                    ForEach(model.numbersWithAge) { number in
+                    ForEach(model.numbers) { number in
                         SingleNumberInfo(model: model, number: number)
                     }
                 }
