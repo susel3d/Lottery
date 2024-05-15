@@ -60,7 +60,9 @@ class ResultsModel: ObservableObject {
         guard model.pastResults.value.count > 0 else {
             return
         }
-        futureResult = ResultRandomizer.randomFor(results: results, numbers: numbers)
+        if let random = ResultRandomizer.randomFor(results: results, numbers: numbers) {
+            futureResult = random
+        }
     }
 
     func updateResultsWithAge() {

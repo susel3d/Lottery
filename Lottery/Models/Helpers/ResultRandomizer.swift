@@ -13,7 +13,7 @@ class ResultRandomizer {
         
     }
     
-    static func meanPositionsAgeFor(results: [Result]) -> [Int] {
+    static func positionAverageAgeFor(results: [Result]) -> [Int] {
         var positionsMeanAge = Array(repeating: Int(0), count: Result.validNumbersCount)
         
         for result in results {
@@ -24,18 +24,15 @@ class ResultRandomizer {
         return positionsMeanAge
     }
     
-    static func randomFor(results: [Result], numbers: [Number], ageVariation: Int = 2) -> Result {
-
-        let positionsMeanAge = meanPositionsAgeFor(results: results)
-        
+    static func randomFor(positionAverageAge: [Int], numbers: [Number], ageVariation: Int = 2) -> Result? {
         var futureNumbers: [Number] = []
         
-        for positionAge in positionsMeanAge {
+        for positionAge in positionAverageAge {
             let bottomAge = positionAge - ageVariation
             let topAge = positionAge + ageVariation
             let almostSameAge = numbers.filter { $0.age! >= bottomAge && $0.age! <= topAge }
             if almostSameAge.isEmpty {
-                assertionFailure("consider broader variation range")
+                return nil
             }
             var randomNumber: Number?
             
@@ -49,6 +46,12 @@ class ResultRandomizer {
         }
         
         let result = Result(idx: 0, date: .now, numbers: futureNumbers.sorted(by: <))
+        return result
+    }
+    
+    static func randomFor(results: [Result], numbers: [Number], ageVariation: Int = 2) -> Result? {
+        let positionAverageAge = positionAverageAgeFor(results: results)
+        let result = randomFor(positionAverageAge: positionAverageAge, numbers: numbers)
         return result
     }
 }

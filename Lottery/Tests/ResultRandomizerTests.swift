@@ -36,10 +36,44 @@ final class ResultRandomizerTests: XCTestCase {
             Result(idx: 3, date: .now, numbers: lines[2].map { Number(value: $0, age:2*$0) })
         ]
         // when
-        let positionsMeanAge = ResultRandomizer.meanPositionsAgeFor(results: results)
+        let positionsMeanAge = ResultRandomizer.positionAverageAgeFor(results: results)
         
         // then
         XCTAssertEqual(expectedAges, positionsMeanAge)
     }
-
+    
+    func test_randomForPositionAverageAgeNumbersAgeVariation_ReturnNilWhenCannotDeriveRandomResult() {
+        // given
+        let positionAverage = [3, 7, 12, 20, 22, 29]
+        let numbers = Array(1...Result.validNumberMaxValue).map { Number(value: $0, age: 0) }
+        
+        // when
+        let result = ResultRandomizer.randomFor(positionAverageAge: positionAverage, numbers: numbers)
+        
+        // then
+        XCTAssertNil(result)
+    }
+    
+    func test_randomForPositionAverageAgeNumbersAgeVariation_ReturnsValidResult() {
+        // given
+        let positionAverage = [3, 7, 12, 20, 22, 29]
+        var numbers = Array(1...Result.validNumberMaxValue).map { Number(value: $0, age: 0) }
+        
+        let expected = "6,13,17,21,31,40"
+        
+        numbers[5].age = 4
+        numbers[12].age = 19
+        numbers[16].age = 23
+        numbers[20].age = 8
+        numbers[30].age = 13
+        numbers[39].age = 30
+        
+        // when
+        let result = ResultRandomizer.randomFor(positionAverageAge: positionAverage, numbers: numbers)
+        
+        // then
+        XCTAssertNotNil(result)
+        XCTAssert(result?.numbers.count == Result.validNumbersCount)
+        XCTAssertEqual(expected, result!.numbersAsString())
+    }
 }
