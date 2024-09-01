@@ -97,15 +97,15 @@ extension DataModel {
 // MARK: CoreData
 
 extension DataModel {
-    
+
     private func loadPastResultsFromDB() {
-        
+
         let request = PastResults.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "idx", ascending: false)]
         request.fetchLimit = 200
-        
+
         var results: [Result] = []
-        
+
         do {
             let pastResults = try context.fetch(request)
             for pastResult in pastResults {
@@ -119,9 +119,9 @@ extension DataModel {
         }
         self.pastResults.send(results)
     }
-    
+
     private func savePastResultsToDB(_ results: [Result]) {
-        
+
         for result in results {
             let pastResult = PastResults(context: context)
             pastResult.idx = Int32(result.idx)
@@ -132,7 +132,7 @@ extension DataModel {
             try? context.save()
         }
     }
-    
+
     private func clearDBForEntityName(_ entityName: String) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let batchRequest = NSBatchDeleteRequest(fetchRequest: request)
