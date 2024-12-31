@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CouponView: View {
 
-    @ObservedObject var model: ResultsModel
+    @ObservedObject var model: ResultsModel<LottoResult>
 
     @State private var showingDeletionAlert = false
 
@@ -49,6 +49,6 @@ struct CouponView: View {
 }
 
 #Preview {
-    let model = ResultsModel()
+    let model = ResultsModel<LottoResult>()
     return CouponView(model: model)
 }

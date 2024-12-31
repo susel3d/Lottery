@@ -19,15 +19,23 @@ enum DataParsingError: Error {
     case wrongNumbersCount
 }
 
-struct Result: Hashable {
+protocol Result: Hashable {
 
-    static let validNumbersCount = 6
-    static let validNumberMaxValue = 49
+    static var validNumbersCount: Int { get }
+    static var validNumberMaxValue: Int { get } // = 49
 
-    var idx: Int
-    let date: Date
-    var numbers: [Number]
+    var idx: Int { get set}
+    var date: Date { get }
+    var numbers: [Number] { get set }
 
+    func containsNumber(_ number: Int) -> Bool
+    func numbersAsString() -> String
+
+    static func createResult(idx: Int, date: Date, numbers: [Number]) -> Self
+    static func empty() -> any Result
+}
+
+extension Result {
     func containsNumber(_ number: Int) -> Bool {
         numbers.contains { $0.value == number }
     }
@@ -35,7 +43,6 @@ struct Result: Hashable {
     func numbersAsString() -> String {
         numbers.map {"\($0.value)"}.joined(separator: ",")
     }
-
 }
 
 extension Result {
@@ -51,17 +58,17 @@ extension Result {
         return numbers.map {Number(value: $0, age: 0)}
     }
 
-    static func empty() -> Result {
+    static func empty() -> any Result {
         var numbers: [Number] = []
         for _ in 0...validNumbersCount-1 {
             numbers.append(Number.empty())
         }
-        return Result(idx: 0, date: .now, numbers: numbers)
+        return createResult(idx: 0, date: .now, numbers: numbers)
     }
 
-    static func resultsFrom(lines: [String]) throws -> [Result] {
+    static func resultsFrom(lines: [String]) throws -> [any Result] {
 
-        var results: [Result] = []
+        var results: [any Result] = []
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
@@ -91,8 +98,9 @@ extension Result {
             }
 
             let numbers = numbersIntArray.map { Number(value: $0, age: 0) }
-
-            results.append(Result(idx: id, date: date, numbers: numbers))
+            
+            results.append(createResult(idx: id, date: date, numbers: numbers))
+            //results.append(Result(idx: id, date: date, numbers: numbers))
         }
 
         return results

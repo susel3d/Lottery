@@ -7,15 +7,15 @@
 
 import Foundation
 
-class ResultRandomizer {
+class ResultRandomizer<ResultType: Result> {
 
     private init() {
 
     }
 
-    static func randomFor(_ data: ResultsData) -> Result? {
+    static func randomFor(_ data: ResultsData<ResultType>) -> ResultType? {
 
-        let numbers = data.numbers
+        let numbers = data.numbersAgedByLastResult
 
         guard !numbers.isEmpty else {
             return nil
@@ -29,17 +29,17 @@ class ResultRandomizer {
 
         var futureNumbers: [Number] = []
 
-        for (positionIdx, ageAtPosition) in average.enumerated() {
-            let bottomAge = max(0, ageAtPosition - deviation[positionIdx])
-            let topAge = ageAtPosition + deviation[positionIdx]
-            let almostSameAge = numbers.filter { $0.age! >= bottomAge && $0.age! <= topAge }
-            if almostSameAge.isEmpty {
+        for (positionIdx, meanAgeAtPosition) in average.enumerated() {
+            let bottomAge = Int(round(max(0, meanAgeAtPosition - deviation[positionIdx])))
+            let topAge = Int(round(meanAgeAtPosition + deviation[positionIdx]))
+            let numbersWithinScope = numbers.filter { $0.age! >= bottomAge && $0.age! <= topAge }
+            if numbersWithinScope.isEmpty {
                 return nil
             }
             var randomNumber: Number?
 
             repeat {
-                randomNumber = almostSameAge.randomElement()
+                randomNumber = numbersWithinScope.randomElement()
             } while futureNumbers.contains { $0.value == randomNumber?.value ?? -1 }
 
             if let randomNumber {
@@ -47,7 +47,7 @@ class ResultRandomizer {
             }
         }
 
-        let result = Result(idx: 0, date: .now, numbers: futureNumbers.sorted(by: <))
+        let result = ResultType.createResult(idx: 0, date: .now, numbers: futureNumbers.sorted(by: <))
         return result
     }
 }

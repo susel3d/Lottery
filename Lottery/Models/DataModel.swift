@@ -9,18 +9,22 @@ import Foundation
 import Combine
 import CoreData
 
-class DataModel: ObservableObject {
+class DataModel<ResultType: Result>: ObservableObject {
 
-    var pastResults = CurrentValueSubject<[Result], Never>([])
-    var savedCoupons = CurrentValueSubject<[Result], Never>([])
+//    struct Contants {
+//        static let dbLoadLimit = 3500
+//    }
 
-    static let shared = DataModel()
+    var pastResults = CurrentValueSubject<[ResultType], Never>([])
+    var savedCoupons = CurrentValueSubject<[ResultType], Never>([])
+
+    //static let shared = DataModel<ResultType>()
 
     private let persistenceController = PersistenceController.shared
     private let context = PersistenceController.shared.container.viewContext
     private var subscriptions = Set<AnyCancellable>()
 
-    private init() {
+    init() {
         context.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.overwriteMergePolicyType)
     }
 
@@ -31,7 +35,7 @@ class DataModel: ObservableObject {
         }
     }
 
-    func savePastResult(_ result: inout Result) {
+    func savePastResult(_ result: inout ResultType) {
         guard let idx = pastResults.value.first?.idx else {
             return
         }
@@ -39,7 +43,7 @@ class DataModel: ObservableObject {
         result.numbers.sort(by: <)
         savePastResultsToDB([result])
         loadPastResultsFromDB()
-        result = .empty()
+        result = ResultType.empty() as! ResultType // swiftlint:disable:this force_cast
     }
 
     private func getData() {
@@ -64,10 +68,12 @@ extension DataModel {
     private func fetchDataFromFile() {
 
         Bundle.main.url(forResource: "lottery.txt", withExtension: nil).publisher
+            .subscribe(on: DispatchQueue.global())
             .tryMap { string in
                 try Data(contentsOf: string)
             }.processDataStream()
-            .tryMap { try Result.resultsFrom(lines: $0) }
+            .tryMap { try (ResultType.resultsFrom(lines: $0) as? [ResultType])!}
+            .receive(on: DispatchQueue.main)
             .sink { _ in
             } receiveValue: { results in
                 self.savePastResultsToDB(results)
@@ -84,7 +90,7 @@ extension DataModel {
             .receive(on: RunLoop.main)
             .tryMap { data, _ in data}
             .processDataStream()
-            .tryMap { try Result.resultsFrom(lines: $0) }
+            .tryMap { try (ResultType.resultsFrom(lines: $0) as? [ResultType])!}
             .sink { _ in
             } receiveValue: { results in
                 self.savePastResultsToDB(results)
@@ -102,16 +108,16 @@ extension DataModel {
 
         let request = PastResults.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "idx", ascending: false)]
-        request.fetchLimit = 200
+        request.fetchLimit = 3500 // Contants.dbLoadLimit
 
-        var results: [Result] = []
+        var results: [ResultType] = []
 
         do {
             let pastResults = try context.fetch(request)
             for pastResult in pastResults {
-                let result = Result(idx: Int(pastResult.idx),
+                let result = ResultType.createResult(idx: Int(pastResult.idx),
                                     date: pastResult.date ?? .now,
-                                    numbers: try Result.numbersFromString(pastResult.numbers!))
+                                    numbers: try ResultType.numbersFromString(pastResult.numbers!))
                 results.append(result)
             }
         } catch {
@@ -120,7 +126,7 @@ extension DataModel {
         self.pastResults.send(results)
     }
 
-    private func savePastResultsToDB(_ results: [Result]) {
+    private func savePastResultsToDB(_ results: [ResultType]) {
 
         for result in results {
             let pastResult = PastResults(context: context)
@@ -186,21 +192,21 @@ extension DataModel {
         let isPreviewData = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
         if isPreviewData {
             let numbers = [3, 11, 23, 27, 34, 41].map {Number(value: $0)}
-            savedCoupons.send([Result(idx: 0, date: .now, numbers: numbers)])
+            savedCoupons.send([ResultType.createResult(idx: 0, date: .now, numbers: numbers)])
             return
         }
 
         let request = Coupon.fetchRequest()
-        request.fetchLimit = 3
+        request.fetchLimit = 10
 
-        var results: [Result] = []
+        var results: [ResultType] = []
 
         do {
             let coupons = try context.fetch(request)
             for coupon in coupons {
-                let result = Result(idx: Int(coupon.idx),
+                let result = ResultType.createResult(idx: Int(coupon.idx),
                                     date: .now,
-                                    numbers: try Result.numbersFromString(coupon.numbers!))
+                                    numbers: try ResultType.numbersFromString(coupon.numbers!))
                 results.append(result)
             }
         } catch {

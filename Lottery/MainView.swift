@@ -10,7 +10,7 @@ import CoreData
 
 struct MainView: View {
 
-    @ObservedObject var model: ResultsModel
+    @ObservedObject var model: ResultsModel<LottoResult>
 
     private let adaptiveColumn = [
         GridItem(.adaptive(minimum: 50))
@@ -21,7 +21,7 @@ struct MainView: View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: adaptiveColumn, spacing: 20) {
-                    ForEach(model.data.numbers) { number in
+                    ForEach(model.data?.numbersAgedByLastResult ?? []) { number in
                         SingleNumberInfo(model: model, number: number)
                     }
                 }
@@ -46,6 +46,6 @@ struct MainView: View {
 }
 
 #Preview {
-    let model = ResultsModel()
+    let model = ResultsModel<LottoResult>()
     return MainView(model: model)
 }

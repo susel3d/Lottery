@@ -5,30 +5,33 @@
 //  Created by Lukasz Kmiotek on 24/03/2024.
 //
 
+// mini
+
 import Combine
 import Foundation
 
-class ResultsModel: ObservableObject {
+class ResultsModel<ResultType: Result>: ObservableObject {
 
-    @Published var data = ResultsData()
+    @Published var data: ResultsData<ResultType>?
 
-    @Published var pastResultToAddManually: Result = .empty()
-    @Published var savedCoupons: [Result] = []
-    @Published var futureResult: Result = .empty()
+    @Published var pastResultToAddManually = ResultType.empty()
+    @Published var savedCoupons: [ResultType] = []
+    @Published var futureResult = ResultType.empty()
 
-    // TODO Data can be full, limited only by View presentation
-    private var resultsListCount: Int { DataModel.shared.pastResults.value.count }
+    private var resultsListCount: Int { model.pastResults.value.count }
 
     private var subscriptions = Set<AnyCancellable>()
 
-    private let model = DataModel.shared
+    private let model = DataModel<ResultType>()
+
+    private var stdDevForCoupon: Double?
 
     init() {
         model.savedCoupons.assign(to: &$savedCoupons)
         model.pastResults.sink { _ in
-        } receiveValue: { _ in
             self.updateResultsData()
             self.randomizeNextResult()
+            self.prepareCoupon()
         }
         .store(in: &subscriptions)
     }
@@ -59,7 +62,10 @@ class ResultsModel: ObservableObject {
     }
 
     func randomizeNextResult() {
-        if let random = ResultRandomizer.randomFor(data) {
+        guard let data else {
+            return
+        }
+        if let random = ResultRandomizer<ResultType>.randomFor(data) {
             futureResult = random
         }
     }
@@ -70,64 +76,84 @@ class ResultsModel: ObservableObject {
         guard pastResults.count > 0 else {
             return
         }
-        // TODO Rework..
-        data.numbers = agedNumbersBasedOn(pastResults)
-        data.results = agedResultsBasedOn(pastResults)
 
-        data.updatePositionsStatistics()
-        // TODO move to separate View / V indicator
-        let result = data.checkStatisticsForLastResult()
+        let roi = ResultsRangeOfInterest(startingIdx: 0, length: 40)
+
+        data = try? ResultsData(
+            numbersAgedByLastResult: AgingHelper<ResultType>.agedNumbersBasedOn(pastResults),
+            numbersAgedByROIStartIdx: AgingHelper<ResultType>.agedNumbersBasedOn(pastResults, roi: roi),
+            results: AgingHelper<ResultType>.agedResultsBasedOn(pastResults),
+            rangeOfIntereset: roi
+        )
+
     }
 
-    private func agedNumbersBasedOn(_ results: [Result]) -> [Number] {
+    func prepareCoupon() {
+        if stdDevForCoupon == nil {
+            // TODO: rate method results and return it
+            stdDevForCoupon = findBestParameters()
+        }
+        guard let stdDevForCoupon else {
+            return
+        }
+        data?.prepareCoupon(stdDev: stdDevForCoupon)
+    }
 
-        var agedNumbers = Array(1...Result.validNumberMaxValue).map { Number(value: $0) }
+    private func findBestParameters() -> Double? {
 
-        for (ageAsIdx, result) in results.enumerated() {
+        guard stdDevForCoupon == nil else {
+            return stdDevForCoupon
+        }
+        let results = model.pastResults.value
 
-            for number in result.numbers {
-                // swiftlint:disable:next for_where
-                if agedNumbers[number.value-1].age == nil {
-                    agedNumbers[number.value-1].age = ageAsIdx
-                }
-            }
+        guard results.count > 0 else {
+            return nil
         }
 
-        return agedNumbers
-    }
+        let agedNumbers = AgingHelper<ResultType>.agedNumbersBasedOn(results)
+        let agedResults = AgingHelper<ResultType>.agedResultsBasedOn(results)
 
-    private func agedResultsBasedOn(_ results: [Result]) -> [Result] {
+        var allStatistics: [StatisticsComparatorData<ResultType>] = []
+        let roiMinimum = (offseet: 1, length: 1)
 
-        var agedResults: [Result] = []
+        for roiLength in roiMinimum.length...100 {
+            for roiOffset in roiMinimum.offseet...100 {
 
-        for (pastResultIdx, pastResult) in results[0...resultsListCount - 1].enumerated() {
+                let roi = ResultsRangeOfInterest(startingIdx: roiOffset, length: roiLength)
 
-            var newNumbers: [Number] = []
+                let agedNumbersROI = AgingHelper<ResultType>.agedNumbersBasedOn(results, roi: roi)
 
-            if pastResultIdx == results.endIndex - 1 {
-                for number in pastResult.numbers {
-                    let numberWithAge = Number(value: number.value)
-                    newNumbers.append(numberWithAge)
-                }
-            } else {
-                for number in pastResult.numbers {
-
-                    let pastResultsSubArray = results[pastResultIdx+1...results.endIndex - 1]
-
-                    if let foundIdx = pastResultsSubArray.firstIndex(where: {$0.containsNumber(number.value)}) {
-                        let numberWithAge = Number(value: number.value, age: foundIdx-pastResultIdx-1)
-                        newNumbers.append(numberWithAge)
-                    } else {
-                        let numberWithAge = Number(value: number.value)
-                        newNumbers.append(numberWithAge)
+                if let tempData = try? ResultsData(
+                    numbersAgedByLastResult: agedNumbers,
+                    numbersAgedByROIStartIdx: agedNumbersROI,
+                    results: agedResults,
+                    rangeOfIntereset: roi) {
+                    if let statistic = try? tempData.checkResultComplianceWithStats(roi: roi) {
+                        allStatistics += statistic
                     }
                 }
             }
-
-            assert(newNumbers.count == Result.validNumbersCount, "Wrong count of result's numbers.")
-
-            agedResults.append(Result(idx: pastResult.idx, date: pastResult.date, numbers: newNumbers))
         }
-        return agedResults
+
+        let filter = { (stats: StatisticsComparatorData<ResultType>, hits: Int) -> Bool in
+            stats.hits == hits && stats.combinations < 5_000_000
+        }
+
+        let statisticsFor6 = allStatistics.filter { filter($0, 6) }
+        let statisticsFor5 = allStatistics.filter { filter($0, 5) }
+        let statisticsFor4 = allStatistics.filter { filter($0, 4) }
+
+        let formatStr = { (stat: StatisticsComparatorData<ResultType>) -> String in
+            "\(stat.roi.length)(\(stat.roi.startingIdx)) \(stat.standardDevFactor)"
+        }
+        let param = allStatistics.map { formatStr($0) }
+
+        let param6 = statisticsFor6.map { formatStr($0) }
+        let param5 = statisticsFor5.map { formatStr($0)}
+        let param4 = statisticsFor4.map { formatStr($0)}
+
+        print("##########")
+
+        return 0.6
     }
 }

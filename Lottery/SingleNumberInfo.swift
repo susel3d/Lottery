@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SingleNumberInfo: View {
 
-    @ObservedObject var model: ResultsModel
+    @ObservedObject var model: ResultsModel<LottoResult>
 
     var number: Number?
     var showAge = true
@@ -31,7 +31,7 @@ struct SingleNumberInfo: View {
 }
 
 #Preview {
-    let model = ResultsModel()
+    let model = ResultsModel<LottoResult>()
     return SingleNumberInfo(model: model)
 }
 
@@ -66,7 +66,7 @@ struct AgeView: View {
 
 struct ValueView: View {
 
-    @ObservedObject var model: ResultsModel
+    @ObservedObject var model: ResultsModel<LottoResult>
 
     @State var number: Number
     var isFuture = false
@@ -105,7 +105,7 @@ struct ValueView: View {
     }
 
     func updatePastNumber() {
-        guard let num = Int(pastNumberCandidate), num <= Result.validNumberMaxValue && num > 0 else {
+        guard let num = Int(pastNumberCandidate), num <= LottoResult.validNumberMaxValue && num > 0 else {
             pastNumberCandidate = ""
             return
         }

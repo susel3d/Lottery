@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResultsView: View {
 
-    @ObservedObject var model: ResultsModel
+    @ObservedObject var model: ResultsModel<LottoResult>
 
     var body: some View {
         List {
@@ -44,7 +44,7 @@ struct ResultsView: View {
                 }
                 .tint(.yellow)
             }
-            ForEach(model.data.results, id: \.self) { result in
+            ForEach(model.data?.results ?? [], id: \.self) { result in
                 HStack {
                     ForEach(result.numbers) { number in
                         SingleNumberInfo(model: model, number: number)
@@ -56,7 +56,7 @@ struct ResultsView: View {
 }
 
 #Preview {
-    let model = ResultsModel()
+    let model = ResultsModel<LottoResult>()
     model.loadResults()
     return ResultsView(model: model)
 }
