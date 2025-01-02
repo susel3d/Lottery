@@ -24,7 +24,7 @@ struct ResultsData<ResultType: Result> {
     var results: [ResultType] = []
 
     init(numbersAgedByLastResult: [Number],
-         numbersAgedByROIStartIdx: [Number],
+         numbersAgedByROIStartIdx: [Number] = [],
          results: [ResultType],
          rangeOfIntereset: ResultsRangeOfInterest? = nil) throws {
         self.numbersAgedByLastResult = numbersAgedByLastResult

@@ -12,16 +12,17 @@ import Combine
 final class DataModelTests: XCTestCase {
 
     private var subscriptions = Set<AnyCancellable>()
+    let model = DataModel<LottoResult>()
 
     override func tearDown() {
-        DataModel.shared.clearPastResults()
+        model.clearPastResults()
         subscriptions.removeAll()
     }
 
     func test_loadData_ifPastResultsArePopulated() {
 
         // given
-        let sut = DataModel.shared
+        let sut = model
         let expectation = XCTestExpectation(description: "Past results are populated")
 
         sut.pastResults.sink { results in

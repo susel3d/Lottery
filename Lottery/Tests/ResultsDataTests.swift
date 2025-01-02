@@ -20,7 +20,7 @@ final class ResultsDataTests: XCTestCase {
     func test_updatePositionsStatistics_RangeOfInterestDefined_StatisticsDerived() throws {
 
         let numbers = testNumbers()
-        let result = Result(idx: 0, date: .now, numbers: numbers)
+        let result = LottoResult(idx: 0, date: .now, numbers: numbers)
         let rangeOfInterest = ResultsRangeOfInterest(startingIdx: 0, length: 1)
         let sut = try prepareSUT(numbers: numbers, results: [result], rangeOfInterest: rangeOfInterest)
 
@@ -39,7 +39,7 @@ final class ResultsDataTests: XCTestCase {
     func test_updatePositionsStatistics_SingleResult_CorrectStatistics() throws {
 
         let numbers = testNumbers()
-        let result = Result(idx: 0, date: .now, numbers: numbers)
+        let result = LottoResult(idx: 0, date: .now, numbers: numbers)
         let rangeOfInterest = ResultsRangeOfInterest(startingIdx: 0, length: 1)
         let sut = try prepareSUT(numbers: numbers, results: [result], rangeOfInterest: rangeOfInterest)
 
@@ -55,8 +55,8 @@ final class ResultsDataTests: XCTestCase {
             testNumbers(ResultsDataTests.testData2)
         ]
         let results = [
-            Result(idx: 0, date: .now, numbers: numbers[0]),
-            Result(idx: 1, date: .now, numbers: numbers[1])
+            LottoResult(idx: 0, date: .now, numbers: numbers[0]),
+            LottoResult(idx: 1, date: .now, numbers: numbers[1])
         ]
         let rangeOfInterest = ResultsRangeOfInterest(startingIdx: 0, length: 2)
         let sut = try prepareSUT(numbers: numbers[0] + numbers[1], results: results, rangeOfInterest: rangeOfInterest)
@@ -71,14 +71,14 @@ final class ResultsDataTests: XCTestCase {
 
     func test_updatePositionsStatistics_LotResults_CorrectOffset() throws {
 
-        var results: [Result] = []
+        var results: [LottoResult] = []
         var allNumbers: [Number] = []
         for idx in 0...7 {
             let age = if idx == 5 { 10 } else if idx == 6 { 8 } else { 0 }
             let numberData: [NumberData] = Array(1...6).map { ($0 + (6 * idx), age) }
             let numbers = testNumbers(numberData)
             allNumbers += numbers
-            let result = Result(idx: idx, date: .now, numbers: numbers)
+            let result = LottoResult(idx: idx, date: .now, numbers: numbers)
             results.append(result)
         }
 
@@ -93,8 +93,8 @@ final class ResultsDataTests: XCTestCase {
     }
 
     private func prepareSUT(numbers: [Number] = [],
-                            results: [Result] = [],
-                            rangeOfInterest: ResultsRangeOfInterest? = nil) throws -> ResultsData {
+                            results: [LottoResult] = [],
+                            rangeOfInterest: ResultsRangeOfInterest? = nil) throws -> ResultsData<LottoResult> {
         return try ResultsData(
             numbersAgedByLastResult: numbers,
             results: results,
@@ -104,7 +104,7 @@ final class ResultsDataTests: XCTestCase {
     private typealias NumberData = (value: Int, age: Int)
 
     private func testNumbers(_ data: [NumberData] = testData1) -> [Number] {
-        guard data.count == Result.validNumbersCount else {
+        guard data.count == LottoResult.validNumbersCount else {
             return []
         }
         return data.map { Number(value: $0.value, age: $0.age) }
