@@ -6,49 +6,49 @@
 //
 
 import SwiftUI
-
-struct CouponView: View {
-
-    @ObservedObject var model: ResultsModel<LottoResult>
-
-    @State private var showingDeletionAlert = false
-
-    var body: some View {
-        List(model.savedCoupons, id: \.self) { result in
-            HStack {
-                ForEach(result.numbers) { number in
-                    SingleNumberInfo(model: model, number: number, showAge: false)
-                }
-            }
-            .swipeActions(edge: .trailing) {
-                Button("Delete") {
-                    model.clearSavedCoupon(result.idx)
-                }
-                .tint(.red)
-            }
-        }
-        .onAppear {
-            model.loadCoupons()
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showingDeletionAlert = true
-                } label: {
-                    Image(systemName: "trash.circle")
-                }
-            }
-        }
-        .alert("Are you sure to delete all coupons?", isPresented: $showingDeletionAlert) {
-            Button("Dismiss", role: .cancel) { }
-            Button("Delete", role: .destructive) {
-                model.clearSavedCoupons()
-            }
-        }
-    }
-}
-
-#Preview {
-    let model = ResultsModel<LottoResult>()
-    return CouponView(model: model)
-}
+//
+//struct CouponView: View {
+//
+//    @ObservedObject var model: AgesPerPositionModel<LottoDrawResult>
+//
+//    @State private var showingDeletionAlert = false
+//
+//    var body: some View {
+//        List(model.savedCoupons, id: \.self) { result in
+//            HStack {
+//                ForEach(result.numbers) { number in
+//                    SingleNumberInfo(model: model, number: number, showAge: false)
+//                }
+//            }
+//            .swipeActions(edge: .trailing) {
+//                Button("Delete") {
+//                    model.clearSavedCoupon(result.idx)
+//                }
+//                .tint(.red)
+//            }
+//        }
+//        .onAppear {
+//            model.loadCoupons()
+//        }
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                Button {
+//                    showingDeletionAlert = true
+//                } label: {
+//                    Image(systemName: "trash.circle")
+//                }
+//            }
+//        }
+//        .alert("Are you sure to delete all coupons?", isPresented: $showingDeletionAlert) {
+//            Button("Dismiss", role: .cancel) { }
+//            Button("Delete", role: .destructive) {
+//                model.clearSavedCoupons()
+//            }
+//        }
+//    }
+//}
+//
+//#Preview {
+//    let model = AgesPerPositionModel<LottoDrawResult>()
+//    return CouponView(model: model)
+//}

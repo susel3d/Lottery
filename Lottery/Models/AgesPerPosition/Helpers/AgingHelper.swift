@@ -7,11 +7,15 @@
 
 import Foundation
 
-enum AgingHelper<ResultType: Result> {
+enum AgingHelperError: Error {
+    case wrongNumbersCount
+}
+
+enum AgingHelper<ResultType: DrawResult> {
 
     static func agedNumbersBasedOn(_
-                            results: [ResultType],
-                            roi: ResultsRangeOfInterest? = nil) -> [Number] {
+                                   results: [ResultType],
+                                   roi: ResultsRangeOfInterest? = nil) -> [Number] {
 
         var agedNumbers = Array(1...ResultType.validNumberMaxValue).map { Number(value: $0) }
         var agesSetCounter = 0
@@ -40,7 +44,11 @@ enum AgingHelper<ResultType: Result> {
         return agedNumbers
     }
 
-    static func agedResultsBasedOn(_ results: [ResultType]) -> [ResultType] {
+    static func agedResultsBasedOn(_ results: [ResultType]) throws -> [ResultType] {
+
+        guard !results.isEmpty else {
+            return []
+        }
 
         var agedResults: [ResultType] = []
 
@@ -68,7 +76,9 @@ enum AgingHelper<ResultType: Result> {
                 }
             }
 
-            assert(newNumbers.count == ResultType.validNumbersCount, "Wrong count of result's numbers.")
+            guard newNumbers.count == ResultType.validNumbersCount else {
+                throw AgingHelperError.wrongNumbersCount
+            }
 
             agedResults.append(ResultType.createResult(idx: pastResult.idx, date: pastResult.date, numbers: newNumbers))
         }

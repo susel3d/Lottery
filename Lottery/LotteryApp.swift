@@ -10,9 +10,11 @@ import SwiftUI
 @main
 struct LotteryApp: App {
 
+    let couponController = CouponController<LottoDrawResult>()
+
     var body: some Scene {
         WindowGroup {
-            MainView(model: ResultsModel())
+            EmptyView()
         }
     }
 }

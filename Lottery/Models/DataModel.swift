@@ -9,16 +9,10 @@ import Foundation
 import Combine
 import CoreData
 
-class DataModel<ResultType: Result>: ObservableObject {
-
-//    struct Contants {
-//        static let dbLoadLimit = 3500
-//    }
+class DataModel<ResultType: DrawResult> {
 
     var pastResults = CurrentValueSubject<[ResultType], Never>([])
     var savedCoupons = CurrentValueSubject<[ResultType], Never>([])
-
-    //static let shared = DataModel<ResultType>()
 
     private let persistenceController = PersistenceController.shared
     private let context = PersistenceController.shared.container.viewContext
@@ -66,8 +60,8 @@ class DataModel<ResultType: Result>: ObservableObject {
 extension DataModel {
 
     private func fetchDataFromFile() {
-
-        Bundle.main.url(forResource: "lottery.txt", withExtension: nil).publisher
+        let file = ResultType.sourceFileName
+        Bundle.main.url(forResource: file, withExtension: nil).publisher
             .subscribe(on: DispatchQueue.global())
             .tryMap { string in
                 try Data(contentsOf: string)
@@ -106,30 +100,52 @@ extension DataModel {
 
     private func loadPastResultsFromDB() {
 
-        let request = PastResults.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "idx", ascending: false)]
-        request.fetchLimit = 3500 // Contants.dbLoadLimit
+        if ResultType.self is LottoDrawResult.Type {
+            let request = LottoPastResults.fetchRequest()
+            request.sortDescriptors = [NSSortDescriptor(key: "idx", ascending: false)]
+            request.fetchLimit = 3500 // Contants.dbLoadLimit
 
-        var results: [ResultType] = []
+            var results: [ResultType] = []
 
-        do {
-            let pastResults = try context.fetch(request)
-            for pastResult in pastResults {
-                let result = ResultType.createResult(idx: Int(pastResult.idx),
-                                    date: pastResult.date ?? .now,
-                                    numbers: try ResultType.numbersFromString(pastResult.numbers!))
-                results.append(result)
+            do {
+                let pastResults = try context.fetch(request)
+                for pastResult in pastResults {
+                    let result = ResultType.createResult(idx: Int(pastResult.idx),
+                                                         date: pastResult.date ?? .now,
+                                                         numbers: try ResultType.numbersFromString(pastResult.numbers!))
+                    results.append(result)
+                }
+            } catch {
+                print(error)
             }
-        } catch {
-            print(error)
+            self.pastResults.send(results)
+        } else {
+            let request = LottoPastResults.fetchRequest()
+            request.sortDescriptors = [NSSortDescriptor(key: "idx", ascending: false)]
+            request.fetchLimit = 3500 // Contants.dbLoadLimit
+
+            var results: [ResultType] = []
+
+            do {
+                let pastResults = try context.fetch(request)
+                for pastResult in pastResults {
+                    let result = ResultType.createResult(idx: Int(pastResult.idx),
+                                                         date: pastResult.date ?? .now,
+                                                         numbers: try ResultType.numbersFromString(pastResult.numbers!))
+                    results.append(result)
+                }
+            } catch {
+                print(error)
+            }
+            self.pastResults.send(results)
         }
-        self.pastResults.send(results)
+
     }
 
     private func savePastResultsToDB(_ results: [ResultType]) {
 
         for result in results {
-            let pastResult = PastResults(context: context)
+            let pastResult = LottoPastResults(context: context)
             pastResult.idx = Int32(result.idx)
             pastResult.date = result.date
             pastResult.numbers = result.numbersAsString()

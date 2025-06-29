@@ -19,23 +19,25 @@ enum DataParsingError: Error {
     case wrongNumbersCount
 }
 
-protocol Result: Hashable {
+protocol DrawResult: Hashable {
 
     static var validNumbersCount: Int { get }
-    static var validNumberMaxValue: Int { get } // = 49
+    static var validNumberMaxValue: Int { get }
 
-    var idx: Int { get set}
+    var idx: Int { get set }
     var date: Date { get }
     var numbers: [Number] { get set }
+
+    static var sourceFileName: String { get }
 
     func containsNumber(_ number: Int) -> Bool
     func numbersAsString() -> String
 
     static func createResult(idx: Int, date: Date, numbers: [Number]) -> Self
-    static func empty() -> any Result
+    static func empty() -> any DrawResult
 }
 
-extension Result {
+extension DrawResult {
     func containsNumber(_ number: Int) -> Bool {
         numbers.contains { $0.value == number }
     }
@@ -45,7 +47,7 @@ extension Result {
     }
 }
 
-extension Result {
+extension DrawResult {
 
     static func numbersFromString(_ string: String) throws -> [Number] {
         let numbers = string.components(separatedBy: ",").compactMap {Int($0)}
@@ -58,7 +60,7 @@ extension Result {
         return numbers.map {Number(value: $0, age: 0)}
     }
 
-    static func empty() -> any Result {
+    static func empty() -> any DrawResult {
         var numbers: [Number] = []
         for _ in 0...validNumbersCount-1 {
             numbers.append(Number.empty())
@@ -66,9 +68,9 @@ extension Result {
         return createResult(idx: 0, date: .now, numbers: numbers)
     }
 
-    static func resultsFrom(lines: [String]) throws -> [any Result] {
+    static func resultsFrom(lines: [String]) throws -> [any DrawResult] {
 
-        var results: [any Result] = []
+        var results: [any DrawResult] = []
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
@@ -98,9 +100,9 @@ extension Result {
             }
 
             let numbers = numbersIntArray.map { Number(value: $0, age: 0) }
-            
+
             results.append(createResult(idx: id, date: date, numbers: numbers))
-            //results.append(Result(idx: id, date: date, numbers: numbers))
+            // results.append(Result(idx: id, date: date, numbers: numbers))
         }
 
         return results

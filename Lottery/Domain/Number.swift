@@ -8,15 +8,17 @@
 import Foundation
 
 struct Number: Hashable, Comparable, Identifiable {
+
+    let value: Int
+    var age: Int?
+
+    // TODO: is it required only for View? If yes then rework
     var id = UUID()
     static func < (lhs: Number, rhs: Number) -> Bool {
         lhs.value < rhs.value
     }
 
-    let value: Int
-    var age: Int?
-
     static func empty() -> Number {
-        Number(id: UUID(), value: 0, age: nil)
+        Number(value: 0, age: nil, id: UUID())
     }
 }

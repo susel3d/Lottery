@@ -8,44 +8,45 @@
 import SwiftUI
 import CoreData
 
-struct MainView: View {
+//struct MainView: View {
+//
+//    //@ObservedObject var model: ResultsModel<LottoResult>
+//    //@ObservedObject var model: AgesPerPositionModel<MiniLottoDrawResult>
+//
+//    private let adaptiveColumn = [
+//        GridItem(.adaptive(minimum: 50))
+//    ]
+//
+//    var body: some View {
+//
+//        NavigationView {
+//            ScrollView {
+//                LazyVGrid(columns: adaptiveColumn, spacing: 20) {
+//                    ForEach(model.results?.numbersAgedByLastResult ?? []) { number in
+//                        //SingleNumberInfo(model: model, number: number)
+//                    }
+//                }
+//            }
+////            .toolbar {
+////                ToolbarItem(placement: .navigationBarTrailing) {
+////                    NavigationLink(destination: ResultsView(model: model)) {
+////                        Image(systemName: "list.bullet.circle")
+////                    }
+////                }
+////                ToolbarItem(placement: .navigationBarTrailing) {
+////                    NavigationLink(destination: CouponView(model: model)) {
+////                        Image(systemName: "star.circle")
+////                    }
+////                }
+////            }
+//        }
+//        .onAppear {
+//            model.loadResults()
+//        }
+//    }
+//}
 
-    @ObservedObject var model: ResultsModel<LottoResult>
-
-    private let adaptiveColumn = [
-        GridItem(.adaptive(minimum: 50))
-    ]
-
-    var body: some View {
-
-        NavigationView {
-            ScrollView {
-                LazyVGrid(columns: adaptiveColumn, spacing: 20) {
-                    ForEach(model.data?.numbersAgedByLastResult ?? []) { number in
-                        SingleNumberInfo(model: model, number: number)
-                    }
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: ResultsView(model: model)) {
-                        Image(systemName: "list.bullet.circle")
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: CouponView(model: model)) {
-                        Image(systemName: "star.circle")
-                    }
-                }
-            }
-        }
-        .onAppear {
-            model.loadResults()
-        }
-    }
-}
-
-#Preview {
-    let model = ResultsModel<LottoResult>()
-    return MainView(model: model)
-}
+//#Preview {
+//    let model = AgesPerPositionModel<MiniLottoDrawResult>()
+//    return MainView(model: model)
+//}

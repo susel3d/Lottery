@@ -17,21 +17,26 @@ struct ResultsStatistic {
     let standardDeviation: [Double]
 }
 
-struct ResultsData<ResultType: Result> {
+struct AgesPerPositionResults<ResultType: DrawResult> {
 
-    var numbersAgedByLastResult: [Number] = [] // will it be needed?
+    var numbersAgedByLastResult: [Number] = []
     var numbersAgedByROIStartIdx: [Number] = []
     var results: [ResultType] = []
+
+    private let statisticsHandler: StatisticsHandler<ResultType>
 
     init(numbersAgedByLastResult: [Number],
          numbersAgedByROIStartIdx: [Number] = [],
          results: [ResultType],
-         rangeOfIntereset: ResultsRangeOfInterest? = nil) throws {
+         rangeOfIntereset: ResultsRangeOfInterest? = nil,
+         statisticsHandler: StatisticsHandler<ResultType>) throws {
         self.numbersAgedByLastResult = numbersAgedByLastResult
         self.numbersAgedByROIStartIdx = numbersAgedByROIStartIdx
         self.results = results
         self.rangeOfIntereset = rangeOfIntereset
-        try updatePositionsStatistics()
+        self.statisticsHandler = statisticsHandler
+        self.positionStatistics = try self.statisticsHandler.updatePositionsStatistics(results: results,
+                                                             rangeOfIntereset: rangeOfIntereset)
     }
 
     private var rangeOfIntereset: ResultsRangeOfInterest?
@@ -61,17 +66,22 @@ struct ResultsData<ResultType: Result> {
 
     func prepareCoupon(couponsCount: Int = 10, stdDev: Double = 0.6) {
         let numbersForAllIterations = getNumbers(standardDevFactor: stdDev)
+        var coupons: [[Int]] = []
         for _ in 0...couponsCount - 1 {
-            var coupon: [Int] = []
-            var randomNumber: Int
-            for position in 0...5 {
-                repeat {
-                    randomNumber = numbersForAllIterations[position].randomElement()!
-                } while coupon.contains { $0 == randomNumber }
-                coupon.append(randomNumber)
-            }
-            coupon.sort(by: <)
-            print("coupon: \(coupon)")
+            var coupon: [Int]
+            repeat {
+                coupon = []
+                var randomNumber: Int
+                for position in 0...ResultType.validNumbersCount - 1 {
+                    repeat {
+                        randomNumber = numbersForAllIterations[position].randomElement()!
+                    } while coupon.contains { $0 == randomNumber }
+                    coupon.append(randomNumber)
+                }
+                coupon.sort(by: <)
+            } while coupons.contains(coupon)
+            coupons.append(coupon)
+            print(coupon)
         }
     }
 
@@ -82,7 +92,7 @@ struct ResultsData<ResultType: Result> {
 
         var numbersForAllIterations: [[Int]] = []
 
-        for position in 0...5 {
+        for position in 0...ResultType.validNumbersCount - 1 {
             let (_, numbersFullfilingStats) = getNumbersFullfiling(statistics: statistics,
                                                               for: position,
                                                               standardDevFactor: standardDevFactor)
@@ -109,11 +119,12 @@ struct ResultsData<ResultType: Result> {
         let resultToComparePositionsAges = resultToCompare.numbers.compactMap({$0.age}).sorted(by: <)
 
         var statisticsComparators: [StatisticsComparatorData<ResultType>] = []
-        var hitsLevels = [4, 5, 6]
+
+        var hitsLevels = Array(ResultType.validNumbersCount-2...ResultType.validNumbersCount)
         let hitsLevelMin = hitsLevels.min()!
         let hitsLevelMax = hitsLevels.max()!
 
-        for standardDevFactor in [0.5] { //[0.5, 0.6, 0.7, 0.8, 0.9, 1.0] {
+        for standardDevFactor in [0.5, 0.6, 0.7, 0.8] {
 
             var consitency = 0
 
@@ -127,7 +138,6 @@ struct ResultsData<ResultType: Result> {
                 if age <= top && age >= bottom {
                     consitency += 1
                 }
-
             }
 
             if consitency < hitsLevelMin ||
@@ -148,61 +158,7 @@ struct ResultsData<ResultType: Result> {
                 break
             }
         }
-
         return statisticsComparators
-    }
-
-    private mutating func updatePositionsStatistics() throws {
-
-        guard let rangeOfIntereset else {
-            return
-        }
-
-        guard rangeOfIntereset.length > 0 && rangeOfIntereset.isScopeValidFor(results) else {
-            throw ResultDataError.wrongRangeOfInterestScope
-        }
-
-        let resultsOfInterest = results[rangeOfIntereset.startingIdx...rangeOfIntereset.endIdx]
-        let ages = resultsOfInterest.map {$0.numbers.compactMap {$0.age}.sorted(by: <)}
-        let validAges = ages.filter { $0.count == ResultType.validNumbersCount }
-
-        guard !validAges.isEmpty else {
-            return
-        }
-
-        var averages = [Double]()
-        var deviations = [Double]()
-
-        for positionIdx in 0..<ResultType.validNumbersCount {
-
-            let agesAtPositionIdx = validAges.map { $0[positionIdx] }
-
-            if let statistic = averageAndStandardDeviationBasedOn(agesAtPositionIdx) {
-                averages.append(statistic.average)
-                deviations.append(statistic.deviation)
-            }
-        }
-        guard averages.count == ResultType.validNumbersCount, deviations.count == ResultType.validNumbersCount else {
-            assert(false, "Statistics information is missing")
-        }
-        positionStatistics = ResultsStatistic(average: averages, standardDeviation: deviations)
-    }
-
-    private func averageAndStandardDeviationBasedOn(_ values: [Int]) -> (average: Double, deviation: Double)? {
-        var expression = NSExpression(forFunction: "stddev:", arguments: [NSExpression(forConstantValue: values)])
-
-        guard let standardDeviation = expression.expressionValue(with: nil, context: nil) as? Double else {
-            assert(false, "Cannot derive stddev value")
-            return nil
-        }
-
-        expression = NSExpression(forFunction: "average:", arguments: [NSExpression(forConstantValue: values)])
-        guard let average = expression.expressionValue(with: nil, context: nil) as? Double else {
-            assert(false, "Cannot derive average value")
-            return nil
-        }
-
-        return (average, standardDeviation)
     }
 
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StatisticsComparatorData<ResultType: Result>: CustomDebugStringConvertible {
+struct StatisticsComparatorData<ResultType: DrawResult>: CustomDebugStringConvertible {
 
     let hits: Int
     let combinations: Int

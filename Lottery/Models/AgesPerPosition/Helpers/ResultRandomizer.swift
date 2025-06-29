@@ -7,13 +7,11 @@
 
 import Foundation
 
-class ResultRandomizer<ResultType: Result> {
+class ResultRandomizer<ResultType: DrawResult> {
 
-    private init() {
+    private init() {}
 
-    }
-
-    static func randomFor(_ data: ResultsData<ResultType>) -> ResultType? {
+    static func randomFor(_ data: AgesPerPositionResults<ResultType>) -> ResultType? {
 
         let numbers = data.numbersAgedByLastResult
 

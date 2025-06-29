@@ -20,7 +20,7 @@ struct ResultsRangeOfInterest: CustomDebugStringConvertible {
         self.length = length
     }
 
-    func isScopeValidFor(_ results: [any Result]) -> Bool {
+    func isScopeValidFor(_ results: [any DrawResult]) -> Bool {
         return results.startIndex <= startingIdx && results.endIndex >= endIdx
     }
 

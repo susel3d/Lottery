@@ -1,0 +1,20 @@
+//
+//  TODO.txt
+//  Lottery
+//
+//  Created by Łukasz Kmiotek on 09/02/2025.
+//
+
+// Regression toward the mean
+// CouponController - Hamming distance between generating results?
+
+// for standardDevFactor in [0.5, 0.6, 0.7, 0.8] to global
+
+// new Swift @Test
+// More DI, smaller components, methods, tests
+// rework View - for now it shuld only load data..
+// Extract framework to be used with other apps
+
+// Number.swift
+// Numbers more common?
+    // TODO: is it required only for View? If yes then rework

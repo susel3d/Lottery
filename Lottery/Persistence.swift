@@ -14,7 +14,7 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
-            let newItem = PastResults(context: viewContext)
+            let newItem = LottoPastResults(context: viewContext)
             newItem.date = Date()
         }
         do {
