@@ -7,10 +7,15 @@
 
 import Foundation
 
+struct ResultsStatistic {
+    let average: [Double]
+    let standardDeviation: [Double]
+}
+
 class StatisticsHandler<ResultType: DrawResult> {
 
-    func updatePositionsStatistics(results: [ResultType],
-                                   rangeOfIntereset: ResultsRangeOfInterest?) throws -> ResultsStatistic? {
+    static func updateAgeStatistics(results: [ResultType],
+                             rangeOfIntereset: ResultsRangeOfInterest?) throws -> ResultsStatistic? {
 
         guard let rangeOfIntereset else {
             return nil
@@ -40,13 +45,14 @@ class StatisticsHandler<ResultType: DrawResult> {
                 deviations.append(statistic.deviation)
             }
         }
+
         guard averages.count == ResultType.validNumbersCount, deviations.count == ResultType.validNumbersCount else {
             assert(false, "Statistics information is missing")
         }
         return ResultsStatistic(average: averages, standardDeviation: deviations)
     }
 
-    private func averageAndStandardDeviationBasedOn(_ values: [Int]) -> (average: Double, deviation: Double)? {
+    static func averageAndStandardDeviationBasedOn(_ values: [any Numeric]) -> (average: Double, deviation: Double)? {
         var expression = NSExpression(forFunction: "stddev:", arguments: [NSExpression(forConstantValue: values)])
 
         guard let standardDeviation = expression.expressionValue(with: nil, context: nil) as? Double else {

@@ -108,7 +108,8 @@ extension DataModel {
             var results: [ResultType] = []
 
             do {
-                let pastResults = try context.fetch(request)
+                var pastResults = try context.fetch(request)
+                pastResults.reverse()
                 for pastResult in pastResults {
                     let result = ResultType.createResult(idx: Int(pastResult.idx),
                                                          date: pastResult.date ?? .now,

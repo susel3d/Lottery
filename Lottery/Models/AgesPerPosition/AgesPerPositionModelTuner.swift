@@ -5,80 +5,135 @@
 //  Created by Łukasz Kmiotek on 15/02/2025.
 //
 
-typealias ROIBoundary = (offset: Int, length: Int)
+import Foundation
+
+private let standardDevFactorsToCheck = [0.5, 0.6, 0.7, 0.8]
 
 enum AgesPerPositionModelTuner<ResultType: DrawResult> {
 
-    static func tuneModelFor(commonResults: [ResultType],
-                             roiMin: ROIBoundary = (offset: 1, length: 1),
-                             roiMax: ROIBoundary = (100, 100)) -> Double? {
+    struct ROIBoundary {
+        let startIdxMin = 1
+        let startIdxMax = 100
+        let lengthMin = 1
+        let lengthMax = 100
+        let step = 1
+    }
 
-        return 0.7
-        
-        guard commonResults.count > 0 else {
+    static func tuneStandardDeviationFor(
+        commonResults: [ResultType],
+        roi: ROIBoundary = ROIBoundary()
+    ) -> (stdDev: Double, roiLength: Int)? {
+
+        guard commonResults.count > 0,
+                let agedResults = try? AgingHelper<ResultType>.agedResultsBasedOn(commonResults) else {
             return nil
         }
 
+        var roiLengths: Set<Int> = []
+        var allStatistics: [StatisticsComparatorData<ResultType>] = []
         let agedNumbers = AgingHelper<ResultType>.agedNumbersBasedOn(commonResults)
 
-        guard let agedResults = try? AgingHelper<ResultType>.agedResultsBasedOn(commonResults) else {
-            return nil
-        }
+        for roiLength in stride(from: roi.lengthMin, through: roi.lengthMax, by: roi.step) {
+            for roiStart in stride(from: roiLength, through: roi.startIdxMax, by: roi.step) {
 
-        var allStatistics: [StatisticsComparatorData<ResultType>] = []
+                roiLengths.insert(roiLength)
 
-        for roiLength in roiMin.length...roiMax.length {
-            for roiOffset in roiMin.offset...roiMax.offset {
+                let statisticsStartingIdx = agedResults.count - roiStart - 1
 
-                let statisticsHandler = StatisticsHandler<ResultType>()
-                let roi = ResultsRangeOfInterest(startingIdx: roiOffset, length: roiLength)
-                let agedNumbersROI = AgingHelper<ResultType>.agedNumbersBasedOn(commonResults, roi: roi)
+                let statisticsROI = ResultsRangeOfInterest(startingIdx: statisticsStartingIdx, length: roiLength)
 
-                if let tempData = try? AgesPerPositionResults(
+                let tempData = try? AgesPerPositionResults(
                     numbersAgedByLastResult: agedNumbers,
-                    numbersAgedByROIStartIdx: agedNumbersROI,
                     results: agedResults,
-                    rangeOfIntereset: roi,
-                    statisticsHandler: statisticsHandler) {
-                    if let statistic = try? tempData.checkResultComplianceWithStats(roi: roi) {
-                        allStatistics += statistic
-                    }
+                    rangeOfIntereset: statisticsROI)
+
+                if let tempData,
+                    let statistic = try? checkResultComplianceWithStats(results: tempData, roi: statisticsROI) {
+                    allStatistics += statistic
                 }
             }
         }
 
-        let combinationsFilter = ResultType.validNumbersCount == 6 ? 5_000_000 : 400_000
-
-        let filter = { (stats: StatisticsComparatorData<ResultType>, hits: Int) -> Bool in
-            stats.hits == hits && stats.combinations < combinationsFilter
+        let countPerStdDevFactor = standardDevFactorsToCheck.map { factor in
+            allStatistics.count { $0.standardDevFactor == factor }
         }
 
-        let statisticsFor6 = allStatistics.filter { filter($0, ResultType.validNumbersCount) }
-        let statisticsFor5 = allStatistics.filter { filter($0, ResultType.validNumbersCount - 1) }
-        let statisticsFor4 = allStatistics.filter { filter($0, ResultType.validNumbersCount - 2) }
+        let countPerRoiLength = roiLengths.map { length in
+            (length: length, count: allStatistics.count { $0.statisticsROI.length == length })
+        }
 
-//        let formatStr = { (stat: StatisticsComparatorData<ResultType>) -> String in
-//            "\(stat.roi.length)(\(stat.roi.startingIdx)) \(stat.standardDevFactor)"
-//        }
+        guard let bestRoiLength = countPerRoiLength.max(by: { $0.count < $1.count }),
+              let (index, _) = countPerStdDevFactor.enumerated().max(by: { $0.element < $1.element })else {
+            return (stdDev: 0.7, roiLength: 15)
+        }
 
-        let param6stdDevFactor = statisticsFor6.map { $0.standardDevFactor }
-        let count605 = param6stdDevFactor.count { $0 == 0.5 }
-        let count606 = param6stdDevFactor.count { $0 == 0.6 }
-        let count607 = param6stdDevFactor.count { $0 == 0.7 }
-        let count608 = param6stdDevFactor.count { $0 == 0.8 }
+        return (stdDev: standardDevFactorsToCheck[index], roiLength: bestRoiLength.length)
+    }
 
-        let param5stdDevFactor = statisticsFor5.map { $0.standardDevFactor }
-        let count505 = param5stdDevFactor.count { $0 == 0.5 }
-        let count506 = param5stdDevFactor.count { $0 == 0.6 }
-        let count507 = param5stdDevFactor.count { $0 == 0.7 }
-        let count508 = param5stdDevFactor.count { $0 == 0.8 }
+    static func checkResultComplianceWithStats(results: AgesPerPositionResults<ResultType>,
+                                               roi: ResultsRangeOfInterest) throws -> [StatisticsComparatorData<ResultType>] {
 
-        let param4stdDevFactor = statisticsFor4.map { $0.standardDevFactor }
-        let count405 = param4stdDevFactor.count { $0 == 0.5 }
-        let count406 = param4stdDevFactor.count { $0 == 0.6 }
-        let count407 = param4stdDevFactor.count { $0 == 0.7 }
-        let count408 = param4stdDevFactor.count { $0 == 0.8 }
+        guard let roiStatistics = results.positionStatistics,
+              let roiFirstIndex = results.rangeOfIntereset?.startingIdx else {
+            return []
+        }
 
-        return 0.7
+        let resultToCompareIdx = roiFirstIndex + 1
+
+        guard results.count >= resultToCompareIdx, resultToCompareIdx >= 0 else {
+            return []
+        }
+
+        let resultToCompare = results.results[resultToCompareIdx]
+        let resultToComparePositionsAges = resultToCompare.numbers.compactMap({$0.age}).sorted(by: <)
+
+        var statisticsComparators: [StatisticsComparatorData<ResultType>] = []
+
+        var hitsLevels = Array(ResultType.validNumbersCount-2...ResultType.validNumbersCount)
+        let (hitsLevelMin, hitsLevelMax) = (hitsLevels.min()!, hitsLevels.max()!)
+
+        for standardDevFactor in standardDevFactorsToCheck {
+
+            var consitency = 0
+
+            for (position, age) in resultToComparePositionsAges.enumerated() {
+
+                let (top, bottom) = getBoundaryFor(roiStatistics: roiStatistics,
+                                                   position: position,
+                                                   standardDevFactor: standardDevFactor)
+                if age <= top && age >= bottom {
+                    consitency += 1
+                }
+            }
+
+            if consitency < hitsLevelMin {
+                continue
+            }
+
+            let statisticsComparator = try StatisticsComparatorData<ResultType>(
+                hits: consitency,
+                combinations: 0,
+                standardDevFactor: standardDevFactor,
+                statisticsROI: roi)
+
+            statisticsComparators.append(statisticsComparator)
+
+            hitsLevels.removeAll {$0 == consitency}
+
+            if hitsLevels.isEmpty ||  consitency >= hitsLevelMax {
+                break
+            }
+        }
+        return statisticsComparators
+    }
+
+    private static func getBoundaryFor(roiStatistics: ResultsStatistic,
+                                       position: Int,
+                                       standardDevFactor: Double) -> (top: Int, bottom: Int) {
+        let average = roiStatistics.average[position]
+        let deviation = roiStatistics.standardDeviation[position] * standardDevFactor
+        let top = Int(round(average + deviation))
+        let bottom = Int(round(max(0, average - deviation)))
+        return (top, bottom)
     }
 }

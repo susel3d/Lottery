@@ -12,19 +12,19 @@ struct StatisticsComparatorData<ResultType: DrawResult>: CustomDebugStringConver
     let hits: Int
     let combinations: Int
     let standardDevFactor: Double
-    let roi: ResultsRangeOfInterest
+    let statisticsROI: ResultsRangeOfInterest
 
-    init(hits: Int, combinations: Int, standardDevFactor: Double, roi: ResultsRangeOfInterest) throws {
+    init(hits: Int, combinations: Int, standardDevFactor: Double, statisticsROI: ResultsRangeOfInterest) throws {
         guard hits <= ResultType.validNumbersCount else {
             throw ResultDataError.wrongStatisticsComparatorData
         }
         self.hits = hits
         self.combinations = combinations
         self.standardDevFactor = standardDevFactor
-        self.roi = roi
+        self.statisticsROI = statisticsROI
     }
 
     var debugDescription: String {
-        return "hits: \(hits) score: \(combinations), pastResults: \(roi.length), stdDevFactor: \(standardDevFactor)"
+        return "hits: \(hits) score: \(combinations), pastResults: \(statisticsROI.length), stdDevFactor: \(standardDevFactor)"
     }
 }

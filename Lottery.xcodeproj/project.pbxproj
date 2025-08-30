@@ -7,11 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CD1C846C2BA1EAA500E22346 /* CouponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1C846B2BA1EAA500E22346 /* CouponView.swift */; };
-		CD4DC4422BA080CB003347F6 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4DC4412BA080CB003347F6 /* ResultsView.swift */; };
-		CD4DC4442BA08E77003347F6 /* SingleNumberInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4DC4432BA08E77003347F6 /* SingleNumberInfo.swift */; };
 		CD7C565C2B9F03240040ED3C /* LotteryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C565B2B9F03240040ED3C /* LotteryApp.swift */; };
-		CD7C565E2B9F03240040ED3C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C565D2B9F03240040ED3C /* MainView.swift */; };
 		CD7C56602B9F03260040ED3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7C565F2B9F03260040ED3C /* Assets.xcassets */; };
 		CD7C56632B9F03260040ED3C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7C56622B9F03260040ED3C /* Preview Assets.xcassets */; };
 		CD7C56652B9F03260040ED3C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C56642B9F03260040ED3C /* Persistence.swift */; };
@@ -25,6 +21,7 @@
 		D3A643A42BD65B4100C8AF8F /* LottoResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A643A32BD65B4100C8AF8F /* LottoResultTests.swift */; };
 		D3B563B62BF21AB70057D3BC /* ResultRandomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B563B52BF21AB70057D3BC /* ResultRandomizer.swift */; };
 		D3B563B82BF222230057D3BC /* ResultRandomizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B563B72BF222230057D3BC /* ResultRandomizerTests.swift */; };
+		E95241702E13257400EE7B1B /* ModelsTuner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E952416F2E13256D00EE7B1B /* ModelsTuner.swift */; };
 		E968CE582D61495300FAB2B6 /* AgesPerPositionModelTuner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E968CE572D61495300FAB2B6 /* AgesPerPositionModelTuner.swift */; };
 		E989F25D2D23EF2B00AC7068 /* AgingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989F25C2D23EF2B00AC7068 /* AgingHelper.swift */; };
 		E989F2602D240A5C00AC7068 /* LottoDrawResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989F25F2D240A5C00AC7068 /* LottoDrawResult.swift */; };
@@ -35,6 +32,8 @@
 		E9BDA8482D621D29009D2A7F /* AgingHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BDA8472D621D29009D2A7F /* AgingHelperTests.swift */; };
 		E9BDA84A2D62392F009D2A7F /* ResultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BDA8492D62392F009D2A7F /* ResultsTests.swift */; };
 		E9BDA84D2D6239E2009D2A7F /* MockDrawResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BDA84C2D6239E2009D2A7F /* MockDrawResult.swift */; };
+		E9C34CF62E5B7C6B00F418FE /* BestFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34CF52E5B7C6300F418FE /* BestFriendsModel.swift */; };
+		E9C34CF82E5B7CA600F418FE /* BestFriendsModelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34CF72E5B7CA100F418FE /* BestFriendsModelResults.swift */; };
 		E9C86FE22D5BD17F00D7B2B1 /* ExclusionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C86FE12D5BD17900D7B2B1 /* ExclusionModel.swift */; };
 		E9C86FE62D5BD35700D7B2B1 /* FutureDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C86FE52D5BD35700D7B2B1 /* FutureDraw.swift */; };
 		E9CD52F22D5932350031D5FB /* TODO.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9CD52F12D59322E0031D5FB /* TODO.txt */; };
@@ -56,12 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CD1C846B2BA1EAA500E22346 /* CouponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponView.swift; sourceTree = "<group>"; };
-		CD4DC4412BA080CB003347F6 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
-		CD4DC4432BA08E77003347F6 /* SingleNumberInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleNumberInfo.swift; sourceTree = "<group>"; };
 		CD7C56582B9F03240040ED3C /* Lottery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lottery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7C565B2B9F03240040ED3C /* LotteryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LotteryApp.swift; sourceTree = "<group>"; };
-		CD7C565D2B9F03240040ED3C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		CD7C565F2B9F03260040ED3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD7C56622B9F03260040ED3C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CD7C56642B9F03260040ED3C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -77,6 +72,7 @@
 		D3A643A32BD65B4100C8AF8F /* LottoResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LottoResultTests.swift; sourceTree = "<group>"; };
 		D3B563B52BF21AB70057D3BC /* ResultRandomizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultRandomizer.swift; sourceTree = "<group>"; };
 		D3B563B72BF222230057D3BC /* ResultRandomizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultRandomizerTests.swift; sourceTree = "<group>"; };
+		E952416F2E13256D00EE7B1B /* ModelsTuner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTuner.swift; sourceTree = "<group>"; };
 		E968CE572D61495300FAB2B6 /* AgesPerPositionModelTuner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgesPerPositionModelTuner.swift; sourceTree = "<group>"; };
 		E989F25C2D23EF2B00AC7068 /* AgingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgingHelper.swift; sourceTree = "<group>"; };
 		E989F25F2D240A5C00AC7068 /* LottoDrawResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoDrawResult.swift; sourceTree = "<group>"; };
@@ -87,6 +83,8 @@
 		E9BDA8472D621D29009D2A7F /* AgingHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgingHelperTests.swift; sourceTree = "<group>"; };
 		E9BDA8492D62392F009D2A7F /* ResultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTests.swift; sourceTree = "<group>"; };
 		E9BDA84C2D6239E2009D2A7F /* MockDrawResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDrawResult.swift; sourceTree = "<group>"; };
+		E9C34CF52E5B7C6300F418FE /* BestFriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFriendsModel.swift; sourceTree = "<group>"; };
+		E9C34CF72E5B7CA100F418FE /* BestFriendsModelResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFriendsModelResults.swift; sourceTree = "<group>"; };
 		E9C86FE12D5BD17900D7B2B1 /* ExclusionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusionModel.swift; sourceTree = "<group>"; };
 		E9C86FE52D5BD35700D7B2B1 /* FutureDraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureDraw.swift; sourceTree = "<group>"; };
 		E9CD52F12D59322E0031D5FB /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO.txt; sourceTree = "<group>"; };
@@ -175,10 +173,6 @@
 		CDB4B72D2BA44E6600DFEE32 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CD7C565D2B9F03240040ED3C /* MainView.swift */,
-				CD4DC4412BA080CB003347F6 /* ResultsView.swift */,
-				CD1C846B2BA1EAA500E22346 /* CouponView.swift */,
-				CD4DC4432BA08E77003347F6 /* SingleNumberInfo.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -187,11 +181,13 @@
 			isa = PBXGroup;
 			children = (
 				CD7C568A2B9F050A0040ED3C /* DataModel.swift */,
-				E9CB0E572DBE7C74000883BB /* AgesPerPosition */,
 				E9C86FE52D5BD35700D7B2B1 /* FutureDraw.swift */,
 				E9C86FE12D5BD17900D7B2B1 /* ExclusionModel.swift */,
 				E9D488F92DD10EED00ED1DBB /* CouponGenerator.swift */,
 				E9CD52F52D593FBF0031D5FB /* CouponController.swift */,
+				E952416F2E13256D00EE7B1B /* ModelsTuner.swift */,
+				E9C34CF42E5B793700F418FE /* BestFriends */,
+				E9CB0E572DBE7C74000883BB /* AgesPerPosition */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -235,6 +231,15 @@
 				E9BDA84C2D6239E2009D2A7F /* MockDrawResult.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E9C34CF42E5B793700F418FE /* BestFriends */ = {
+			isa = PBXGroup;
+			children = (
+				E9C34CF52E5B7C6300F418FE /* BestFriendsModel.swift */,
+				E9C34CF72E5B7CA100F418FE /* BestFriendsModelResults.swift */,
+			);
+			path = BestFriends;
 			sourceTree = "<group>";
 		};
 		E9CB0E572DBE7C74000883BB /* AgesPerPosition */ = {
@@ -380,15 +385,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				E989F2622D240A7E00AC7068 /* MiniLottoDrawResult.swift in Sources */,
-				CD4DC4442BA08E77003347F6 /* SingleNumberInfo.swift in Sources */,
 				CD7C568B2B9F050A0040ED3C /* DataModel.swift in Sources */,
+				E9C34CF82E5B7CA600F418FE /* BestFriendsModelResults.swift in Sources */,
 				E989F25D2D23EF2B00AC7068 /* AgingHelper.swift in Sources */,
 				CDB4B72A2BA44C5D00DFEE32 /* Number.swift in Sources */,
-				CD1C846C2BA1EAA500E22346 /* CouponView.swift in Sources */,
 				E968CE582D61495300FAB2B6 /* AgesPerPositionModelTuner.swift in Sources */,
-				CD4DC4422BA080CB003347F6 /* ResultsView.swift in Sources */,
+				E95241702E13257400EE7B1B /* ModelsTuner.swift in Sources */,
 				CD7C56682B9F03260040ED3C /* Lottery.xcdatamodeld in Sources */,
 				CDB4B72C2BA44C6B00DFEE32 /* DrawResult.swift in Sources */,
+				E9C34CF62E5B7C6B00F418FE /* BestFriendsModel.swift in Sources */,
 				E9C86FE22D5BD17F00D7B2B1 /* ExclusionModel.swift in Sources */,
 				E9CD52F62D593FCC0031D5FB /* CouponController.swift in Sources */,
 				D3B563B62BF21AB70057D3BC /* ResultRandomizer.swift in Sources */,
@@ -401,7 +406,6 @@
 				E9D488FA2DD10EED00ED1DBB /* CouponGenerator.swift in Sources */,
 				E989F2602D240A5C00AC7068 /* LottoDrawResult.swift in Sources */,
 				CD7C56652B9F03260040ED3C /* Persistence.swift in Sources */,
-				CD7C565E2B9F03240040ED3C /* MainView.swift in Sources */,
 				CD7C565C2B9F03240040ED3C /* LotteryApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

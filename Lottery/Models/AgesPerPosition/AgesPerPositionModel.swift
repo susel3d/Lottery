@@ -11,23 +11,20 @@ import Foundation
 class AgesPerPositionModel<ResultType: DrawResult>: FutureDraw {
 
     private let roiLength: Int
+    private var innerResults: AgesPerPositionResults<ResultType>?
 
-    private var results: AgesPerPositionResults<ResultType>?
-    private var stdDevForCoupon: Double?
-
-    @Published var result: [[Int]]?
+    @Published var results: [[Int]]?
 
     private init() {
         roiLength = 0
     }
 
     init(commonResults: [ResultType],
-         rangeOfInterestLength: Int = 40) {
+         rangeOfInterestLength: Int = 15) {
         self.roiLength = rangeOfInterestLength
         Task {
-            self.results = self.modelResultsBasedOn(commonResults: commonResults)
-            self.tuneModelFor(commonResults: commonResults)
-            result = results?.getNumbers()
+            self.innerResults = self.modelResultsBasedOn(commonResults: commonResults)
+            results = innerResults?.getNumbers()
         }
     }
 
@@ -36,21 +33,22 @@ class AgesPerPositionModel<ResultType: DrawResult>: FutureDraw {
             return nil
         }
 
-        let statisticsHandler = StatisticsHandler<ResultType>()
-        let roi = ResultsRangeOfInterest(startingIdx: 0, length: roiLength)
+        guard let results = try? AgingHelper<ResultType>.agedResultsBasedOn(commonResults) else {
+            return nil
+        }
+
+        let startingIdx = results.count - roiLength
+
+        let roi = ResultsRangeOfInterest(startingIdx: startingIdx, length: roiLength)
+
+        let numbersAgedByLastResult = AgingHelper<ResultType>.agedNumbersBasedOn(results)
+        let numbersAgedByROIStartIdx = AgingHelper<ResultType>.agedNumbersBasedOn(results, roi: roi)
 
         return try? AgesPerPositionResults(
-            numbersAgedByLastResult: AgingHelper<ResultType>.agedNumbersBasedOn(commonResults),
-            numbersAgedByROIStartIdx: AgingHelper<ResultType>.agedNumbersBasedOn(commonResults, roi: roi),
-            results: AgingHelper<ResultType>.agedResultsBasedOn(commonResults),
-            rangeOfIntereset: roi,
-            statisticsHandler: statisticsHandler
-        )
-    }
-
-    private func tuneModelFor(commonResults: [ResultType]) {
-        stdDevForCoupon = AgesPerPositionModelTuner.tuneModelFor(
-            commonResults: commonResults
+            numbersAgedByLastResult: numbersAgedByLastResult,
+            numbersAgedByROIStartIdx: numbersAgedByROIStartIdx,
+            results: results,
+            rangeOfIntereset: roi
         )
     }
 }

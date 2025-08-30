@@ -7,7 +7,7 @@
 
 import Combine
 
-struct GeneratorCoupon {
+struct GeneratedCoupon {
     let value: [Int]
 }
 
@@ -20,9 +20,9 @@ class CouponGenerator<ResultType: DrawResult> {
         self.exclusion = exclusion
     }
 
-    func generateCouponsPublisher() -> AnyPublisher<GeneratorCoupon, Never> {
-        let subject = PassthroughSubject<GeneratorCoupon, Never>()
-        let filteredNumbers = set.flatMap { $0 }.filter { !exclusion.contains($0) }
+    func generateCouponsPublisher() -> AnyPublisher<GeneratedCoupon, Never> {
+        let subject = PassthroughSubject<GeneratedCoupon, Never>()
+        //let filteredNumbers = set.flatMap { $0 }.filter { !exclusion.contains($0) }
 
         Task {
             while true {
@@ -36,7 +36,7 @@ class CouponGenerator<ResultType: DrawResult> {
         return subject.eraseToAnyPublisher()
     }
 
-    private func prepareCoupon() -> GeneratorCoupon {
+    private func prepareCoupon() -> GeneratedCoupon {
         var coupon: [Int] = []
         var randomNumber: Int
         for position in 0...ResultType.validNumbersCount - 1 {
@@ -46,6 +46,6 @@ class CouponGenerator<ResultType: DrawResult> {
             coupon.append(randomNumber)
         }
         coupon.sort(by: <)
-        return GeneratorCoupon(value: coupon)
+        return GeneratedCoupon(value: coupon)
     }
 }

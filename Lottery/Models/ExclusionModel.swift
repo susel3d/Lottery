@@ -29,6 +29,8 @@ class ExclusionModel<ResultType: DrawResult>: FutureDraw {
             return modelResult
         }
 
+        let resultsCount = Double(results.count)
+
         for result in results {
 
             let ages = result.numbers.compactMap({ $0.age })
@@ -47,13 +49,12 @@ class ExclusionModel<ResultType: DrawResult>: FutureDraw {
         let result4Count = modelResult.count(where: {$0 == 4})
         let result5Count = modelResult.count(where: {$0 == 5})
 
-        print("0: \(Double(result0Count)/3500)")
-        print("1: \(Double(result1Count)/3500)")
-        print("2: \(Double(result2Count)/3500)")
-        print("3: \(Double(result3Count)/3500)")
-        print("4: \(Double(result4Count)/3500)")
-        print("5: \(Double(result5Count)/3500)")
-
+//        print("0: \(Double(result0Count)/resultsCount)")
+//        print("1: \(Double(result1Count)/resultsCount)")
+//        print("2: \(Double(result2Count)/resultsCount)")
+//        print("3: \(Double(result3Count)/resultsCount)")
+//        print("4: \(Double(result4Count)/resultsCount)")
+//        print("5: \(Double(result5Count)/resultsCount)")
 
         return modelResult
     }

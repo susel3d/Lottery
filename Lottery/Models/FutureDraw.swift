@@ -7,4 +7,5 @@
 
 public protocol FutureDraw {
     //func prepareCoupon()
+    // var result: [[Int]]? { get }
 }

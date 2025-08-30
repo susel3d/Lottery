@@ -10,7 +10,7 @@ import XCTest
 
 class MockStatisticsHandler<ResultType: DrawResult>: StatisticsHandler<ResultType> {
 
-    override func updatePositionsStatistics(results: [ResultType],
+    override func updateAgeStatistics(results: [ResultType],
                                             rangeOfIntereset: ResultsRangeOfInterest?) throws -> ResultsStatistic {
         ResultsStatistic(average: [1.0, 2.0, 3.0, 4.0, 5.0], standardDeviation: [1.0, 2.0, 3.0, 4.0, 5.0])
     }

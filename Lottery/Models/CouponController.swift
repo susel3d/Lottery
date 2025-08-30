@@ -27,18 +27,22 @@ class CouponController<ResultType: DrawResult> {
             }
             .store(in: &subscriptions)
     }
-    
+
     private func prepareCoupons(_ commonResults: [ResultType]) {
         let model1 = AgesPerPositionModel(commonResults: commonResults)
         let model2 = ExclusionModel(commonResults: commonResults)
-        Publishers.CombineLatest(model1.$result, model2.$result)
+        let model3 = BestFriendsModel(commonResults: commonResults)
+        Publishers.CombineLatest3(model1.$results, model2.$result, model3.$results)
             .compactMap(unwrapResults)
-            .flatMap { result1, result2 in
+            .flatMap { result1, result2, _ in
                 let generator = CouponGenerator<ResultType>(set: result1, exclusion: result2)
                 return generator.generateCouponsPublisher()
             }
-            .filterOutDuplicatedCoupons()
-            .prefix(100)
+            .filter({ coupon in
+                model3.isResultInScope(coupon.value)
+            })
+            .filterOutCouponsByDistance(2)
+            .prefix(30)
             .collect()
             .sink { coupons in
                 for coupon in coupons {
@@ -93,21 +97,35 @@ class CouponController<ResultType: DrawResult> {
 
 // MARK: - Helpers
 
-func unwrapResults<T, U>(value1: T?, value2: U?) -> (T, U)? {
-    guard let value1, let value2 else {
+func unwrapResults<T, U, O>(value1: T?, value2: U?, value3: O?) -> (T, U, O)? {
+    guard let value1, let value2, let value3 else {
         return nil
     }
-    return (value1, value2)
+    return (value1, value2, value3)
 }
 
-extension Publisher where Output == GeneratorCoupon {
-    func filterOutDuplicatedCoupons() -> AnyPublisher<GeneratorCoupon, Failure> {
+extension Publisher where Output == GeneratedCoupon {
+
+}
+
+extension Publisher where Output == GeneratedCoupon {
+    func filterOutCouponsByDistance(_ distance: Int) -> AnyPublisher<GeneratedCoupon, Failure> {
         self
-            .scan((Set<Set<Int>>(), Optional<GeneratorCoupon>.none)) { state, coupon in
+            .scan((Set<Set<Int>>(), Optional<GeneratedCoupon>.none)) { state, coupon in
                 var (seenSets, _) = state
                 let numberSet = Set(coupon.value)
 
-                if seenSets.contains(numberSet) {
+                var skipSet: Bool
+
+                if distance == 0 {
+                    skipSet = seenSets.contains(numberSet)
+                } else {
+                    skipSet = !seenSets.filter( { seenSet in
+                        return numberSet.subtracting(seenSet).count <= distance
+                    }).isEmpty
+                }
+
+                if skipSet {
                     return (seenSets, nil)
                 } else {
                     seenSets.insert(numberSet)

@@ -5,16 +5,17 @@
 //  Created by Łukasz Kmiotek on 09/02/2025.
 //
 
-// Regression toward the mean
-// CouponController - Hamming distance between generating results?
+// is model comon interface needed?
+// rangeOfInterestLength: Int = 15
+// rework Number, type should be different for commonReuslt and different for models...
 
-// for standardDevFactor in [0.5, 0.6, 0.7, 0.8] to global
+// fix tests, new Swift @Test
 
-// new Swift @Test
+// app mode for tune and coupon at same runtime
+
+// BestFriendsModel tuner
+
 // More DI, smaller components, methods, tests
-// rework View - for now it shuld only load data..
-// Extract framework to be used with other apps
+// add View...
+// Extract package for private gitlab project, app with some mock can be public
 
-// Number.swift
-// Numbers more common?
-    // TODO: is it required only for View? If yes then rework
