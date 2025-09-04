@@ -1,12 +1,9 @@
 # Lottery
 
-Simple project to explore Combine framework and data propagation in SwiftUI using MV pattern without separate ViewModels classes.
-
-Lottery is based on system where 6 numbers are bet on from 1 - 49 range. Application counts how long ago every number was drawn, then for each number “position” mean value is set which finally generates proposed future result. User can generate next proposed result and/or store it.
+Application uses many models to count their's statiscs which are used to generate next proposed results. Lottery supports few bet system.
 
 Knowing the probability theory.. it does not guarantee winning;)
 
-### TODO
-* Rework logic to use more Combine
-* Handle errors DataModel data publisher’s chains
-* More UT
+TODO
+Add View layer (as app scope was changed a lot)
+
