@@ -34,7 +34,8 @@ class DataModel<ResultType: DrawResult> {
             return
         }
         result.idx = idx + 1
-        result.numbers.sort(by: <)
+        var concreteNumbers = result.numbers.compactMap { $0 as? DrawResultNumber }
+        concreteNumbers.sort(by: <)
         savePastResultsToDB([result])
         loadPastResultsFromDB()
         result = ResultType.empty() as! ResultType // swiftlint:disable:this force_cast
@@ -208,7 +209,7 @@ extension DataModel {
         // TODO: Shouldn't be hidden here - move info about mocked data to Preview code
         let isPreviewData = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
         if isPreviewData {
-            let numbers = [3, 11, 23, 27, 34, 41].map {Number(value: $0)}
+            let numbers = [3, 11, 23, 27, 34, 41].map { DrawResultNumber(value: $0) }
             savedCoupons.send([ResultType.createResult(idx: 0, date: .now, numbers: numbers)])
             return
         }

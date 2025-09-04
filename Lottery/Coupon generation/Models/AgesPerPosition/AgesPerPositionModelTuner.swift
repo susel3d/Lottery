@@ -85,7 +85,10 @@ enum AgesPerPositionModelTuner<ResultType: DrawResult> {
         }
 
         let resultToCompare = results.results[resultToCompareIdx]
-        let resultToComparePositionsAges = resultToCompare.numbers.compactMap({$0.age}).sorted(by: <)
+
+        let concreteResultNumbers = resultToCompare.numbers.compactMap { $0 as? AgedNumber }
+
+        let resultToComparePositionsAges = concreteResultNumbers.compactMap({$0.age}).sorted(by: <)
 
         var statisticsComparators: [StatisticsComparatorData<ResultType>] = []
 

@@ -25,7 +25,7 @@ class ResultRandomizer<ResultType: DrawResult> {
             return nil
         }
 
-        var futureNumbers: [Number] = []
+        var futureNumbers: [AgedNumber] = []
 
         for (positionIdx, meanAgeAtPosition) in average.enumerated() {
             let bottomAge = Int(round(max(0, meanAgeAtPosition - deviation[positionIdx])))
@@ -34,7 +34,7 @@ class ResultRandomizer<ResultType: DrawResult> {
             if numbersWithinScope.isEmpty {
                 return nil
             }
-            var randomNumber: Number?
+            var randomNumber: AgedNumber?
 
             repeat {
                 randomNumber = numbersWithinScope.randomElement()

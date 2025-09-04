@@ -7,7 +7,7 @@
 
 import Combine
 
-struct GeneratedCoupon {
+struct GeneratedCoupon: Hashable {
     let value: [Int]
 }
 
@@ -22,7 +22,6 @@ class CouponGenerator<ResultType: DrawResult> {
 
     func generateCouponsPublisher() -> AnyPublisher<GeneratedCoupon, Never> {
         let subject = PassthroughSubject<GeneratedCoupon, Never>()
-        //let filteredNumbers = set.flatMap { $0 }.filter { !exclusion.contains($0) }
 
         Task {
             while true {

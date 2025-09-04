@@ -13,12 +13,12 @@ struct MiniLottoDrawResult: DrawResult {
     static let validNumbersCount = 5
     static let validNumberMaxValue = 42
 
-    static func createResult(idx: Int, date: Date, numbers: [Number]) -> MiniLottoDrawResult {
+    static func createResult(idx: Int, date: Date, numbers: [any Number]) -> MiniLottoDrawResult {
         MiniLottoDrawResult(idx: idx, date: date, numbers: numbers)
     }
 
     var idx: Int
     let date: Date
-    var numbers: [Number]
+    var numbers: [any Number]
 
 }

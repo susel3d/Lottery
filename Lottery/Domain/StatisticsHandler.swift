@@ -26,7 +26,8 @@ class StatisticsHandler<ResultType: DrawResult> {
         }
 
         let resultsOfInterest = results[rangeOfIntereset.startingIdx...rangeOfIntereset.endIdx]
-        let ages = resultsOfInterest.map {$0.numbers.compactMap {$0.age}.sorted(by: <)}
+
+        let ages = resultsOfInterest.map { $0.numbers.compactMap { ($0 as? AgedNumber)?.age }.sorted(by: <) }
         let validAges = ages.filter { $0.count == ResultType.validNumbersCount }
 
         guard !validAges.isEmpty else {

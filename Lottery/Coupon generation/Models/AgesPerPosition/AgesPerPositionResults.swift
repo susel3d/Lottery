@@ -14,12 +14,12 @@ enum ResultDataError: Error {
 
 struct AgesPerPositionResults<ResultType: DrawResult> {
 
-    var numbersAgedByLastResult: [Number] = []
-    var numbersAgedByROIStartIdx: [Number] = []
+    var numbersAgedByLastResult: [AgedNumber] = []
+    var numbersAgedByROIStartIdx: [AgedNumber] = []
     var results: [ResultType] = []
 
-    init(numbersAgedByLastResult: [Number],
-         numbersAgedByROIStartIdx: [Number] = [],
+    init(numbersAgedByLastResult: [AgedNumber],
+         numbersAgedByROIStartIdx: [AgedNumber] = [],
          results: [ResultType],
          rangeOfIntereset: ResultsRangeOfInterest? = nil) throws {
         self.numbersAgedByLastResult = numbersAgedByLastResult
@@ -39,7 +39,7 @@ struct AgesPerPositionResults<ResultType: DrawResult> {
 
     func getNumbersFullfiling(statistics: ResultsStatistic,
                               for position: Int,
-                              standardDevFactor: Double) -> (range: (top: Int, bottom: Int), numbers: [Number]) {
+                              standardDevFactor: Double) -> (range: (top: Int, bottom: Int), numbers: [AgedNumber]) {
         let average = statistics.average[position]
         let deviation = statistics.standardDeviation[position] * standardDevFactor
 

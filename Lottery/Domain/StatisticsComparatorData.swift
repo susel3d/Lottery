@@ -25,6 +25,6 @@ struct StatisticsComparatorData<ResultType: DrawResult>: CustomDebugStringConver
     }
 
     var debugDescription: String {
-        return "hits: \(hits) score: \(combinations), pastResults: \(statisticsROI.length), stdDevFactor: \(standardDevFactor)"
+        "hits: \(hits) score: \(combinations), pastResults: \(statisticsROI.length), stdDevFactor: \(standardDevFactor)"
     }
 }

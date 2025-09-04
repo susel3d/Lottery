@@ -14,9 +14,9 @@ enum AgingHelperError: Error {
 enum AgingHelper<ResultType: DrawResult> {
 
     static func agedNumbersBasedOn(_ results: [ResultType],
-                                   roi: ResultsRangeOfInterest? = nil) -> [Number] {
+                                   roi: ResultsRangeOfInterest? = nil) -> [AgedNumber] {
 
-        var agedNumbers = Array(1...ResultType.validNumberMaxValue).map { Number(value: $0) }
+        var agedNumbers = Array(1...ResultType.validNumberMaxValue).map { AgedNumber(value: $0, age: nil) }
         var agesSetCounter = 0
 
         var resultsOfInterest: [ResultType]
@@ -54,11 +54,11 @@ enum AgingHelper<ResultType: DrawResult> {
 
         for (pastResultIdx, pastResult) in results[0...results.count - 1].enumerated() {
 
-            var newNumbers: [Number] = []
+            var newNumbers: [AgedNumber] = []
 
             if pastResultIdx == 0 {
                 for number in pastResult.numbers {
-                    let numberWithoutAge = Number(value: number.value)
+                    let numberWithoutAge = AgedNumber(value: number.value)
                     newNumbers.append(numberWithoutAge)
                 }
             } else {
@@ -69,10 +69,10 @@ enum AgingHelper<ResultType: DrawResult> {
                     let pastResultsSubArray = results[0...pastResultsEndIdx]
 
                     if let foundIdx = pastResultsSubArray.lastIndex(where: {$0.containsNumber(number.value)}) {
-                        let numberWithAge = Number(value: number.value, age: pastResultIdx - foundIdx)
+                        let numberWithAge = AgedNumber(value: number.value, age: pastResultIdx - foundIdx)
                         newNumbers.append(numberWithAge)
                     } else {
-                        let numberWithoutAge = Number(value: number.value)
+                        let numberWithoutAge = AgedNumber(value: number.value)
                         newNumbers.append(numberWithoutAge)
                     }
                 }
@@ -84,14 +84,14 @@ enum AgingHelper<ResultType: DrawResult> {
 
             do {
                 try newNumbers.sort {
-                    try Number.compareByAge(lhs: $0, rhs: $1)
+                    try AgedNumber.compareByAge(lhs: $0, rhs: $1)
                 }
             } catch {
                 continue
             }
 
             newNumbers = newNumbers.enumerated().map { (_, element) in
-                Number(value: element.value, age: element.age)
+                AgedNumber(value: element.value, age: element.age)
             }
 
             agedResults.append(ResultType.createResult(idx: pastResult.idx, date: pastResult.date, numbers: newNumbers))

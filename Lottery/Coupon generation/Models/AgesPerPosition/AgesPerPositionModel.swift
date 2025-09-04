@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class AgesPerPositionModel<ResultType: DrawResult>: FutureDraw {
+class AgesPerPositionModel<ResultType: DrawResult> {
 
     private let roiLength: Int
     private var innerResults: AgesPerPositionResults<ResultType>?

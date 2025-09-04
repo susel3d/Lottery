@@ -7,7 +7,7 @@
 
 import Combine
 
-class ExclusionModel<ResultType: DrawResult>: FutureDraw {
+class ExclusionModel<ResultType: DrawResult> {
 
     @Published var result: [Int]?
 
@@ -33,7 +33,9 @@ class ExclusionModel<ResultType: DrawResult>: FutureDraw {
 
         for result in results {
 
-            let ages = result.numbers.compactMap({ $0.age })
+            let concreteTypeResult = result.numbers.compactMap { $0 as? AgedNumber }
+
+            let ages = concreteTypeResult.compactMap({ $0.age })
 
             guard ages.count == ResultType.validNumbersCount, let min = ages.min() else {
                 continue

@@ -6,15 +6,24 @@
 //
 
 import Combine
+import Foundation
+
+enum ControllerError: Error {
+    case timeout
+}
 
 class CouponController<ResultType: DrawResult> {
+
+    @Published var commonDataReady = false
+    @Published var progress: Double = 0
+    @Published var generatedCoupons: [GeneratedCoupon] = []
 
     private let commonDataModel = DataModel<ResultType>()
     private var subscriptions = Set<AnyCancellable>()
 
     init() {
+        bindForDataReadiness()
         Task {
-            bindForDataReadiness()
             commonDataModel.loadData()
         }
     }
@@ -22,17 +31,34 @@ class CouponController<ResultType: DrawResult> {
     private func bindForDataReadiness() {
         commonDataModel.pastResults
             .filter { !$0.isEmpty }
-            .sink { [weak self] commonResults in
-                self?.prepareCoupons(commonResults)
-            }
+            .compactMap({ _ in true })
+            .assign(to: \.commonDataReady, on: self)
             .store(in: &subscriptions)
     }
 
-    private func prepareCoupons(_ commonResults: [ResultType]) {
+    func cancelGeneration() {
+        self.progress = 0
+        subscriptions.removeAll()
+    }
+
+    func generateCoupons(timeout: TimeInterval,
+                         couponDistance: Int,
+                         couponsCount: Int) {
+
+        let commonResults = commonDataModel.pastResults.value
+
+        guard !commonResults.isEmpty else {
+            return
+        }
+
         let model1 = AgesPerPositionModel(commonResults: commonResults)
         let model2 = ExclusionModel(commonResults: commonResults)
         let model3 = BestFriendsModel(commonResults: commonResults)
         Publishers.CombineLatest3(model1.$results, model2.$result, model3.$results)
+            .setFailureType(to: ControllerError.self)
+            .timeout(.seconds(timeout), scheduler: RunLoop.main, customError: {
+                ControllerError.timeout
+            })
             .compactMap(unwrapResults)
             .flatMap { result1, result2, _ in
                 let generator = CouponGenerator<ResultType>(set: result1, exclusion: result2)
@@ -41,14 +67,26 @@ class CouponController<ResultType: DrawResult> {
             .filter({ coupon in
                 model3.isResultInScope(coupon.value)
             })
-            .filterOutCouponsByDistance(2)
-            .prefix(30)
+            .filterOutCouponsByDistance(couponDistance)
+            .prefix(couponsCount)
+            .receive(on: RunLoop.main)
+            .handleEvents(receiveOutput: { [weak self] _ in
+                self?.progress += 1.0 / Double(couponsCount)
+                })
             .collect()
-            .sink { coupons in
+            .sink(receiveCompletion: { completion in
+                print(completion)
+            }, receiveValue: { coupons in
                 for coupon in coupons {
                     print("\(coupon.value )")
                 }
-            }
+                self.progress = 1
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.progress = 1
+                    self.generatedCoupons = coupons
+                    self.progress = 0
+                }
+            })
             .store(in: &subscriptions)
     }
 

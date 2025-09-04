@@ -7,11 +7,11 @@
 
 import Combine
 
-class BestFriendsModel<ResultType: DrawResult>: FutureDraw {
+class BestFriendsModel<ResultType: DrawResult> {
 
     private let roiLength: Int
     private var innerResults: BestFriendsModelResults<ResultType>?
-    private var numberFriendliness: [Number]?
+    private var numberFriendliness: [BestFriendNumber<ResultType>]?
 
     @Published var results: ResultsStatistic?
 
@@ -23,7 +23,7 @@ class BestFriendsModel<ResultType: DrawResult>: FutureDraw {
             results = innerResults?.getFriendshipFactor()
         }
     }
-    
+
     private func modelResultsBasedOn(commonResults: [ResultType]) -> BestFriendsModelResults<ResultType>? {
         guard commonResults.count > 0 else {
             return nil
@@ -54,7 +54,9 @@ class BestFriendsModel<ResultType: DrawResult>: FutureDraw {
               result.count == ResultType.validNumbersCount else {
             return false
         }
-        let tempResult = ResultType.createResult(idx: 0, date: .now, numbers: result.map { Number(value: $0) })
+        let tempResult = ResultType.createResult(idx: 0,
+                                                 date: .now,
+                                                 numbers: result.map { BestFriendNumber<ResultType>(value: $0) })
         let friendliness = deriveResultFriendliness(tempResult)
 
         let inScope = average - standardDeviation < friendliness && friendliness < average + standardDeviation
@@ -78,11 +80,14 @@ class BestFriendsModel<ResultType: DrawResult>: FutureDraw {
     }
 
     fileprivate func deriveNumbersFriendliness(_ commonResults: [ResultType]) {
-        var numberFriendliness = Array(1...ResultType.validNumberMaxValue).map { Number(value: $0) }
+        var numberFriendliness = Array(1...ResultType.validNumberMaxValue).map {
+            BestFriendNumber<ResultType>(value: $0)
+        }
 
         for commonResult in commonResults {
-            for number in commonResult.numbers {
-                for theOther in commonResult.numbers where theOther != number {
+            let concreteTypeResult = commonResult.numbers.compactMap { $0 as? DrawResultNumber }
+            for number in concreteTypeResult {
+                for theOther in concreteTypeResult where theOther != number {
                     let standarizedValue = 1 / Double(commonResults.count)
                     numberFriendliness[number].addFriend(theOther.value, factor: standarizedValue)
                 }
