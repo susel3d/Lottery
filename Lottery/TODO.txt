@@ -6,13 +6,14 @@
 //
 
 
-// comment failing test, prepare ony new @Test for new view models
+// generics...?
 
-// commit
 
 // fix tests, new Swift @Test, DI
 
 // days when new results occur, exception if common data without the newest one...
+
+// CouponGenerator with AsyncStream
 
 // get rid of "commonResult.numbers.compactMap { $0 as? DrawResultNumber }", "result.numbers.compactMap { $0 as? AgedNumber }", "resultToCompare.numbers.compactMap { $0 as? AgedNumber }", "{ ($0 as? AgedNumber)?.age }"
 

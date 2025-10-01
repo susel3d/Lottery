@@ -8,12 +8,17 @@
 import Combine
 import Foundation
 
+enum Progress {
+    case progress(Double)
+    case timeout
+}
+
 @Observable
 class CouponGeneratorViewModel<ResultType: DrawResult> {
 
-    var progress: Double = 0
+    var progress: Progress = .progress(0)
     var timeout: TimeInterval = 30
-    var couponMinDistance = 2
+    var couponMinDistance = 3
     var couponsCount = 10
     var isGenerating = false
     var generatedCoupons: [GeneratedCoupon] = []
@@ -27,14 +32,19 @@ class CouponGeneratorViewModel<ResultType: DrawResult> {
         self.couponController = couponController
         self.couponController.$commonDataReady.assign(to: \.canGenerateCoupons, on: self)
             .store(in: &cancellables)
-        self.couponController.$progress.assign(to: \.progress, on: self)
+        self.couponController.$generatedCoupons.assign(to: \.generatedCoupons, on: self)
             .store(in: &cancellables)
-        self.couponController.$generatedCoupons
-            .filter { !$0.isEmpty }
-            .sink(receiveValue: { generatedCoupons in
-                self.isGenerating = false
-                self.progress = 0
-                self.generatedCoupons = generatedCoupons
+        self.couponController.$progress
+            .sink(receiveValue: { [weak self] progress in
+                self?.progress = .progress(progress)
+                if progress == 1 {
+                    if self?.generatedCoupons.count != self?.couponsCount {
+                        self?.progress = .timeout
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self?.isGenerating = false
+                    }
+                }
             })
             .store(in: &cancellables)
     }
@@ -52,7 +62,7 @@ class CouponGeneratorViewModel<ResultType: DrawResult> {
 
     func cancelGeneration() {
         self.isGenerating = false
-        self.progress = 0
+        self.progress = .progress(0)
         couponController.cancelGeneration()
     }
 }

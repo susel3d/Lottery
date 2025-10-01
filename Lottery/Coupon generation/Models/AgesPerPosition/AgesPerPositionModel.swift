@@ -20,7 +20,7 @@ class AgesPerPositionModel<ResultType: DrawResult> {
     }
 
     init(commonResults: [ResultType],
-         rangeOfInterestLength: Int = 15) {
+         rangeOfInterestLength: Int = 20) {
         self.roiLength = rangeOfInterestLength
         Task {
             self.innerResults = self.modelResultsBasedOn(commonResults: commonResults)

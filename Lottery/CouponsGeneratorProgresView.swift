@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CouponsGeneratorProgresView: View {
 
-    @Binding var progress: Double
+    @Binding var progress: Progress
     let stopGeneration: () -> Void
 
     var body: some View {
@@ -42,8 +42,8 @@ struct CouponsGeneratorProgresView: View {
             Circle()
                 .stroke(Color.gray.opacity(0.1), lineWidth: 15)
             Circle()
-                .stroke(Color.green.opacity(progress), lineWidth: 15)
-            Text("\(Int(progress * 100))%")
+                .stroke(progress.circleColor.opacity(progress.opacityValue), lineWidth: 15)
+            Text(progress.description)
                 .font(.system(size: 28, weight: .semibold))
         }
     }
@@ -66,6 +66,36 @@ extension Button {
 }
 
 #Preview {
-    @Previewable @State var progress: Double = 0.9
+    @Previewable @State var progress: Progress = .progress(0.9)
     CouponsGeneratorProgresView(progress: $progress, stopGeneration: { })
+}
+
+extension Progress {
+
+    var opacityValue: Double {
+        switch self {
+        case .progress(let value):
+            value
+        case .timeout:
+            1.0
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .progress(let value):
+            "\(Int(value * 100))%"
+        case .timeout:
+            "Timeout!"
+        }
+    }
+
+    var circleColor: Color {
+        switch self {
+        case .progress:
+            Color.green
+        case .timeout:
+            Color.red
+        }
+    }
 }

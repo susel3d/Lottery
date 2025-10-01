@@ -51,6 +51,8 @@ class CouponController<ResultType: DrawResult> {
             return
         }
 
+        progress = 0
+
         let model1 = AgesPerPositionModel(commonResults: commonResults)
         let model2 = ExclusionModel(commonResults: commonResults)
         let model3 = BestFriendsModel(commonResults: commonResults)
@@ -70,22 +72,18 @@ class CouponController<ResultType: DrawResult> {
             .filterOutCouponsByDistance(couponDistance)
             .prefix(couponsCount)
             .receive(on: RunLoop.main)
-            .handleEvents(receiveOutput: { [weak self] _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.progress = 1
+                case .failure(let error):
+                    self?.progress = 1
+                    print(error)
+                }
+            }, receiveValue: { [weak self] coupon in
+                print("\(coupon.value )")
+                self?.generatedCoupons.append(coupon)
                 self?.progress += 1.0 / Double(couponsCount)
-                })
-            .collect()
-            .sink(receiveCompletion: { completion in
-                print(completion)
-            }, receiveValue: { coupons in
-                for coupon in coupons {
-                    print("\(coupon.value )")
-                }
-                self.progress = 1
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.progress = 1
-                    self.generatedCoupons = coupons
-                    self.progress = 0
-                }
             })
             .store(in: &subscriptions)
     }
