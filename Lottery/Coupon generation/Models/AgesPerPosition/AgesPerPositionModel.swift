@@ -8,19 +8,20 @@
 import Combine
 import Foundation
 
-class AgesPerPositionModel<ResultType: DrawResult> {
+class AgesPerPositionModel {
 
-    private let roiLength: Int
-    private var innerResults: AgesPerPositionResults<ResultType>?
+    private var drawType: DrawType
+    private var roiLength = 0
+    private var innerResults: AgesPerPositionResults?
 
     @Published var results: [[Int]]?
 
-    private init() {
-        roiLength = 0
+    init(drawType: DrawType) {
+        self.drawType = drawType
     }
 
-    init(commonResults: [ResultType],
-         rangeOfInterestLength: Int = 20) {
+    func runFor(commonResults: [DrawResult],
+                rangeOfInterestLength: Int = 20) {
         self.roiLength = rangeOfInterestLength
         Task {
             self.innerResults = self.modelResultsBasedOn(commonResults: commonResults)
@@ -28,12 +29,12 @@ class AgesPerPositionModel<ResultType: DrawResult> {
         }
     }
 
-    private func modelResultsBasedOn(commonResults: [ResultType]) -> AgesPerPositionResults<ResultType>? {
+    private func modelResultsBasedOn(commonResults: [DrawResult]) -> AgesPerPositionResults? {
         guard commonResults.count > 0 else {
             return nil
         }
 
-        guard let results = try? AgingHelper<ResultType>.agedResultsBasedOn(commonResults) else {
+        guard let results = try? AgingHelper.agedResultsBasedOn(commonResults, drawType: drawType) else {
             return nil
         }
 
@@ -41,14 +42,15 @@ class AgesPerPositionModel<ResultType: DrawResult> {
 
         let roi = ResultsRangeOfInterest(startingIdx: startingIdx, length: roiLength)
 
-        let numbersAgedByLastResult = AgingHelper<ResultType>.agedNumbersBasedOn(results)
-        let numbersAgedByROIStartIdx = AgingHelper<ResultType>.agedNumbersBasedOn(results, roi: roi)
+        let numbersAgedByLastResult = AgingHelper.agedNumbersBasedOn(results, drawType: drawType)
+        let numbersAgedByROIStartIdx = AgingHelper.agedNumbersBasedOn(results, roi: roi, drawType: drawType)
 
         return try? AgesPerPositionResults(
             numbersAgedByLastResult: numbersAgedByLastResult,
             numbersAgedByROIStartIdx: numbersAgedByROIStartIdx,
             results: results,
-            rangeOfIntereset: roi
+            rangeOfIntereset: roi,
+            validNumbersCount: drawType.validNumbersCount
         )
     }
 }

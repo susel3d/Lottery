@@ -9,17 +9,28 @@ import Foundation
 import Combine
 import CoreData
 
-class DataModel<ResultType: DrawResult> {
+class DrawDataModel {
 
-    var pastResults = CurrentValueSubject<[ResultType], Never>([])
-    var savedCoupons = CurrentValueSubject<[ResultType], Never>([])
+    let drawType: DrawType
+
+    var validNumbersCount: Int {
+        drawType.validNumbersCount
+    }
+
+    var pastResults = CurrentValueSubject<[DrawResult], Never>([])
+    var savedCoupons = CurrentValueSubject<[DrawResult], Never>([])
 
     private let persistenceController = PersistenceController.shared
     private let context = PersistenceController.shared.container.viewContext
     private var subscriptions = Set<AnyCancellable>()
 
-    init() {
+    init(drawType: DrawType) {
         context.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.overwriteMergePolicyType)
+        self.drawType = drawType
+    }
+
+    deinit {
+        print()
     }
 
     func loadData() {
@@ -29,17 +40,17 @@ class DataModel<ResultType: DrawResult> {
         }
     }
 
-    func savePastResult(_ result: inout ResultType) {
-        guard let idx = pastResults.value.first?.idx else {
-            return
-        }
-        result.idx = idx + 1
-        var concreteNumbers = result.numbers.compactMap { $0 as? DrawResultNumber }
-        concreteNumbers.sort(by: <)
-        savePastResultsToDB([result])
-        loadPastResultsFromDB()
-        result = ResultType.empty() as! ResultType // swiftlint:disable:this force_cast
-    }
+//    func savePastResult(_ result: inout DrawResult) {
+//        guard let idx = pastResults.value.first?.idx else {
+//            return
+//        }
+//        result.idx = idx + 1
+//        var concreteNumbers = result.numbers.compactMap { $0 as? DrawResultNumber }
+//        concreteNumbers.sort(by: <)
+//        savePastResultsToDB([result])
+//        loadPastResultsFromDB()
+//        result = DrawResult.empty()
+//    }
 
     private func getData() {
 
@@ -58,16 +69,16 @@ class DataModel<ResultType: DrawResult> {
 
 // MARK: Fetching data from server or file
 
-extension DataModel {
+extension DrawDataModel {
 
     private func fetchDataFromFile() {
-        let file = ResultType.sourceFileName
+        let file = drawType.sourceFileName
         Bundle.main.url(forResource: file, withExtension: nil).publisher
             .subscribe(on: DispatchQueue.global())
             .tryMap { string in
                 try Data(contentsOf: string)
             }.processDataStream()
-            .tryMap { try (ResultType.resultsFrom(lines: $0) as? [ResultType])!}
+            .tryMap { try DrawResultHelper.resultsFrom(lines: $0, type: self.drawType) }
             .receive(on: DispatchQueue.main)
             .sink { _ in
             } receiveValue: { results in
@@ -85,7 +96,7 @@ extension DataModel {
             .receive(on: RunLoop.main)
             .tryMap { data, _ in data}
             .processDataStream()
-            .tryMap { try (ResultType.resultsFrom(lines: $0) as? [ResultType])!}
+            .tryMap { try DrawResultHelper.resultsFrom(lines: $0, type: self.drawType) }
             .sink { _ in
             } receiveValue: { results in
                 self.savePastResultsToDB(results)
@@ -97,24 +108,27 @@ extension DataModel {
 
 // MARK: CoreData
 
-extension DataModel {
+extension DrawDataModel {
 
     private func loadPastResultsFromDB() {
 
-        if ResultType.self is LottoDrawResult.Type {
+        if drawType == .lotto {
             let request = LottoPastResults.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "idx", ascending: false)]
             request.fetchLimit = 3500 // Contants.dbLoadLimit
 
-            var results: [ResultType] = []
+            var results: [DrawResult] = []
 
             do {
                 var pastResults = try context.fetch(request)
                 pastResults.reverse()
                 for pastResult in pastResults {
-                    let result = ResultType.createResult(idx: Int(pastResult.idx),
-                                                         date: pastResult.date ?? .now,
-                                                         numbers: try ResultType.numbersFromString(pastResult.numbers!))
+                    let result = drawType.createResult(idx: Int(pastResult.idx),
+                                                       date: pastResult.date ?? .now,
+                                                       numbers: try DrawResultHelper.numbersFromString(
+                                                        pastResult.numbers!,
+                                                        type: drawType)
+                    )
                     results.append(result)
                 }
             } catch {
@@ -122,29 +136,29 @@ extension DataModel {
             }
             self.pastResults.send(results)
         } else {
-            let request = LottoPastResults.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(key: "idx", ascending: false)]
-            request.fetchLimit = 3500 // Contants.dbLoadLimit
-
-            var results: [ResultType] = []
-
-            do {
-                let pastResults = try context.fetch(request)
-                for pastResult in pastResults {
-                    let result = ResultType.createResult(idx: Int(pastResult.idx),
-                                                         date: pastResult.date ?? .now,
-                                                         numbers: try ResultType.numbersFromString(pastResult.numbers!))
-                    results.append(result)
-                }
-            } catch {
-                print(error)
-            }
-            self.pastResults.send(results)
+//            let request = LottoPastResults.fetchRequest()
+//            request.sortDescriptors = [NSSortDescriptor(key: "idx", ascending: false)]
+//            request.fetchLimit = 3500 // Contants.dbLoadLimit
+//
+//            var results: [DrawResult] = []
+//
+//            do {
+//                let pastResults = try context.fetch(request)
+//                for pastResult in pastResults {
+//                    let result = ResultType.createResult(idx: Int(pastResult.idx),
+//                                                         date: pastResult.date ?? .now,
+//                                                         numbers: try ResultType.numbersFromString(pastResult.numbers!))
+//                    results.append(result)
+//                }
+//            } catch {
+//                print(error)
+//            }
+//            self.pastResults.send(results)
         }
 
     }
 
-    private func savePastResultsToDB(_ results: [ResultType]) {
+    private func savePastResultsToDB(_ results: [DrawResult]) {
 
         for result in results {
             let pastResult = LottoPastResults(context: context)
@@ -210,21 +224,23 @@ extension DataModel {
         let isPreviewData = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
         if isPreviewData {
             let numbers = [3, 11, 23, 27, 34, 41].map { DrawResultNumber(value: $0) }
-            savedCoupons.send([ResultType.createResult(idx: 0, date: .now, numbers: numbers)])
+            savedCoupons.send([drawType.createResult(idx: 0, date: .now, numbers: numbers)])
             return
         }
 
         let request = Coupon.fetchRequest()
         request.fetchLimit = 10
 
-        var results: [ResultType] = []
+        var results: [DrawResult] = []
 
         do {
             let coupons = try context.fetch(request)
             for coupon in coupons {
-                let result = ResultType.createResult(idx: Int(coupon.idx),
-                                    date: .now,
-                                    numbers: try ResultType.numbersFromString(coupon.numbers!))
+                let result = drawType.createResult(
+                    idx: Int(coupon.idx),
+                    date: .now,
+                    numbers: try DrawResultHelper.numbersFromString(coupon.numbers!, type: drawType)
+                )
                 results.append(result)
             }
         } catch {

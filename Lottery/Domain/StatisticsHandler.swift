@@ -12,10 +12,11 @@ struct ResultsStatistic {
     let standardDeviation: [Double]
 }
 
-class StatisticsHandler<ResultType: DrawResult> {
+class StatisticsHandler {
 
-    static func updateAgeStatistics(results: [ResultType],
-                             rangeOfIntereset: ResultsRangeOfInterest?) throws -> ResultsStatistic? {
+    static func updateAgeStatistics(results: [DrawResult],
+                             rangeOfIntereset: ResultsRangeOfInterest?,
+                                    validNumbersCount: Int) throws -> ResultsStatistic? {
 
         guard let rangeOfIntereset else {
             return nil
@@ -28,7 +29,7 @@ class StatisticsHandler<ResultType: DrawResult> {
         let resultsOfInterest = results[rangeOfIntereset.startingIdx...rangeOfIntereset.endIdx]
 
         let ages = resultsOfInterest.map { $0.numbers.compactMap { ($0 as? AgedNumber)?.age }.sorted(by: <) }
-        let validAges = ages.filter { $0.count == ResultType.validNumbersCount }
+        let validAges = ages.filter { $0.count == validNumbersCount }
 
         guard !validAges.isEmpty else {
             return nil
@@ -37,7 +38,7 @@ class StatisticsHandler<ResultType: DrawResult> {
         var averages = [Double]()
         var deviations = [Double]()
 
-        for positionIdx in 0..<ResultType.validNumbersCount {
+        for positionIdx in 0..<validNumbersCount {
 
             let agesAtPositionIdx = validAges.map { $0[positionIdx] }
 
@@ -47,7 +48,7 @@ class StatisticsHandler<ResultType: DrawResult> {
             }
         }
 
-        guard averages.count == ResultType.validNumbersCount, deviations.count == ResultType.validNumbersCount else {
+        guard averages.count == validNumbersCount, deviations.count == validNumbersCount else {
             assert(false, "Statistics information is missing")
         }
         return ResultsStatistic(average: averages, standardDeviation: deviations)

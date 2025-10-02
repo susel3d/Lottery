@@ -12,7 +12,7 @@
 		CD7C56632B9F03260040ED3C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7C56622B9F03260040ED3C /* Preview Assets.xcassets */; };
 		CD7C56652B9F03260040ED3C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C56642B9F03260040ED3C /* Persistence.swift */; };
 		CD7C56682B9F03260040ED3C /* Lottery.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD7C56662B9F03260040ED3C /* Lottery.xcdatamodeld */; };
-		CD7C568B2B9F050A0040ED3C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C568A2B9F050A0040ED3C /* DataModel.swift */; };
+		CD7C568B2B9F050A0040ED3C /* DrawDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C568A2B9F050A0040ED3C /* DrawDataModel.swift */; };
 		CDA1392D2BB1BACB004A2D50 /* lotto.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDA1392C2BB1BACB004A2D50 /* lotto.txt */; };
 		CDB4B72A2BA44C5D00DFEE32 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4B7292BA44C5D00DFEE32 /* Number.swift */; };
 		CDB4B72C2BA44C6B00DFEE32 /* DrawResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4B72B2BA44C6B00DFEE32 /* DrawResult.swift */; };
@@ -31,6 +31,10 @@
 		E9AFB2C22C4C01DA00FE3A1B /* AgesPerPositionResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFB2C12C4C01DA00FE3A1B /* AgesPerPositionResults.swift */; };
 		E9B1B79B2E6834CD00F28544 /* CouponsGeneratorProgresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1B79A2E6834CD00F28544 /* CouponsGeneratorProgresView.swift */; };
 		E9B1B79D2E68529500F28544 /* CouponListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1B79C2E68529500F28544 /* CouponListView.swift */; };
+		E9B25FB32E8E77A600213CDA /* StateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B25FB22E8E77A600213CDA /* StateStore.swift */; };
+		E9B25FB52E8E783100213CDA /* StateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B25FB42E8E783100213CDA /* StateAction.swift */; };
+		E9B25FB72E8E797100213CDA /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B25FB62E8E797100213CDA /* AppState.swift */; };
+		E9B25FBA2E8E7B1500213CDA /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B25FB92E8E7AF600213CDA /* DependencyInjection.swift */; };
 		E9BC05EF2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC05EE2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift */; };
 		E9BC05F12CFCCCD0008537D3 /* StatisticsComparatorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC05F02CFCCCD0008537D3 /* StatisticsComparatorData.swift */; };
 		E9BC6E232E68DFD000111835 /* CouponListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC6E222E68DFC700111835 /* CouponListViewModel.swift */; };
@@ -47,6 +51,7 @@
 		E9D488FA2DD10EED00ED1DBB /* CouponGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D488F92DD10EED00ED1DBB /* CouponGenerator.swift */; };
 		E9D62DD42E67935C0020D33D /* CouponGeneratorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D62DD32E67935C0020D33D /* CouponGeneratorViewModel.swift */; };
 		E9DD6D7E2D27407E00469BF2 /* miniLotto.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9DD6D7D2D27407E00469BF2 /* miniLotto.txt */; };
+		E9E528C92E8D13EF0092F13A /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = E9E528C82E8D13EF0092F13A /* Swinject */; };
 		E9E598332CB8704D00DFAD8C /* ResultsStatisticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E598322CB8704D00DFAD8C /* ResultsStatisticTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,7 +73,7 @@
 		CD7C56642B9F03260040ED3C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		CD7C56672B9F03260040ED3C /* Lotto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lotto.xcdatamodel; sourceTree = "<group>"; };
 		CD7C566D2B9F03260040ED3C /* LotteryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LotteryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD7C568A2B9F050A0040ED3C /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		CD7C568A2B9F050A0040ED3C /* DrawDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawDataModel.swift; sourceTree = "<group>"; };
 		CD7C568C2B9F3BBE0040ED3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CDA1392C2BB1BACB004A2D50 /* lotto.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lotto.txt; sourceTree = "<group>"; };
 		CDB4B7292BA44C5D00DFEE32 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
@@ -88,6 +93,10 @@
 		E9AFB2C12C4C01DA00FE3A1B /* AgesPerPositionResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgesPerPositionResults.swift; sourceTree = "<group>"; };
 		E9B1B79A2E6834CD00F28544 /* CouponsGeneratorProgresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponsGeneratorProgresView.swift; sourceTree = "<group>"; };
 		E9B1B79C2E68529500F28544 /* CouponListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListView.swift; sourceTree = "<group>"; };
+		E9B25FB22E8E77A600213CDA /* StateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateStore.swift; sourceTree = "<group>"; };
+		E9B25FB42E8E783100213CDA /* StateAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateAction.swift; sourceTree = "<group>"; };
+		E9B25FB62E8E797100213CDA /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		E9B25FB92E8E7AF600213CDA /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
 		E9BC05EE2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsRangeOfInterest.swift; sourceTree = "<group>"; };
 		E9BC05F02CFCCCD0008537D3 /* StatisticsComparatorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsComparatorData.swift; sourceTree = "<group>"; };
 		E9BC6E222E68DFC700111835 /* CouponListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewModel.swift; sourceTree = "<group>"; };
@@ -112,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9E528C92E8D13EF0092F13A /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +160,8 @@
 				E9DD6D7D2D27407E00469BF2 /* miniLotto.txt */,
 				CD7C568C2B9F3BBE0040ED3C /* Info.plist */,
 				CD7C565B2B9F03240040ED3C /* LotteryApp.swift */,
+				E9B25FB92E8E7AF600213CDA /* DependencyInjection.swift */,
+				E9B25FB82E8E797800213CDA /* App State */,
 				CDB4B72D2BA44E6600DFEE32 /* Views */,
 				CDF770092BB0D8A1003313FD /* Coupon generation */,
 				CDB4B7282BA44C3500DFEE32 /* Domain */,
@@ -239,6 +251,16 @@
 			path = "Draw Result Types";
 			sourceTree = "<group>";
 		};
+		E9B25FB82E8E797800213CDA /* App State */ = {
+			isa = PBXGroup;
+			children = (
+				E9B25FB62E8E797100213CDA /* AppState.swift */,
+				E9B25FB42E8E783100213CDA /* StateAction.swift */,
+				E9B25FB22E8E77A600213CDA /* StateStore.swift */,
+			);
+			path = "App State";
+			sourceTree = "<group>";
+		};
 		E9BDA84B2D6239CD009D2A7F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,7 +304,7 @@
 		E9D1B3902E65D64E006A0030 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				CD7C568A2B9F050A0040ED3C /* DataModel.swift */,
+				CD7C568A2B9F050A0040ED3C /* DrawDataModel.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -310,9 +332,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				E9E528CB2E8D14360092F13A /* PBXTargetDependency */,
 			);
 			name = Lottery;
 			packageProductDependencies = (
+				E9E528C82E8D13EF0092F13A /* Swinject */,
 			);
 			productName = Lotto;
 			productReference = CD7C56582B9F03240040ED3C /* Lottery.app */;
@@ -366,6 +390,7 @@
 			);
 			mainGroup = CD7C564F2B9F03240040ED3C;
 			packageReferences = (
+				E9E528C72E8D13EF0092F13A /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = CD7C56592B9F03240040ED3C /* Products */;
 			projectDirPath = "";
@@ -428,17 +453,19 @@
 			files = (
 				E989F2622D240A7E00AC7068 /* MiniLottoDrawResult.swift in Sources */,
 				E9D62DD42E67935C0020D33D /* CouponGeneratorViewModel.swift in Sources */,
-				CD7C568B2B9F050A0040ED3C /* DataModel.swift in Sources */,
+				CD7C568B2B9F050A0040ED3C /* DrawDataModel.swift in Sources */,
 				E9C34CF82E5B7CA600F418FE /* BestFriendsModelResults.swift in Sources */,
 				E989F25D2D23EF2B00AC7068 /* AgingHelper.swift in Sources */,
 				CDB4B72A2BA44C5D00DFEE32 /* Number.swift in Sources */,
 				E968CE582D61495300FAB2B6 /* AgesPerPositionModelTuner.swift in Sources */,
 				E95241702E13257400EE7B1B /* ModelsTuner.swift in Sources */,
 				CD7C56682B9F03260040ED3C /* Lottery.xcdatamodeld in Sources */,
+				E9B25FB32E8E77A600213CDA /* StateStore.swift in Sources */,
 				CDB4B72C2BA44C6B00DFEE32 /* DrawResult.swift in Sources */,
 				E9C34CF62E5B7C6B00F418FE /* BestFriendsModel.swift in Sources */,
 				E9B1B79D2E68529500F28544 /* CouponListView.swift in Sources */,
 				E9C86FE22D5BD17F00D7B2B1 /* ExclusionModel.swift in Sources */,
+				E9B25FBA2E8E7B1500213CDA /* DependencyInjection.swift in Sources */,
 				E9CD52F62D593FCC0031D5FB /* CouponController.swift in Sources */,
 				D3B563B62BF21AB70057D3BC /* ResultRandomizer.swift in Sources */,
 				E9BC05F12CFCCCD0008537D3 /* StatisticsComparatorData.swift in Sources */,
@@ -446,7 +473,9 @@
 				E9B1B79B2E6834CD00F28544 /* CouponsGeneratorProgresView.swift in Sources */,
 				CDF7700B2BB0D8D6003313FD /* AgesPerPositionModel.swift in Sources */,
 				E9BC05EF2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift in Sources */,
+				E9B25FB72E8E797100213CDA /* AppState.swift in Sources */,
 				E9BC6E232E68DFD000111835 /* CouponListViewModel.swift in Sources */,
+				E9B25FB52E8E783100213CDA /* StateAction.swift in Sources */,
 				E9AFB2C22C4C01DA00FE3A1B /* AgesPerPositionResults.swift in Sources */,
 				E9D488FA2DD10EED00ED1DBB /* CouponGenerator.swift in Sources */,
 				E9D1B3932E65FACE006A0030 /* CouponsGeneratorView.swift in Sources */,
@@ -479,6 +508,10 @@
 			isa = PBXTargetDependency;
 			target = CD7C56572B9F03240040ED3C /* Lottery */;
 			targetProxy = CD7C566E2B9F03260040ED3C /* PBXContainerItemProxy */;
+		};
+		E9E528CB2E8D14360092F13A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = E9E528CA2E8D14360092F13A /* Swinject */;
 		};
 /* End PBXTargetDependency section */
 
@@ -742,6 +775,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E9E528C72E8D13EF0092F13A /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E9E528C82E8D13EF0092F13A /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9E528C72E8D13EF0092F13A /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		E9E528CA2E8D14360092F13A /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9E528C72E8D13EF0092F13A /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		CD7C56662B9F03260040ED3C /* Lottery.xcdatamodeld */ = {

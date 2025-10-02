@@ -7,16 +7,22 @@
 
 import Combine
 
-class BestFriendsModel<ResultType: DrawResult> {
+class BestFriendsModel {
 
-    private let roiLength: Int
-    private var innerResults: BestFriendsModelResults<ResultType>?
-    private var numberFriendliness: [BestFriendNumber<ResultType>]?
+    private var drawType: DrawType
+
+    private var roiLength: Int = 0
+    private var innerResults: BestFriendsModelResults?
+    private var numberFriendliness: [BestFriendNumber]?
 
     @Published var results: ResultsStatistic?
 
-    init(commonResults: [ResultType],
-         rangeOfInterestLength: Int = 15) {
+    init(drawType: DrawType) {
+        self.drawType = drawType
+    }
+
+    func runFor(commonResults: [DrawResult],
+                rangeOfInterestLength: Int = 20) {
         self.roiLength = rangeOfInterestLength
         Task {
             self.innerResults = self.modelResultsBasedOn(commonResults: commonResults)
@@ -24,7 +30,7 @@ class BestFriendsModel<ResultType: DrawResult> {
         }
     }
 
-    private func modelResultsBasedOn(commonResults: [ResultType]) -> BestFriendsModelResults<ResultType>? {
+    private func modelResultsBasedOn(commonResults: [DrawResult]) -> BestFriendsModelResults? {
         guard commonResults.count > 0 else {
             return nil
         }
@@ -38,7 +44,7 @@ class BestFriendsModel<ResultType: DrawResult> {
             resultsFriendship.append(resultFriendliness)
         }
 
-        guard let (average, deviation) = StatisticsHandler<ResultType>.averageAndStandardDeviationBasedOn(resultsFriendship) else {
+        guard let (average, deviation) = StatisticsHandler.averageAndStandardDeviationBasedOn(resultsFriendship) else {
             return nil
         }
 
@@ -51,20 +57,22 @@ class BestFriendsModel<ResultType: DrawResult> {
         guard let results,
               let average = results.average.first,
               let standardDeviation = results.standardDeviation.first,
-              result.count == ResultType.validNumbersCount else {
+              result.count == drawType.validNumbersCount else {
             return false
         }
-        let tempResult = ResultType.createResult(idx: 0,
+        let tempResult = drawType.createResult(idx: 0,
                                                  date: .now,
-                                                 numbers: result.map { BestFriendNumber<ResultType>(value: $0) })
-        let friendliness = deriveResultFriendliness(tempResult)
+                                               numbers: result.map {
+            BestFriendNumber(value: $0, friendMaxValue: drawType.validNumberMaxValue)
+        })
+        let friendliness = deriveResultFriendliness(tempResult) // swiftlint:disable:this force_cast
 
         let inScope = average - standardDeviation < friendliness && friendliness < average + standardDeviation
 
         return inScope
     }
 
-    fileprivate func deriveResultFriendliness(_ commonResult: ResultType) -> Double {
+    fileprivate func deriveResultFriendliness(_ commonResult: DrawResult) -> Double {
         guard let numberFriendliness else {
             return 0
         }
@@ -79,9 +87,9 @@ class BestFriendsModel<ResultType: DrawResult> {
         }.reduce(0, +)
     }
 
-    fileprivate func deriveNumbersFriendliness(_ commonResults: [ResultType]) {
-        var numberFriendliness = Array(1...ResultType.validNumberMaxValue).map {
-            BestFriendNumber<ResultType>(value: $0)
+    fileprivate func deriveNumbersFriendliness(_ commonResults: [DrawResult]) {
+        var numberFriendliness = Array(1...drawType.validNumberMaxValue).map {
+            BestFriendNumber(value: $0, friendMaxValue: drawType.validNumberMaxValue)
         }
 
         for commonResult in commonResults {

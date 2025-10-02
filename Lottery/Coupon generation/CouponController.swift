@@ -12,16 +12,21 @@ enum ControllerError: Error {
     case timeout
 }
 
-class CouponController<ResultType: DrawResult> {
+class CouponController {
 
     @Published var commonDataReady = false
     @Published var progress: Double = 0
     @Published var generatedCoupons: [GeneratedCoupon] = []
 
-    private let commonDataModel = DataModel<ResultType>()
+    private let commonDataModel: DrawDataModel
     private var subscriptions = Set<AnyCancellable>()
 
-    init() {
+    var validNumbersCount: Int {
+        commonDataModel.validNumbersCount
+    }
+
+    init(dataModel: DrawDataModel) {
+        commonDataModel = dataModel
         bindForDataReadiness()
         Task {
             commonDataModel.loadData()
@@ -53,21 +58,31 @@ class CouponController<ResultType: DrawResult> {
 
         progress = 0
 
-        let model1 = AgesPerPositionModel(commonResults: commonResults)
-        let model2 = ExclusionModel(commonResults: commonResults)
-        let model3 = BestFriendsModel(commonResults: commonResults)
-        Publishers.CombineLatest3(model1.$results, model2.$result, model3.$results)
+        let agesPerPositionModel = resolveDI(AgesPerPositionModel.self)
+        agesPerPositionModel.runFor(commonResults: commonResults)
+
+        let exclusionModel = resolveDI(ExclusionModel.self)
+        exclusionModel.runFor(commonResults: commonResults)
+
+        let bestFriendsModel = resolveDI(BestFriendsModel.self)
+        bestFriendsModel.runFor(commonResults: commonResults)
+
+        Publishers.CombineLatest3(agesPerPositionModel.$results, exclusionModel.$result, bestFriendsModel.$results)
             .setFailureType(to: ControllerError.self)
             .timeout(.seconds(timeout), scheduler: RunLoop.main, customError: {
                 ControllerError.timeout
             })
             .compactMap(unwrapResults)
             .flatMap { result1, result2, _ in
-                let generator = CouponGenerator<ResultType>(set: result1, exclusion: result2)
+                let generator = CouponGenerator(
+                    set: result1,
+                    exclusion: result2,
+                    validNumbersCount: self.commonDataModel.validNumbersCount
+                )
                 return generator.generateCouponsPublisher()
             }
             .filter({ coupon in
-                model3.isResultInScope(coupon.value)
+                bestFriendsModel.isResultInScope(coupon.value)
             })
             .filterOutCouponsByDistance(couponDistance)
             .prefix(couponsCount)

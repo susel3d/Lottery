@@ -15,7 +15,7 @@ struct StatisticsComparatorData<ResultType: DrawResult>: CustomDebugStringConver
     let statisticsROI: ResultsRangeOfInterest
 
     init(hits: Int, combinations: Int, standardDevFactor: Double, statisticsROI: ResultsRangeOfInterest) throws {
-        guard hits <= ResultType.validNumbersCount else {
+        guard hits <= ResultType.type.validNumbersCount else {
             throw ResultDataError.wrongStatisticsComparatorData
         }
         self.hits = hits

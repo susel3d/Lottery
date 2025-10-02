@@ -11,15 +11,16 @@ enum AgingHelperError: Error {
     case wrongNumbersCount
 }
 
-enum AgingHelper<ResultType: DrawResult> {
+enum AgingHelper {
 
-    static func agedNumbersBasedOn(_ results: [ResultType],
-                                   roi: ResultsRangeOfInterest? = nil) -> [AgedNumber] {
+    static func agedNumbersBasedOn(_ results: [DrawResult],
+                                   roi: ResultsRangeOfInterest? = nil,
+                                   drawType: DrawType) -> [AgedNumber] {
 
-        var agedNumbers = Array(1...ResultType.validNumberMaxValue).map { AgedNumber(value: $0, age: nil) }
+        var agedNumbers = Array(1...drawType.validNumberMaxValue).map { AgedNumber(value: $0, age: nil) }
         var agesSetCounter = 0
 
-        var resultsOfInterest: [ResultType]
+        var resultsOfInterest: [DrawResult]
         if let roi {
 //            resultsOfInterest = Array(results[roi.startingIdx...roi.endIdx].reversed())
             resultsOfInterest = Array(results[roi.startingIdx...].reversed())
@@ -34,7 +35,7 @@ enum AgingHelper<ResultType: DrawResult> {
                 if agedNumbers[number.value-1].age == nil {
                     agedNumbers[number.value-1].age = ageAsIdx
                     agesSetCounter += 1
-                    if agesSetCounter == ResultType.validNumberMaxValue {
+                    if agesSetCounter == drawType.validNumberMaxValue {
                         return agedNumbers
                     }
                 }
@@ -44,13 +45,13 @@ enum AgingHelper<ResultType: DrawResult> {
         return agedNumbers
     }
 
-    static func agedResultsBasedOn(_ results: [ResultType]) throws -> [ResultType] {
+    static func agedResultsBasedOn(_ results: [DrawResult], drawType: DrawType) throws -> [DrawResult] {
 
         guard !results.isEmpty else {
             return []
         }
 
-        var agedResults: [ResultType] = []
+        var agedResults: [DrawResult] = []
 
         for (pastResultIdx, pastResult) in results[0...results.count - 1].enumerated() {
 
@@ -78,7 +79,7 @@ enum AgingHelper<ResultType: DrawResult> {
                 }
             }
 
-            guard newNumbers.count == ResultType.validNumbersCount else {
+            guard newNumbers.count == drawType.validNumbersCount else {
                 throw AgingHelperError.wrongNumbersCount
             }
 
@@ -94,7 +95,7 @@ enum AgingHelper<ResultType: DrawResult> {
                 AgedNumber(value: element.value, age: element.age)
             }
 
-            agedResults.append(ResultType.createResult(idx: pastResult.idx, date: pastResult.date, numbers: newNumbers))
+            agedResults.append(drawType.createResult(idx: pastResult.idx, date: pastResult.date, numbers: newNumbers)) // swiftlint:disable:this force_cast
         }
         return agedResults
     }

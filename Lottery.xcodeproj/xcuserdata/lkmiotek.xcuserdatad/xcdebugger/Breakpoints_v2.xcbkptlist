@@ -5,31 +5,63 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            uuid = "DA2B1CB3-D566-4B1E-845F-EE84D9F061A3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            breakpointStackSelectionBehavior = "1"
-            scope = "1"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8C382C4C-0A8F-420C-9573-119936AC2358"
+            uuid = "731CF18C-4364-4CF7-B04B-14E4D713E277"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Lottery/CouponListView.swift"
+            filePath = "Lottery/App State/StateStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "stateReducer(state:action:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "731CF18C-4364-4CF7-B04B-14E4D713E277 - f3c0a1555a5591d9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Lottery.StateStore.dispatch(Lottery.StateAction) -&gt; ()"
+                  moduleName = "Lottery.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lkmiotek/Desktop/private/Lottery/Lottery/App%20State/StateStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18">
+               </Location>
+               <Location
+                  uuid = "731CF18C-4364-4CF7-B04B-14E4D713E277 - 595f189ac916cda4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Lottery.StateStore.stateReducer(state: Lottery.AppState, action: Lottery.StateAction) -&gt; Lottery.AppState"
+                  moduleName = "Lottery.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lkmiotek/Desktop/private/Lottery/Lottery/App%20State/StateStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18">
+               </Location>
+               <Location
+                  uuid = "731CF18C-4364-4CF7-B04B-14E4D713E277 - 595f189ac916cda4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Lottery.StateStore.stateReducer(state: Lottery.AppState, action: Lottery.StateAction) -&gt; Lottery.AppState"
+                  moduleName = "Lottery.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lkmiotek/Desktop/private/Lottery/Lottery/App%20State/StateStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

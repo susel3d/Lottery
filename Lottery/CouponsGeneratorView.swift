@@ -8,22 +8,41 @@
 import Observation
 import SwiftUI
 
-struct CouponsGeneratorView<ResultType: DrawResult>: View {
+struct CouponsGeneratorView: View {
 
-    @Bindable var viewModel: CouponGeneratorViewModel<ResultType>
+    @Bindable var viewModel: CouponGeneratorViewModel
     @State private var showList = false
+    @State private var showOptions = false
 
     var body: some View {
         NavigationStack {
             Form {
                 settingsSection
-                actionButtonsSection
+                actionButtonsSection()
             }
             .navigationTitle("Coupon Generator")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                     Button(action: {
+                         showOptions = true
+                     }, label: {
+                         Image(systemName: "gear")
+                     })
+                 }
+            }
             .disabled(viewModel.isGenerating)
             .overlay(loadingOverlay)
             .navigationDestination(isPresented: $showList) {
                 CouponListView(viewModel: CouponListViewModel(coupons: viewModel.generatedCoupons))
+            }
+            .confirmationDialog("Choose an option", isPresented: $showOptions, titleVisibility: .visible) {
+                Button("Lotto") {
+                    viewModel.setDrawType(drawType: .lotto)
+                }
+                Button("Mini Lotto") {
+                    viewModel.setDrawType(drawType: .miniLotto)
+                }
+                Button("Cancel", role: .cancel) {}
             }
         }
     }
@@ -36,7 +55,7 @@ struct CouponsGeneratorView<ResultType: DrawResult>: View {
                     step: 5)
             Stepper("Coupon Distance: \(viewModel.couponMinDistance)",
                     value: $viewModel.couponMinDistance,
-                    in: 1...ResultType.validNumbersCount)
+                    in: 1...viewModel.maxCalidNumbersCount)
             Stepper("Coupons to Generate: \(viewModel.couponsCount)",
                     value: $viewModel.couponsCount,
                     in: 10...100,
@@ -44,15 +63,17 @@ struct CouponsGeneratorView<ResultType: DrawResult>: View {
         }
     }
 
-    private var actionButtonsSection: some View {
+    @ViewBuilder
+    private func actionButtonsSection() -> some View {
         Section {
-            generateButton
+            generateButton()
             clearCouponsButton
             showCouponsButton
         }
     }
 
-    private var generateButton: some View {
+    @ViewBuilder
+    private func generateButton() -> some View {
         Button("Generate Coupons") {
             viewModel.generateCoupons()
         }

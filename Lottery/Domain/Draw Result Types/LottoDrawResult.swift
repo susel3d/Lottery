@@ -9,13 +9,7 @@ import Foundation
 
 struct LottoDrawResult: DrawResult {
 
-    static let sourceFileName = "lotto.txt"
-    static let validNumbersCount = 6
-    static let validNumberMaxValue = 49
-
-    static func createResult(idx: Int, date: Date, numbers: [any Number]) -> LottoDrawResult {
-        LottoDrawResult(idx: idx, date: date, numbers: numbers)
-    }
+    static let type: DrawType = .lotto
 
     var idx: Int
     let date: Date

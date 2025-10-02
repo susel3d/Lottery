@@ -19,22 +19,66 @@ enum DataParsingError: Error {
     case wrongNumbersCount
 }
 
+enum DrawType {
+
+    case lotto
+    case miniLotto
+
+    var validNumbersCount: Int {
+        switch self {
+        case .lotto:
+            6
+        case .miniLotto:
+            5
+        }
+    }
+
+    var validNumberMaxValue: Int {
+        switch self {
+        case .lotto:
+            49
+        case .miniLotto:
+            42
+        }
+    }
+
+    var sourceFileName: String {
+        switch self {
+        case .lotto:
+            "lotto.txt"
+        case .miniLotto:
+            "miniLotto.txt"
+        }
+    }
+}
+
+extension DrawType {
+    func createResult(idx: Int, date: Date, numbers: [any Number]) -> DrawResult {
+        switch self {
+        case .lotto:
+            LottoDrawResult(idx: idx, date: date, numbers: numbers)
+        case .miniLotto:
+            MiniLottoDrawResult(idx: idx, date: date, numbers: numbers)
+        }
+    }
+
+    func emptyResult() -> any DrawResult {
+        var numbers: [DrawResultNumber] = []
+        for _ in 0...validNumbersCount-1 {
+            numbers.append(DrawResultNumber.empty())
+        }
+        return createResult(idx: 0, date: .now, numbers: numbers)
+    }
+}
+
+
 protocol DrawResult {
 
-    static var validNumbersCount: Int { get }
-    static var validNumberMaxValue: Int { get }
+    static var type: DrawType { get }
 
     var idx: Int { get set }
     var date: Date { get }
     var numbers: [any Number] { get set }
-
-    static var sourceFileName: String { get }
-
-    func containsNumber(_ number: Int) -> Bool
-    func numbersAsString() -> String
-
-    static func createResult(idx: Int, date: Date, numbers: [any Number]) -> Self
-    static func empty() -> any DrawResult
 }
 
 extension DrawResult {
@@ -47,28 +91,9 @@ extension DrawResult {
     }
 }
 
-extension DrawResult {
+enum DrawResultHelper {
 
-    static func numbersFromString(_ string: String) throws -> [any Number] {
-        let numbers = string.components(separatedBy: ",").compactMap {Int($0)}
-        if numbers.count != validNumbersCount {
-            throw ResultError.wrongNumbersCount
-        }
-        if numbers.first(where: {$0 > validNumberMaxValue || $0 < 1}) != nil {
-            throw ResultError.wrongNumbersRange
-        }
-        return numbers.map {DrawResultNumber(value: $0)}
-    }
-
-    static func empty() -> any DrawResult {
-        var numbers: [DrawResultNumber] = []
-        for _ in 0...validNumbersCount-1 {
-            numbers.append(DrawResultNumber.empty())
-        }
-        return createResult(idx: 0, date: .now, numbers: numbers)
-    }
-
-    static func resultsFrom(lines: [String]) throws -> [any DrawResult] {
+    static func resultsFrom(lines: [String], type: DrawType) throws -> [any DrawResult] {
 
         var results: [any DrawResult] = []
 
@@ -95,17 +120,28 @@ extension DrawResult {
             let numbersStringArray = components[.numbers].components(separatedBy: ",")
             let numbersIntArray = numbersStringArray.compactMap { Int($0) }
 
-            if numbersIntArray.count != validNumbersCount {
+            if numbersIntArray.count != type.validNumbersCount {
                 throw DataParsingError.wrongNumbersCount
             }
 
             let numbers = numbersIntArray.map { DrawResultNumber(value: $0) }
 
-            results.append(createResult(idx: id, date: date, numbers: numbers))
+            results.append(type.createResult(idx: id, date: date, numbers: numbers))
             // results.append(Result(idx: id, date: date, numbers: numbers))
         }
 
         return results
+    }
+
+    static func numbersFromString(_ string: String, type: DrawType) throws -> [any Number] {
+        let numbers = string.components(separatedBy: ",").compactMap {Int($0)}
+        if numbers.count != type.validNumbersCount {
+            throw ResultError.wrongNumbersCount
+        }
+        if numbers.first(where: {$0 > type.validNumberMaxValue || $0 < 1}) != nil {
+            throw ResultError.wrongNumbersRange
+        }
+        return numbers.map {DrawResultNumber(value: $0)}
     }
 }
 

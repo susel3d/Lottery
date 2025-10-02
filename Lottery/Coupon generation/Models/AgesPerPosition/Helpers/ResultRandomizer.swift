@@ -11,7 +11,7 @@ class ResultRandomizer<ResultType: DrawResult> {
 
     private init() {}
 
-    static func randomFor(_ data: AgesPerPositionResults<ResultType>) -> ResultType? {
+    static func randomFor(_ data: AgesPerPositionResults) -> ResultType? {
 
         let numbers = data.numbersAgedByLastResult
 
@@ -45,7 +45,7 @@ class ResultRandomizer<ResultType: DrawResult> {
             }
         }
 
-        let result = ResultType.createResult(idx: 0, date: .now, numbers: futureNumbers.sorted(by: <))
-        return result
+        let result = ResultType.type.createResult(idx: 0, date: .now, numbers: futureNumbers.sorted(by: <))
+        return result as! ResultType // swiftlint:disable:this force_cast
     }
 }

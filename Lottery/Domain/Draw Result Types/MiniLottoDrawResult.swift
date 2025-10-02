@@ -9,13 +9,7 @@ import Foundation
 
 struct MiniLottoDrawResult: DrawResult {
 
-    static let sourceFileName = "miniLotto.txt"
-    static let validNumbersCount = 5
-    static let validNumberMaxValue = 42
-
-    static func createResult(idx: Int, date: Date, numbers: [any Number]) -> MiniLottoDrawResult {
-        MiniLottoDrawResult(idx: idx, date: date, numbers: numbers)
-    }
+    static let type: DrawType = .miniLotto
 
     var idx: Int
     let date: Date

@@ -5,7 +5,7 @@
 //  Created by Łukasz Kmiotek on 24/08/2025.
 //
 
-struct BestFriendsModelResults<ResultType: DrawResult> {
+struct BestFriendsModelResults {
 
     let results: ResultsStatistic
 

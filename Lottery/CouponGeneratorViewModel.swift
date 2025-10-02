@@ -14,26 +14,40 @@ enum Progress {
 }
 
 @Observable
-class CouponGeneratorViewModel<ResultType: DrawResult> {
+class CouponGeneratorViewModel {
 
-    var progress: Progress = .progress(0)
     var timeout: TimeInterval = 30
     var couponMinDistance = 3
     var couponsCount = 10
+    var maxCalidNumbersCount = 0
+
+    var progress: Progress = .progress(0)
     var isGenerating = false
     var generatedCoupons: [GeneratedCoupon] = []
     var canGenerateCoupons = false
 
     private var cancellables = Set<AnyCancellable>()
 
-    private let couponController: CouponController<ResultType>
+    private let couponController: CouponController
 
-    init(couponController: CouponController<ResultType>) {
+    init(couponController: CouponController) {
+
         self.couponController = couponController
-        self.couponController.$commonDataReady.assign(to: \.canGenerateCoupons, on: self)
+
+        maxCalidNumbersCount = couponController.validNumbersCount
+
+        self.couponController.$commonDataReady
+            .receive(on: RunLoop.main)
+            // assign doesn't update View with Observable VM
+            .sink(receiveValue: { [weak self] dataReady in
+                self?.canGenerateCoupons = dataReady
+            })
             .store(in: &cancellables)
-        self.couponController.$generatedCoupons.assign(to: \.generatedCoupons, on: self)
+
+        self.couponController.$generatedCoupons
+            .assign(to: \.generatedCoupons, on: self)
             .store(in: &cancellables)
+
         self.couponController.$progress
             .sink(receiveValue: { [weak self] progress in
                 self?.progress = .progress(progress)
@@ -64,5 +78,9 @@ class CouponGeneratorViewModel<ResultType: DrawResult> {
         self.isGenerating = false
         self.progress = .progress(0)
         couponController.cancelGeneration()
+    }
+
+    func setDrawType(drawType: DrawType) {
+        dispatchAppAction(.changeDrawType(drawType))
     }
 }

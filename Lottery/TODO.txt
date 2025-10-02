@@ -5,9 +5,7 @@
 //  Created by Łukasz Kmiotek on 09/02/2025.
 //
 
-
-// generics...?
-
+// app mode for tune and coupon at same runtime, get rid of hardoced values from tuner like "rangeOfInterestLength: Int = 15"
 
 // fix tests, new Swift @Test, DI
 
@@ -15,15 +13,8 @@
 
 // CouponGenerator with AsyncStream
 
-// get rid of "commonResult.numbers.compactMap { $0 as? DrawResultNumber }", "result.numbers.compactMap { $0 as? AgedNumber }", "resultToCompare.numbers.compactMap { $0 as? AgedNumber }", "{ ($0 as? AgedNumber)?.age }"
-
-// uml types, activity diagrams
-
-// app mode for tune and coupon at same runtime, get rid of hardoced values from tuner like "rangeOfInterestLength: Int = 15"
-
 // BestFriendsModel tuner, roi, ...
 
 // custom swiftlint rules file also to have same code formatting
 
-// Extract package for private gitlab project, app with some mock can be public
-
+// UI tests

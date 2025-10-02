@@ -11,13 +11,15 @@ struct GeneratedCoupon: Hashable {
     let value: [Int]
 }
 
-class CouponGenerator<ResultType: DrawResult> {
+class CouponGenerator {
     private let set: [[Int]]
     private let exclusion: [Int]
+    private let validNumbersCount: Int
 
-    init(set: [[Int]], exclusion: [Int]) {
+    init(set: [[Int]], exclusion: [Int], validNumbersCount: Int) {
         self.set = set
         self.exclusion = exclusion
+        self.validNumbersCount = validNumbersCount
     }
 
     func generateCouponsPublisher() -> AnyPublisher<GeneratedCoupon, Never> {
@@ -38,7 +40,7 @@ class CouponGenerator<ResultType: DrawResult> {
     private func prepareCoupon() -> GeneratedCoupon {
         var coupon: [Int] = []
         var randomNumber: Int
-        for position in 0...ResultType.validNumbersCount - 1 {
+        for position in 0...validNumbersCount - 1 {
             repeat {
                 randomNumber = set[position].randomElement()!
             } while coupon.contains { $0 == randomNumber }

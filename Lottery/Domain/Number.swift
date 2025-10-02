@@ -28,12 +28,17 @@ struct DrawResultNumber: Number, Comparable {
     }
 }
 
-struct BestFriendNumber<ResultType: DrawResult>: Number {
+struct BestFriendNumber: Number {
     let value: Int
-    var friendliness: [Double] = Array(repeating: 0, count: ResultType.validNumberMaxValue)
+    var friendliness: [Double]
+
+    init(value: Int, friendMaxValue: Int) {
+        self.value = value
+        self.friendliness = Array(repeating: 0, count: friendMaxValue)
+    }
 
     static func empty() -> BestFriendNumber {
-        BestFriendNumber(value: 0)
+        BestFriendNumber(value: 0, friendMaxValue: 0)
     }
 
     mutating func addFriend(_ friendValue: Int, factor: Double) {

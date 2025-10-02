@@ -7,17 +7,23 @@
 
 import Combine
 
-class ExclusionModel<ResultType: DrawResult> {
+class ExclusionModel {
+
+    private var drawType: DrawType
 
     @Published var result: [Int]?
 
-    init(commonResults: [ResultType]) {
+    init(drawType: DrawType) {
+        self.drawType = drawType
+    }
+
+    func runFor(commonResults: [DrawResult]) {
         Task {
             result = self.modelResultsBasedOn(commonResults: commonResults)
         }
     }
 
-    private func modelResultsBasedOn(commonResults: [ResultType]) -> [Int] {
+    private func modelResultsBasedOn(commonResults: [DrawResult]) -> [Int] {
 
         var modelResult: [Int] = []
 
@@ -25,7 +31,7 @@ class ExclusionModel<ResultType: DrawResult> {
             return modelResult
         }
 
-        guard let results = try? AgingHelper<ResultType>.agedResultsBasedOn(commonResults) else {
+        guard let results = try? AgingHelper.agedResultsBasedOn(commonResults, drawType: drawType) else {
             return modelResult
         }
 
@@ -37,7 +43,7 @@ class ExclusionModel<ResultType: DrawResult> {
 
             let ages = concreteTypeResult.compactMap({ $0.age })
 
-            guard ages.count == ResultType.validNumbersCount, let min = ages.min() else {
+            guard ages.count == drawType.validNumbersCount, let min = ages.min() else {
                 continue
             }
 

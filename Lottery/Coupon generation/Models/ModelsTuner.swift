@@ -9,10 +9,11 @@ import Combine
 
 class ModelsTuner<ResultType: DrawResult> {
 
-    private let commonDataModel = DataModel<ResultType>()
+    private let commonDataModel: DrawDataModel
     private var subscriptions = Set<AnyCancellable>()
 
-    init() {
+    init(dataModel: DrawDataModel) {
+        commonDataModel = dataModel
         Task {
             bindForDataReadiness()
             commonDataModel.loadData()
@@ -23,7 +24,7 @@ class ModelsTuner<ResultType: DrawResult> {
         commonDataModel.pastResults
             .filter { !$0.isEmpty }
             .sink { [weak self] commonResults in
-                self?.tuneModels(commonResults)
+                self?.tuneModels(commonResults as! [ResultType]) // swiftlint:disable:this force_cast
             }
             .store(in: &subscriptions)
     }
@@ -34,7 +35,8 @@ class ModelsTuner<ResultType: DrawResult> {
 
     private func tuneAgesPerPosition(_ commonResults: [ResultType]) {
         if let (stdDevFactor, roiLength) = AgesPerPositionModelTuner.tuneStandardDeviationFor(
-            commonResults: commonResults
+            commonResults: commonResults,
+            drawType: commonDataModel.drawType
         ) {
             print("\(stdDevFactor), \(roiLength)")
         }

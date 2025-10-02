@@ -12,22 +12,27 @@ enum ResultDataError: Error {
     case wrongStatisticsComparatorData
 }
 
-struct AgesPerPositionResults<ResultType: DrawResult> {
+struct AgesPerPositionResults {
 
     var numbersAgedByLastResult: [AgedNumber] = []
     var numbersAgedByROIStartIdx: [AgedNumber] = []
-    var results: [ResultType] = []
+    var results: [DrawResult] = []
+    let validNumbersCount: Int
 
     init(numbersAgedByLastResult: [AgedNumber],
          numbersAgedByROIStartIdx: [AgedNumber] = [],
-         results: [ResultType],
-         rangeOfIntereset: ResultsRangeOfInterest? = nil) throws {
+         results: [DrawResult],
+         rangeOfIntereset: ResultsRangeOfInterest? = nil,
+         validNumbersCount: Int) throws {
         self.numbersAgedByLastResult = numbersAgedByLastResult
         self.numbersAgedByROIStartIdx = numbersAgedByROIStartIdx
         self.results = results
         self.rangeOfIntereset = rangeOfIntereset
-        self.positionStatistics = try StatisticsHandler<ResultType>.updateAgeStatistics(results: results,
-                                                                                  rangeOfIntereset: rangeOfIntereset)
+        self.validNumbersCount = validNumbersCount
+        self.positionStatistics = try StatisticsHandler.updateAgeStatistics(
+            results: results,
+            rangeOfIntereset: rangeOfIntereset,
+            validNumbersCount: validNumbersCount)
     }
 
     private(set) var rangeOfIntereset: ResultsRangeOfInterest?
@@ -63,7 +68,7 @@ struct AgesPerPositionResults<ResultType: DrawResult> {
             repeat {
                 coupon = []
                 var randomNumber: Int
-                for position in 0...ResultType.validNumbersCount - 1 {
+                for position in 0...validNumbersCount - 1 {
                     repeat {
                         randomNumber = numbersForAllIterations[position].randomElement()!
                     } while coupon.contains { $0 == randomNumber }
@@ -83,7 +88,7 @@ struct AgesPerPositionResults<ResultType: DrawResult> {
 
         var numbersForAllIterations: [[Int]] = []
 
-        for position in 0...ResultType.validNumbersCount - 1 {
+        for position in 0...validNumbersCount - 1 {
             let (_, numbersFullfilingStats) = getNumbersFullfiling(statistics: statistics,
                                                               for: position,
                                                               standardDevFactor: standardDevFactor)
