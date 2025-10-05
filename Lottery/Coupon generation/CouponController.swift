@@ -48,7 +48,9 @@ class CouponController {
 
     func generateCoupons(timeout: TimeInterval,
                          couponDistance: Int,
-                         couponsCount: Int) {
+                         couponsCount: Int,
+                         historyDeepth: Int,
+                         standardDevFactor: Double) {
 
         let commonResults = commonDataModel.pastResults.value
 
@@ -56,16 +58,20 @@ class CouponController {
             return
         }
 
+        generatedCoupons.removeAll()
         progress = 0
 
         let agesPerPositionModel = resolveDI(AgesPerPositionModel.self)
-        agesPerPositionModel.runFor(commonResults: commonResults)
+        agesPerPositionModel.runFor(
+            commonResults: commonResults,
+            rangeOfInterestLength: historyDeepth,
+            standardDevFactor: standardDevFactor)
 
         let exclusionModel = resolveDI(ExclusionModel.self)
         exclusionModel.runFor(commonResults: commonResults)
 
         let bestFriendsModel = resolveDI(BestFriendsModel.self)
-        bestFriendsModel.runFor(commonResults: commonResults)
+        bestFriendsModel.runFor(commonResults: commonResults, rangeOfInterestLength: historyDeepth)
 
         Publishers.CombineLatest3(agesPerPositionModel.$results, exclusionModel.$result, bestFriendsModel.$results)
             .setFailureType(to: ControllerError.self)

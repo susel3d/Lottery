@@ -20,12 +20,14 @@ class AgesPerPositionModel {
         self.drawType = drawType
     }
 
-    func runFor(commonResults: [DrawResult],
-                rangeOfInterestLength: Int = 20) {
+    func runFor(
+        commonResults: [DrawResult],
+        rangeOfInterestLength: Int,
+        standardDevFactor: Double) {
         self.roiLength = rangeOfInterestLength
         Task {
             self.innerResults = self.modelResultsBasedOn(commonResults: commonResults)
-            results = innerResults?.getNumbers()
+            results = innerResults?.getNumbers(standardDevFactor: standardDevFactor)
         }
     }
 
@@ -43,11 +45,9 @@ class AgesPerPositionModel {
         let roi = ResultsRangeOfInterest(startingIdx: startingIdx, length: roiLength)
 
         let numbersAgedByLastResult = AgingHelper.agedNumbersBasedOn(results, drawType: drawType)
-        let numbersAgedByROIStartIdx = AgingHelper.agedNumbersBasedOn(results, roi: roi, drawType: drawType)
 
         return try? AgesPerPositionResults(
             numbersAgedByLastResult: numbersAgedByLastResult,
-            numbersAgedByROIStartIdx: numbersAgedByROIStartIdx,
             results: results,
             rangeOfIntereset: roi,
             validNumbersCount: drawType.validNumbersCount

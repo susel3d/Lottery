@@ -24,6 +24,15 @@ enum DrawType {
     case lotto
     case miniLotto
 
+    var stringKey: String {
+        switch self {
+        case .lotto:
+            "lotto"
+        case .miniLotto:
+            "miniLotto"
+        }
+    }
+
     var validNumbersCount: Int {
         switch self {
         case .lotto:
@@ -43,12 +52,7 @@ enum DrawType {
     }
 
     var sourceFileName: String {
-        switch self {
-        case .lotto:
-            "lotto.txt"
-        case .miniLotto:
-            "miniLotto.txt"
-        }
+        "\(stringKey).txt"
     }
 }
 

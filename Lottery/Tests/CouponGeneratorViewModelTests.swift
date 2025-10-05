@@ -54,7 +54,7 @@ struct CouponGeneratorViewModelTests {
     @Test
     func testInitialState() {
         let controller = MockCouponController<LottoDrawResult>()
-        let viewModel = CouponGeneratorViewModel(couponController: controller)
+        let viewModel = CouponsGeneratorViewModel(couponController: controller)
 
         #expect(viewModel.progress == 0)
         #expect(viewModel.generatedCoupons.isEmpty)
@@ -65,7 +65,7 @@ struct CouponGeneratorViewModelTests {
     @Test
     func testGenerateCouponsCallsControllerAndSetsFlag() {
         let controller = MockCouponController<LottoDrawResult>()
-        let viewModel = CouponGeneratorViewModel(couponController: controller)
+        let viewModel = CouponsGeneratorViewModel(couponController: controller)
 
         viewModel.generateCoupons()
 
@@ -76,7 +76,7 @@ struct CouponGeneratorViewModelTests {
     @Test
     func testCancelGenerationResetsState() {
         let controller = MockCouponController<LottoDrawResult>()
-        let viewModel = CouponGeneratorViewModel(couponController: controller)
+        let viewModel = CouponsGeneratorViewModel(couponController: controller)
 
         viewModel.isGenerating = true
         viewModel.progress = 0.8
@@ -91,7 +91,7 @@ struct CouponGeneratorViewModelTests {
     @Test
     func testClearCouponsEmptiesGeneratedCoupons() {
         let controller = MockCouponController<LottoDrawResult>()
-        let viewModel = CouponGeneratorViewModel(couponController: controller)
+        let viewModel = CouponsGeneratorViewModel(couponController: controller)
 
         viewModel.generatedCoupons = [coupon1, coupon2]
         viewModel.clearCoupons()
@@ -102,7 +102,7 @@ struct CouponGeneratorViewModelTests {
     @Test
     func testBindingCommonDataReadyAndProgress() async throws {
         let controller = MockCouponController<LottoDrawResult>()
-        let viewModel = CouponGeneratorViewModel(couponController: controller)
+        let viewModel = CouponsGeneratorViewModel(couponController: controller)
 
         controller.mockCommonDataReady = true
         controller.mockProgress = 0.5
@@ -116,7 +116,7 @@ struct CouponGeneratorViewModelTests {
     @Test
     func testGeneratedCouponsResetProgressAndGenerationFlag() async throws {
         let controller = MockCouponController<LottoDrawResult>()
-        let viewModel = CouponGeneratorViewModel(couponController: controller)
+        let viewModel = CouponsGeneratorViewModel(couponController: controller)
 
         viewModel.isGenerating = true
         viewModel.progress = 0.6

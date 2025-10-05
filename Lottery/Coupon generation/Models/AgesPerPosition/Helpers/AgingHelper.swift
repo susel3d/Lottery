@@ -14,19 +14,12 @@ enum AgingHelperError: Error {
 enum AgingHelper {
 
     static func agedNumbersBasedOn(_ results: [DrawResult],
-                                   roi: ResultsRangeOfInterest? = nil,
                                    drawType: DrawType) -> [AgedNumber] {
 
         var agedNumbers = Array(1...drawType.validNumberMaxValue).map { AgedNumber(value: $0, age: nil) }
         var agesSetCounter = 0
 
-        var resultsOfInterest: [DrawResult]
-        if let roi {
-//            resultsOfInterest = Array(results[roi.startingIdx...roi.endIdx].reversed())
-            resultsOfInterest = Array(results[roi.startingIdx...].reversed())
-        } else {
-            resultsOfInterest = results.reversed()
-        }
+        var resultsOfInterest: [DrawResult] = results.reversed()
 
         for (ageAsIdx, result) in resultsOfInterest.enumerated() {
 

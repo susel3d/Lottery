@@ -7,15 +7,21 @@
 
 import Foundation
 
-struct StatisticsComparatorData<ResultType: DrawResult>: CustomDebugStringConvertible {
+struct StatisticsComparatorData: CustomDebugStringConvertible {
 
     let hits: Int
     let combinations: Int
     let standardDevFactor: Double
     let statisticsROI: ResultsRangeOfInterest
 
-    init(hits: Int, combinations: Int, standardDevFactor: Double, statisticsROI: ResultsRangeOfInterest) throws {
-        guard hits <= ResultType.type.validNumbersCount else {
+    init(
+        hits: Int,
+        combinations: Int,
+        standardDevFactor: Double,
+        statisticsROI: ResultsRangeOfInterest,
+        validNumbersCount: Int
+    ) throws {
+        guard hits <= validNumbersCount else {
             throw ResultDataError.wrongStatisticsComparatorData
         }
         self.hits = hits

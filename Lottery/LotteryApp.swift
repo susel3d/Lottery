@@ -10,19 +10,12 @@ import SwiftUI
 @main
 struct LotteryApp: App {
 
+    let diContainer = DependencyInjection()
     let stateStore = StateStore()
-    let diContainer: DependencyInjection
-
-    // let modelsTuner = ModelsTuner<LottoDrawResult>()
-
-    init() {
-        diContainer = DependencyInjection()
-    }
 
     var body: some Scene {
         WindowGroup {
-            @State var viewModel = resolveDI(CouponGeneratorViewModel.self)
-            CouponsGeneratorView(viewModel: viewModel)
+            MainView()
         }
     }
 }

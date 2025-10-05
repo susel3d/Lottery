@@ -5,16 +5,12 @@
 //  Created by Łukasz Kmiotek on 09/02/2025.
 //
 
-// app mode for tune and coupon at same runtime, get rid of hardoced values from tuner like "rangeOfInterestLength: Int = 15"
-
-// fix tests, new Swift @Test, DI
-
-// days when new results occur, exception if common data without the newest one...
-
 // CouponGenerator with AsyncStream
+
+// fix tests, new Swift @Test, DI, Combine framework to tests?
+
+// UI tests
 
 // BestFriendsModel tuner, roi, ...
 
-// custom swiftlint rules file also to have same code formatting
-
-// UI tests
+// days when new results occur, exception if common data without the newest one...

@@ -15,17 +15,14 @@ enum ResultDataError: Error {
 struct AgesPerPositionResults {
 
     var numbersAgedByLastResult: [AgedNumber] = []
-    var numbersAgedByROIStartIdx: [AgedNumber] = []
     var results: [DrawResult] = []
     let validNumbersCount: Int
 
     init(numbersAgedByLastResult: [AgedNumber],
-         numbersAgedByROIStartIdx: [AgedNumber] = [],
          results: [DrawResult],
          rangeOfIntereset: ResultsRangeOfInterest? = nil,
          validNumbersCount: Int) throws {
         self.numbersAgedByLastResult = numbersAgedByLastResult
-        self.numbersAgedByROIStartIdx = numbersAgedByROIStartIdx
         self.results = results
         self.rangeOfIntereset = rangeOfIntereset
         self.validNumbersCount = validNumbersCount
@@ -51,7 +48,7 @@ struct AgesPerPositionResults {
         let top = Int(round(average + deviation))
         let bottom = Int(round(max(0, average - deviation)))
 
-        let limitedNumberIteration = numbersAgedByROIStartIdx.filter {
+        let limitedNumberIteration = numbersAgedByLastResult.filter {
             guard let age = $0.age else {
                 return false
             }
@@ -60,7 +57,7 @@ struct AgesPerPositionResults {
         return (range: (top, bottom), numbers: limitedNumberIteration)
     }
 
-    func prepareCoupon(couponsCount: Int = 10, stdDev: Double = 0.7) {
+    func prepareCoupon(couponsCount: Int, stdDev: Double) {
         let numbersForAllIterations = getNumbers(standardDevFactor: stdDev)
         var coupons: [[Int]] = []
         for _ in 0...couponsCount - 1 {
@@ -81,7 +78,7 @@ struct AgesPerPositionResults {
         }
     }
 
-    func getNumbers(standardDevFactor: Double = 0.7) -> [[Int]] {
+    func getNumbers(standardDevFactor: Double) -> [[Int]] {
         guard let statistics = positionStatistics else {
             return []
         }

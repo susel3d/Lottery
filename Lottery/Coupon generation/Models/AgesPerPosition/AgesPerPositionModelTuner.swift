@@ -9,7 +9,7 @@ import Foundation
 
 private let standardDevFactorsToCheck = [0.5, 0.6, 0.7, 0.8]
 
-enum AgesPerPositionModelTuner<ResultType: DrawResult> {
+enum AgesPerPositionModelTuner {
 
     struct ROIBoundary {
         let startIdxMin = 1
@@ -20,7 +20,7 @@ enum AgesPerPositionModelTuner<ResultType: DrawResult> {
     }
 
     static func tuneStandardDeviationFor(
-        commonResults: [ResultType],
+        commonResults: [DrawResult],
         roi: ROIBoundary = ROIBoundary(),
         drawType: DrawType
     ) -> (stdDev: Double, roiLength: Int)? {
@@ -31,7 +31,7 @@ enum AgesPerPositionModelTuner<ResultType: DrawResult> {
         }
 
         var roiLengths: Set<Int> = []
-        var allStatistics: [StatisticsComparatorData<ResultType>] = []
+        var allStatistics: [StatisticsComparatorData] = []
         let agedNumbers = AgingHelper.agedNumbersBasedOn(commonResults, drawType: drawType)
 
         for roiLength in stride(from: roi.lengthMin, through: roi.lengthMax, by: roi.step) {
@@ -50,7 +50,10 @@ enum AgesPerPositionModelTuner<ResultType: DrawResult> {
                     validNumbersCount: drawType.validNumbersCount)
 
                 if let tempData,
-                    let statistic = try? checkResultComplianceWithStats(results: tempData, roi: statisticsROI) {
+                    let statistic = try? checkResultComplianceWithStats(
+                        results: tempData,
+                        roi: statisticsROI,
+                        validNumbersCount: drawType.validNumbersCount) {
                     allStatistics += statistic
                 }
             }
@@ -72,8 +75,11 @@ enum AgesPerPositionModelTuner<ResultType: DrawResult> {
         return (stdDev: standardDevFactorsToCheck[index], roiLength: bestRoiLength.length)
     }
 
-    static func checkResultComplianceWithStats(results: AgesPerPositionResults,
-                                               roi: ResultsRangeOfInterest) throws -> [StatisticsComparatorData<ResultType>] {
+    static func checkResultComplianceWithStats(
+        results: AgesPerPositionResults,
+        roi: ResultsRangeOfInterest,
+        validNumbersCount: Int
+    ) throws -> [StatisticsComparatorData] {
 
         guard let roiStatistics = results.positionStatistics,
               let roiFirstIndex = results.rangeOfIntereset?.startingIdx else {
@@ -92,9 +98,9 @@ enum AgesPerPositionModelTuner<ResultType: DrawResult> {
 
         let resultToComparePositionsAges = concreteResultNumbers.compactMap({$0.age}).sorted(by: <)
 
-        var statisticsComparators: [StatisticsComparatorData<ResultType>] = []
+        var statisticsComparators: [StatisticsComparatorData] = []
 
-        var hitsLevels = Array(ResultType.type.validNumbersCount-2...ResultType.type.validNumbersCount)
+        var hitsLevels = Array(validNumbersCount-2...validNumbersCount)
         let (hitsLevelMin, hitsLevelMax) = (hitsLevels.min()!, hitsLevels.max()!)
 
         for standardDevFactor in standardDevFactorsToCheck {
@@ -115,11 +121,13 @@ enum AgesPerPositionModelTuner<ResultType: DrawResult> {
                 continue
             }
 
-            let statisticsComparator = try StatisticsComparatorData<ResultType>(
+            let statisticsComparator = try StatisticsComparatorData(
                 hits: consitency,
                 combinations: 0,
                 standardDevFactor: standardDevFactor,
-                statisticsROI: roi)
+                statisticsROI: roi,
+                validNumbersCount: validNumbersCount
+            )
 
             statisticsComparators.append(statisticsComparator)
 

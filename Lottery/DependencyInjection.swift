@@ -19,7 +19,7 @@ class DependencyInjection {
 
     static let container = Container()
 
-    var container: Container {
+    private var container: Container {
         DependencyInjection.container
     }
 
@@ -33,9 +33,10 @@ class DependencyInjection {
             return CouponController(dataModel: dataModel)
         }.inObjectScope(.drawType)
 
-        container.register(CouponGeneratorViewModel.self) { resolver in
+        // TODO: should be here?
+        container.register(CouponsGeneratorViewModel.self) { resolver in
             let couponController = resolver.resolve(CouponController.self)!
-            return CouponGeneratorViewModel(couponController: couponController)
+            return CouponsGeneratorViewModel(couponController: couponController)
         }.inObjectScope(.drawType)
 
         container.register(AgesPerPositionModel.self) { _ in
@@ -48,6 +49,11 @@ class DependencyInjection {
 
         container.register(BestFriendsModel.self) { _ in
             return BestFriendsModel(drawType: StateStore.state.drawType)
+        }.inObjectScope(.drawType)
+
+        container.register(ModelsTuner.self) { resolver in
+            let model = resolver.resolve(DrawDataModel.self)!
+            return ModelsTuner(dataModel: model)
         }.inObjectScope(.drawType)
     }
 }

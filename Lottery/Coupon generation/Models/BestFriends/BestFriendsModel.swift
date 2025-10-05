@@ -22,7 +22,7 @@ class BestFriendsModel {
     }
 
     func runFor(commonResults: [DrawResult],
-                rangeOfInterestLength: Int = 20) {
+                rangeOfInterestLength: Int) {
         self.roiLength = rangeOfInterestLength
         Task {
             self.innerResults = self.modelResultsBasedOn(commonResults: commonResults)
