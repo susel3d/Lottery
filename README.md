@@ -1,5 +1,11 @@
 # Lottery
 
+Project to explore topic of **MVVM** usage in **SwiftUI** with models united output based on **Combine**'s Publishers. The **Redux** pattern seems overblown for now but will be handy when project grows. 
+
+**TODO**: Where is the limit of testability? 
+
+![diagram](https://github.com/user-attachments/assets/e10e9dfe-78b6-4a00-a0a2-25fedd67a02a)
+
 Application uses many models to count their's statiscs based on results history which are used to generate next proposed results. Lottery supports few bet system.
 
 Knowing the probability theory.. it does not guarantee winning;)
