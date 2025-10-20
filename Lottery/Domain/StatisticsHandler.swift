@@ -14,12 +14,12 @@ struct ResultsStatistic {
 
 class StatisticsHandler {
 
-    static func updateAgeStatistics(results: [DrawResult],
-                             rangeOfIntereset: ResultsRangeOfInterest?,
-                                    validNumbersCount: Int) throws -> ResultsStatistic? {
+    class func updateAgeStatistics(results: [DrawResult],
+                                   rangeOfIntereset: ResultsRangeOfInterest,
+                                   validNumbersCount: Int) throws -> ResultsStatistic? {
 
-        guard let rangeOfIntereset else {
-            return nil
+        guard !results.isEmpty else {
+            throw ResultDataError.emptyResults
         }
 
         guard rangeOfIntereset.length > 0 && rangeOfIntereset.isScopeValidFor(results) else {

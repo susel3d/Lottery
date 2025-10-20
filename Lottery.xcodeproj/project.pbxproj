@@ -18,9 +18,7 @@
 		CDB4B72C2BA44C6B00DFEE32 /* DrawResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4B72B2BA44C6B00DFEE32 /* DrawResult.swift */; };
 		CDF7700B2BB0D8D6003313FD /* AgesPerPositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF7700A2BB0D8D6003313FD /* AgesPerPositionModel.swift */; };
 		D37B900A2BE7DED50056D22C /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37B90092BE7DED50056D22C /* DataModelTests.swift */; };
-		D3A643A42BD65B4100C8AF8F /* LottoResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A643A32BD65B4100C8AF8F /* LottoResultTests.swift */; };
-		D3B563B62BF21AB70057D3BC /* ResultRandomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B563B52BF21AB70057D3BC /* ResultRandomizer.swift */; };
-		D3B563B82BF222230057D3BC /* ResultRandomizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B563B72BF222230057D3BC /* ResultRandomizerTests.swift */; };
+		D3A643A42BD65B4100C8AF8F /* DrawResultHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A643A32BD65B4100C8AF8F /* DrawResultHelperTests.swift */; };
 		E95241702E13257400EE7B1B /* ModelsTuner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E952416F2E13256D00EE7B1B /* ModelsTuner.swift */; };
 		E968CE582D61495300FAB2B6 /* AgesPerPositionModelTuner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E968CE572D61495300FAB2B6 /* AgesPerPositionModelTuner.swift */; };
 		E989F25D2D23EF2B00AC7068 /* AgingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989F25C2D23EF2B00AC7068 /* AgingHelper.swift */; };
@@ -82,9 +80,7 @@
 		CDB4B72B2BA44C6B00DFEE32 /* DrawResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawResult.swift; sourceTree = "<group>"; };
 		CDF7700A2BB0D8D6003313FD /* AgesPerPositionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgesPerPositionModel.swift; sourceTree = "<group>"; };
 		D37B90092BE7DED50056D22C /* DataModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
-		D3A643A32BD65B4100C8AF8F /* LottoResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LottoResultTests.swift; sourceTree = "<group>"; };
-		D3B563B52BF21AB70057D3BC /* ResultRandomizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultRandomizer.swift; sourceTree = "<group>"; };
-		D3B563B72BF222230057D3BC /* ResultRandomizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultRandomizerTests.swift; sourceTree = "<group>"; };
+		D3A643A32BD65B4100C8AF8F /* DrawResultHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawResultHelperTests.swift; sourceTree = "<group>"; };
 		E952416F2E13256D00EE7B1B /* ModelsTuner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTuner.swift; sourceTree = "<group>"; };
 		E968CE572D61495300FAB2B6 /* AgesPerPositionModelTuner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgesPerPositionModelTuner.swift; sourceTree = "<group>"; };
 		E989F25C2D23EF2B00AC7068 /* AgingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgingHelper.swift; sourceTree = "<group>"; };
@@ -167,7 +163,6 @@
 				E9B25FB92E8E7AF600213CDA /* DependencyInjection.swift */,
 				E9B25FB82E8E797800213CDA /* App State */,
 				CDB4B72D2BA44E6600DFEE32 /* Views */,
-				CDF770092BB0D8A1003313FD /* Coupon generation */,
 				CDB4B7282BA44C3500DFEE32 /* Domain */,
 				CD7C565F2B9F03260040ED3C /* Assets.xcassets */,
 				CD7C56642B9F03260040ED3C /* Persistence.swift */,
@@ -189,11 +184,12 @@
 		CDB4B7282BA44C3500DFEE32 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				CDF770092BB0D8A1003313FD /* Coupon generation */,
+				E989F25E2D240A3800AC7068 /* Draw Result Types */,
 				CDB4B7292BA44C5D00DFEE32 /* Number.swift */,
 				E9CD52F32D5938E80031D5FB /* StatisticsHandler.swift */,
 				E9BC05EE2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift */,
 				E9BC05F02CFCCCD0008537D3 /* StatisticsComparatorData.swift */,
-				E989F25E2D240A3800AC7068 /* Draw Result Types */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -222,11 +218,10 @@
 			isa = PBXGroup;
 			children = (
 				E9BDA84B2D6239CD009D2A7F /* Helpers */,
-				D3A643A32BD65B4100C8AF8F /* LottoResultTests.swift */,
+				D3A643A32BD65B4100C8AF8F /* DrawResultHelperTests.swift */,
 				E9E598322CB8704D00DFAD8C /* ResultsStatisticTests.swift */,
 				E9BDA8492D62392F009D2A7F /* ResultsTests.swift */,
 				E9BDA8472D621D29009D2A7F /* AgingHelperTests.swift */,
-				D3B563B72BF222230057D3BC /* ResultRandomizerTests.swift */,
 				E9AF78BC2E69CAD9007A7BA4 /* CouponListViewModelTests.swift */,
 				E9AF78BA2E69C48B007A7BA4 /* CouponGeneratorViewModelTests.swift */,
 				D37B90092BE7DED50056D22C /* DataModelTests.swift */,
@@ -237,7 +232,6 @@
 		D3B563B42BF21A8D0057D3BC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				D3B563B52BF21AB70057D3BC /* ResultRandomizer.swift */,
 				E989F25C2D23EF2B00AC7068 /* AgingHelper.swift */,
 			);
 			path = Helpers;
@@ -483,7 +477,6 @@
 				E9C86FE22D5BD17F00D7B2B1 /* ExclusionModel.swift in Sources */,
 				E9B25FBA2E8E7B1500213CDA /* DependencyInjection.swift in Sources */,
 				E9CD52F62D593FCC0031D5FB /* CouponController.swift in Sources */,
-				D3B563B62BF21AB70057D3BC /* ResultRandomizer.swift in Sources */,
 				E9BC05F12CFCCCD0008537D3 /* StatisticsComparatorData.swift in Sources */,
 				E9CD52F42D5938F00031D5FB /* StatisticsHandler.swift in Sources */,
 				E9B1B79B2E6834CD00F28544 /* CouponsGeneratorProgresView.swift in Sources */,
@@ -507,10 +500,9 @@
 			files = (
 				E9BDA84A2D62392F009D2A7F /* ResultsTests.swift in Sources */,
 				E9E598332CB8704D00DFAD8C /* ResultsStatisticTests.swift in Sources */,
-				D3B563B82BF222230057D3BC /* ResultRandomizerTests.swift in Sources */,
 				E9AF78BD2E69CAD9007A7BA4 /* CouponListViewModelTests.swift in Sources */,
 				E9BDA84D2D6239E2009D2A7F /* MockDrawResult.swift in Sources */,
-				D3A643A42BD65B4100C8AF8F /* LottoResultTests.swift in Sources */,
+				D3A643A42BD65B4100C8AF8F /* DrawResultHelperTests.swift in Sources */,
 				E9BDA8482D621D29009D2A7F /* AgingHelperTests.swift in Sources */,
 				D37B900A2BE7DED50056D22C /* DataModelTests.swift in Sources */,
 				E9AF78BB2E69C48B007A7BA4 /* CouponGeneratorViewModelTests.swift in Sources */,

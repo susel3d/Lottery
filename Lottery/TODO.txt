@@ -5,12 +5,6 @@
 //  Created by Łukasz Kmiotek on 09/02/2025.
 //
 
-// CouponGenerator with AsyncStream
-
-// fix tests, new Swift @Test, DI, Combine framework to tests?
-
-// UI tests
-
 // BestFriendsModel tuner, roi, ...
 
-// days when new results occur, exception if common data without the newest one...
+// add, delete, modify entries in DB

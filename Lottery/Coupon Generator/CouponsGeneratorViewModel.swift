@@ -11,6 +11,15 @@ import Foundation
 enum Progress {
     case progress(Double)
     case timeout
+
+    var value: Double? {
+        switch self {
+        case let .progress(value):
+            return value
+        case .timeout:
+            return nil
+        }
+    }
 }
 
 @Observable

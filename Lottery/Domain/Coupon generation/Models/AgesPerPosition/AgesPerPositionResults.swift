@@ -8,6 +8,7 @@
 import Foundation
 
 enum ResultDataError: Error {
+    case emptyResults
     case wrongRangeOfInterestScope
     case wrongStatisticsComparatorData
 }
@@ -20,7 +21,7 @@ struct AgesPerPositionResults {
 
     init(numbersAgedByLastResult: [AgedNumber],
          results: [DrawResult],
-         rangeOfIntereset: ResultsRangeOfInterest? = nil,
+         rangeOfIntereset: ResultsRangeOfInterest,
          validNumbersCount: Int) throws {
         self.numbersAgedByLastResult = numbersAgedByLastResult
         self.results = results

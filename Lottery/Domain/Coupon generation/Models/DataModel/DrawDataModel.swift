@@ -20,17 +20,12 @@ class DrawDataModel {
     var pastResults = CurrentValueSubject<[DrawResult], Never>([])
     var savedCoupons = CurrentValueSubject<[DrawResult], Never>([])
 
-    private let persistenceController = PersistenceController.shared
-    private let context = PersistenceController.shared.container.viewContext
+    private let context = PersistenceController.shared.container.newBackgroundContext()
     private var subscriptions = Set<AnyCancellable>()
 
     init(drawType: DrawType) {
         context.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.overwriteMergePolicyType)
         self.drawType = drawType
-    }
-
-    deinit {
-        print()
     }
 
     func loadData() {

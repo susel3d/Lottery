@@ -66,6 +66,15 @@ extension DrawType {
         }
     }
 
+    func createResult(idx: Int, date: Date, numbers: [AgedNumber]) -> DrawResult {
+        switch self {
+        case .lotto:
+            LottoDrawResult(idx: idx, date: date, numbers: numbers)
+        case .miniLotto:
+            MiniLottoDrawResult(idx: idx, date: date, numbers: numbers)
+        }
+    }
+
     func emptyResult() -> any DrawResult {
         var numbers: [DrawResultNumber] = []
         for _ in 0...validNumbersCount-1 {
@@ -74,7 +83,6 @@ extension DrawType {
         return createResult(idx: 0, date: .now, numbers: numbers)
     }
 }
-
 
 protocol DrawResult {
 

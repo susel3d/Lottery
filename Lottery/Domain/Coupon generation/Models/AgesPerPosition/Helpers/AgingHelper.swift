@@ -19,7 +19,7 @@ enum AgingHelper {
         var agedNumbers = Array(1...drawType.validNumberMaxValue).map { AgedNumber(value: $0, age: nil) }
         var agesSetCounter = 0
 
-        var resultsOfInterest: [DrawResult] = results.reversed()
+        let resultsOfInterest: [DrawResult] = results.reversed()
 
         for (ageAsIdx, result) in resultsOfInterest.enumerated() {
 
@@ -88,7 +88,7 @@ enum AgingHelper {
                 AgedNumber(value: element.value, age: element.age)
             }
 
-            agedResults.append(drawType.createResult(idx: pastResult.idx, date: pastResult.date, numbers: newNumbers)) // swiftlint:disable:this force_cast
+            agedResults.append(drawType.createResult(idx: pastResult.idx, date: pastResult.date, numbers: newNumbers))
         }
         return agedResults
     }

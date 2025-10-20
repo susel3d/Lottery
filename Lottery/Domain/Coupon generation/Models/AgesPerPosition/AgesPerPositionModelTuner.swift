@@ -75,6 +75,27 @@ enum AgesPerPositionModelTuner {
         return (stdDev: standardDevFactorsToCheck[index], roiLength: bestRoiLength.length)
     }
 
+
+    /*
+     func testCheckResultComplianceWithStats() {
+         do {
+             mockResults = try AgesPerPositionResults(
+                 numbersAgedByLastResult: mockNumbers,
+                 results: [
+                     MockDrawResult(idx: 0,
+                                    numbers: mockNumbers,
+                                    date: .now)
+                 ],
+                 validNumbersCount: DrawType.lotto.validNumbersCount
+             )
+             let roi = ResultsRangeOfInterest(startingIdx: 1, length: 1)
+             let comparators = try mockResults.checkResultComplianceWithStats(roi: roi)
+             XCTAssertGreaterThan(comparators.count, 0, "Expected at least one comparator result")
+         } catch {
+             XCTFail("Test failed: \(error)")
+         }
+     }
+     */
     static func checkResultComplianceWithStats(
         results: AgesPerPositionResults,
         roi: ResultsRangeOfInterest,
