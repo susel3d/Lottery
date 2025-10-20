@@ -63,7 +63,7 @@ enum AgingHelper {
                     let pastResultsSubArray = results[0...pastResultsEndIdx]
 
                     if let foundIdx = pastResultsSubArray.lastIndex(where: {$0.containsNumber(number.value)}) {
-                        let numberWithAge = AgedNumber(value: number.value, age: pastResultIdx - foundIdx)
+                        let numberWithAge = AgedNumber(value: number.value, age: pastResultIdx - foundIdx - 1)
                         newNumbers.append(numberWithAge)
                     } else {
                         let numberWithoutAge = AgedNumber(value: number.value)

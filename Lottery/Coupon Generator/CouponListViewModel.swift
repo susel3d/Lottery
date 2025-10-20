@@ -22,6 +22,10 @@ class CouponListViewModel {
     func speak(coupon: GeneratedCoupon) {
         speechManager.speak(coupon.toString())
     }
+
+    func stopSpeak() {
+        speechManager.stop()
+    }
 }
 
 extension GeneratedCoupon {
@@ -34,6 +38,7 @@ extension GeneratedCoupon {
 
 protocol SpeechManagerProtocol {
     func speak(_ text: String)
+    func stop()
 }
 
 private class SpeechManager: SpeechManagerProtocol {
@@ -48,6 +53,10 @@ private class SpeechManager: SpeechManagerProtocol {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         synthesizer.speak(utterance)
+    }
+
+    func stop() {
+        synthesizer.stopSpeaking(at: .immediate)
     }
 }
 

@@ -48,6 +48,9 @@ struct CouponListView: View {
             }
             .padding()
         }
+        .onDisappear {
+            viewModel.stopSpeak()
+        }
     }
 
     @ViewBuilder

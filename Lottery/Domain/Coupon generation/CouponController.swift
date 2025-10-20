@@ -73,13 +73,13 @@ class CouponController {
         let bestFriendsModel = resolveDI(BestFriendsModel.self)
         bestFriendsModel.runFor(commonResults: commonResults, rangeOfInterestLength: historyDeepth)
 
-        Publishers.CombineLatest3(agesPerPositionModel.$results, exclusionModel.$result, bestFriendsModel.$results)
+        Publishers.CombineLatest(agesPerPositionModel.$results, exclusionModel.$result)
             .setFailureType(to: ControllerError.self)
             .timeout(.seconds(timeout), scheduler: RunLoop.main, customError: {
                 ControllerError.timeout
             })
             .compactMap(unwrapResults)
-            .flatMap { result1, result2, _ in
+            .flatMap { result1, result2 in
                 let generator = CouponGenerator(
                     set: result1,
                     exclusion: result2,
@@ -154,11 +154,11 @@ class CouponController {
 
 // MARK: - Helpers
 
-func unwrapResults<T, U, O>(value1: T?, value2: U?, value3: O?) -> (T, U, O)? {
-    guard let value1, let value2, let value3 else {
+func unwrapResults<T, U>(value1: T?, value2: U?) -> (T, U)? {
+    guard let value1, let value2 else {
         return nil
     }
-    return (value1, value2, value3)
+    return (value1, value2)
 }
 
 extension Publisher where Output == GeneratedCoupon {

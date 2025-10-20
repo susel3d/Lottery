@@ -65,7 +65,7 @@ class BestFriendsModel {
                                                numbers: result.map {
             BestFriendNumber(value: $0, friendMaxValue: drawType.validNumberMaxValue)
         })
-        let friendliness = deriveResultFriendliness(tempResult) // swiftlint:disable:this force_cast
+        let friendliness = deriveResultFriendliness(tempResult)
 
         let inScope = average - standardDeviation < friendliness && friendliness < average + standardDeviation
 

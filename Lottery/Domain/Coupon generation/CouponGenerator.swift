@@ -13,12 +13,14 @@ struct GeneratedCoupon: Hashable {
 
 class CouponGenerator {
     private let set: [[Int]]
-    private let exclusion: [Int]
     private let validNumbersCount: Int
 
     init(set: [[Int]], exclusion: [Int], validNumbersCount: Int) {
-        self.set = set
-        self.exclusion = exclusion
+        self.set = set.map {
+            $0.filter { number in
+                !exclusion.contains(number)
+            }
+        }
         self.validNumbersCount = validNumbersCount
     }
 
@@ -29,7 +31,9 @@ class CouponGenerator {
             while true {
                 try? await Task.sleep(for: .seconds(0.05))
                 Task {
-                    subject.send(prepareCoupon())
+                    if let coupon = prepareCoupon() {
+                        subject.send(coupon)
+                    }
                 }
             }
             subject.send(completion: .finished)
@@ -37,10 +41,13 @@ class CouponGenerator {
         return subject.eraseToAnyPublisher()
     }
 
-    private func prepareCoupon() -> GeneratedCoupon {
+    private func prepareCoupon() -> GeneratedCoupon? {
         var coupon: [Int] = []
         var randomNumber: Int
         for position in 0...validNumbersCount - 1 {
+            if set[position].isEmpty {
+                return nil
+            }
             repeat {
                 randomNumber = set[position].randomElement()!
             } while coupon.contains { $0 == randomNumber }

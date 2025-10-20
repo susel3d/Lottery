@@ -5,6 +5,7 @@
 //  Created by Łukasz Kmiotek on 09/02/2025.
 //
 
-// BestFriendsModel tuner, roi, ...
+// Exclusion model UI - now last draft numbers are omitted
 
-// add, delete, modify entries in DB
+// App mode: add, delete, modify entries in DB
+// load file, check where newest
