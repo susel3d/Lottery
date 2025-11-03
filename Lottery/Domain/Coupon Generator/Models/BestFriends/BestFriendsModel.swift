@@ -61,7 +61,7 @@ class BestFriendsModel {
             return false
         }
         let tempResult = drawType.createResult(idx: 0,
-                                                 date: .now,
+                                               date: .now,
                                                numbers: result.map {
             BestFriendNumber(value: $0, friendMaxValue: drawType.validNumberMaxValue)
         })

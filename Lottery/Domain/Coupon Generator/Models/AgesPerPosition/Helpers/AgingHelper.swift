@@ -16,22 +16,21 @@ enum AgingHelper {
     static func agedNumbersBasedOn(_ results: [DrawResult],
                                    drawType: DrawType) -> [AgedNumber] {
 
-        var agedNumbers = Array(1...drawType.validNumberMaxValue).map { AgedNumber(value: $0, age: nil) }
-        var agesSetCounter = 0
+        var agedNumbers = Array(1...drawType.validNumberMaxValue).map { AgedNumber(value: $0) }
 
         let resultsOfInterest: [DrawResult] = results.reversed()
 
         for (ageAsIdx, result) in resultsOfInterest.enumerated() {
-
             for number in result.numbers {
-                // swiftlint:disable:next for_where
-                if agedNumbers[number.value-1].age == nil {
-                    agedNumbers[number.value-1].age = ageAsIdx
-                    agesSetCounter += 1
-                    if agesSetCounter == drawType.validNumberMaxValue {
-                        return agedNumbers
-                    }
-                }
+                agedNumbers[number.value-1].ages.append(ageAsIdx)
+            }
+        }
+
+        for (idx, agedNumber) in agedNumbers.enumerated() {
+            var previous = 0
+            agedNumbers[idx].ages = agedNumber.ages.map { age in
+                defer { previous = age }
+                return age - previous - 1
             }
         }
 
@@ -63,7 +62,7 @@ enum AgingHelper {
                     let pastResultsSubArray = results[0...pastResultsEndIdx]
 
                     if let foundIdx = pastResultsSubArray.lastIndex(where: {$0.containsNumber(number.value)}) {
-                        let numberWithAge = AgedNumber(value: number.value, age: pastResultIdx - foundIdx - 1)
+                        let numberWithAge = AgedNumber(value: number.value, ages: [pastResultIdx - foundIdx - 1])
                         newNumbers.append(numberWithAge)
                     } else {
                         let numberWithoutAge = AgedNumber(value: number.value)
@@ -85,7 +84,7 @@ enum AgingHelper {
             }
 
             newNumbers = newNumbers.enumerated().map { (_, element) in
-                AgedNumber(value: element.value, age: element.age)
+                AgedNumber(value: element.value, ages: element.ages)
             }
 
             agedResults.append(drawType.createResult(idx: pastResult.idx, date: pastResult.date, numbers: newNumbers))

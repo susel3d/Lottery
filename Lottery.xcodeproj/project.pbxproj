@@ -184,7 +184,7 @@
 		CDB4B7282BA44C3500DFEE32 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				CDF770092BB0D8A1003313FD /* Coupon generation */,
+				CDF770092BB0D8A1003313FD /* Coupon Generator */,
 				E989F25E2D240A3800AC7068 /* Draw Result Types */,
 				CDB4B7292BA44C5D00DFEE32 /* Number.swift */,
 				E9CD52F32D5938E80031D5FB /* StatisticsHandler.swift */,
@@ -204,14 +204,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		CDF770092BB0D8A1003313FD /* Coupon generation */ = {
+		CDF770092BB0D8A1003313FD /* Coupon Generator */ = {
 			isa = PBXGroup;
 			children = (
 				E9D1B38F2E65D61B006A0030 /* Models */,
 				E9D488F92DD10EED00ED1DBB /* CouponGenerator.swift */,
 				E9CD52F52D593FBF0031D5FB /* CouponController.swift */,
 			);
-			path = "Coupon generation";
+			path = "Coupon Generator";
 			sourceTree = "<group>";
 		};
 		D3A643A22BD65B0600C8AF8F /* Tests */ = {

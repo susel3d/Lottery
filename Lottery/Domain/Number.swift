@@ -60,10 +60,13 @@ struct AgedNumber: Number, Comparable {
     }
 
     let value: Int
-    var age: Int?
+    var age: Int? {
+        ages.first
+    }
+    var ages: [Int] = []
 
     static func empty() -> AgedNumber {
-        AgedNumber(value: 0, age: 0)
+        AgedNumber(value: 0)
     }
 }
 
