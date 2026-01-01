@@ -24,6 +24,11 @@
 		E989F25D2D23EF2B00AC7068 /* AgingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989F25C2D23EF2B00AC7068 /* AgingHelper.swift */; };
 		E989F2602D240A5C00AC7068 /* LottoDrawResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989F25F2D240A5C00AC7068 /* LottoDrawResult.swift */; };
 		E989F2622D240A7E00AC7068 /* MiniLottoDrawResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989F2612D240A7E00AC7068 /* MiniLottoDrawResult.swift */; };
+		E99F9DB32F06DC6600F5C31C /* AgedNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F9DB22F06DC6600F5C31C /* AgedNumber.swift */; };
+		E99F9DB52F06DC7C00F5C31C /* BestFriendNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F9DB42F06DC7C00F5C31C /* BestFriendNumber.swift */; };
+		E99F9DB72F06DD2B00F5C31C /* DrawResultNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F9DB62F06DD2B00F5C31C /* DrawResultNumber.swift */; };
+		E99F9DB92F06DE5F00F5C31C /* DrawType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F9DB82F06DE5F00F5C31C /* DrawType.swift */; };
+		E99F9DBB2F06DFFD00F5C31C /* DrawResultHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F9DBA2F06DEE400F5C31C /* DrawResultHelper.swift */; };
 		E9AF78BB2E69C48B007A7BA4 /* CouponGeneratorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AF78BA2E69C48B007A7BA4 /* CouponGeneratorViewModelTests.swift */; };
 		E9AF78BD2E69CAD9007A7BA4 /* CouponListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AF78BC2E69CAD9007A7BA4 /* CouponListViewModelTests.swift */; };
 		E9AFB2C22C4C01DA00FE3A1B /* AgesPerPositionResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFB2C12C4C01DA00FE3A1B /* AgesPerPositionResults.swift */; };
@@ -86,6 +91,11 @@
 		E989F25C2D23EF2B00AC7068 /* AgingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgingHelper.swift; sourceTree = "<group>"; };
 		E989F25F2D240A5C00AC7068 /* LottoDrawResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoDrawResult.swift; sourceTree = "<group>"; };
 		E989F2612D240A7E00AC7068 /* MiniLottoDrawResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniLottoDrawResult.swift; sourceTree = "<group>"; };
+		E99F9DB22F06DC6600F5C31C /* AgedNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgedNumber.swift; sourceTree = "<group>"; };
+		E99F9DB42F06DC7C00F5C31C /* BestFriendNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFriendNumber.swift; sourceTree = "<group>"; };
+		E99F9DB62F06DD2B00F5C31C /* DrawResultNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawResultNumber.swift; sourceTree = "<group>"; };
+		E99F9DB82F06DE5F00F5C31C /* DrawType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawType.swift; sourceTree = "<group>"; };
+		E99F9DBA2F06DEE400F5C31C /* DrawResultHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawResultHelper.swift; sourceTree = "<group>"; };
 		E9AF78BA2E69C48B007A7BA4 /* CouponGeneratorViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponGeneratorViewModelTests.swift; sourceTree = "<group>"; };
 		E9AF78BC2E69CAD9007A7BA4 /* CouponListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewModelTests.swift; sourceTree = "<group>"; };
 		E9AFB2C12C4C01DA00FE3A1B /* AgesPerPositionResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgesPerPositionResults.swift; sourceTree = "<group>"; };
@@ -186,10 +196,9 @@
 			children = (
 				CDF770092BB0D8A1003313FD /* Coupon Generator */,
 				E989F25E2D240A3800AC7068 /* Draw Result Types */,
-				CDB4B7292BA44C5D00DFEE32 /* Number.swift */,
-				E9CD52F32D5938E80031D5FB /* StatisticsHandler.swift */,
+				E99F9DB82F06DE5F00F5C31C /* DrawType.swift */,
+				E99F9DBC2F06E0DA00F5C31C /* Statistics */,
 				E9BC05EE2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift */,
-				E9BC05F02CFCCCD0008537D3 /* StatisticsComparatorData.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -198,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				E9B4B1442E92A73000EFE200 /* Coupon Generator */,
+				E99F9DBE2F06E1CF00F5C31C /* Coupon List */,
 				E9E1B7A72E91C53900FAE37B /* MainView.swift */,
 				E9E1B7A92E91C81400FAE37B /* TuneModelsView.swift */,
 			);
@@ -207,9 +217,9 @@
 		CDF770092BB0D8A1003313FD /* Coupon Generator */ = {
 			isa = PBXGroup;
 			children = (
-				E9D1B38F2E65D61B006A0030 /* Models */,
-				E9D488F92DD10EED00ED1DBB /* CouponGenerator.swift */,
 				E9CD52F52D593FBF0031D5FB /* CouponController.swift */,
+				E9D488F92DD10EED00ED1DBB /* CouponGenerator.swift */,
+				E9D1B38F2E65D61B006A0030 /* Models */,
 			);
 			path = "Coupon Generator";
 			sourceTree = "<group>";
@@ -241,10 +251,29 @@
 			isa = PBXGroup;
 			children = (
 				CDB4B72B2BA44C6B00DFEE32 /* DrawResult.swift */,
-				E989F2612D240A7E00AC7068 /* MiniLottoDrawResult.swift */,
+				E99F9DBA2F06DEE400F5C31C /* DrawResultHelper.swift */,
 				E989F25F2D240A5C00AC7068 /* LottoDrawResult.swift */,
+				E989F2612D240A7E00AC7068 /* MiniLottoDrawResult.swift */,
 			);
 			path = "Draw Result Types";
+			sourceTree = "<group>";
+		};
+		E99F9DBC2F06E0DA00F5C31C /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				E9BC05F02CFCCCD0008537D3 /* StatisticsComparatorData.swift */,
+				E9CD52F32D5938E80031D5FB /* StatisticsHandler.swift */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
+		E99F9DBE2F06E1CF00F5C31C /* Coupon List */ = {
+			isa = PBXGroup;
+			children = (
+				E9B1B79C2E68529500F28544 /* CouponListView.swift */,
+				E9BC6E222E68DFC700111835 /* CouponListViewModel.swift */,
+			);
+			path = "Coupon List";
 			sourceTree = "<group>";
 		};
 		E9B25FB82E8E797800213CDA /* App State */ = {
@@ -263,8 +292,6 @@
 				E9D1B3922E65FACE006A0030 /* CouponsGeneratorView.swift */,
 				E9D62DD32E67935C0020D33D /* CouponsGeneratorViewModel.swift */,
 				E9B1B79A2E6834CD00F28544 /* CouponsGeneratorProgresView.swift */,
-				E9B1B79C2E68529500F28544 /* CouponListView.swift */,
-				E9BC6E222E68DFC700111835 /* CouponListViewModel.swift */,
 			);
 			path = "Coupon Generator";
 			sourceTree = "<group>";
@@ -281,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				E9C34CF52E5B7C6300F418FE /* BestFriendsModel.swift */,
+				E99F9DB42F06DC7C00F5C31C /* BestFriendNumber.swift */,
 				E9C34CF72E5B7CA100F418FE /* BestFriendsModelResults.swift */,
 			);
 			path = BestFriends;
@@ -291,6 +319,7 @@
 			children = (
 				E9AFB2C12C4C01DA00FE3A1B /* AgesPerPositionResults.swift */,
 				CDF7700A2BB0D8D6003313FD /* AgesPerPositionModel.swift */,
+				E99F9DB22F06DC6600F5C31C /* AgedNumber.swift */,
 				E968CE572D61495300FAB2B6 /* AgesPerPositionModelTuner.swift */,
 				D3B563B42BF21A8D0057D3BC /* Helpers */,
 			);
@@ -300,11 +329,12 @@
 		E9D1B38F2E65D61B006A0030 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CDB4B7292BA44C5D00DFEE32 /* Number.swift */,
+				E952416F2E13256D00EE7B1B /* ModelsTuner.swift */,
 				E9CB0E572DBE7C74000883BB /* AgesPerPosition */,
 				E9C34CF42E5B793700F418FE /* BestFriends */,
 				E9D1B3902E65D64E006A0030 /* DataModel */,
 				E9D1B3912E65D65E006A0030 /* ExclusionModel */,
-				E952416F2E13256D00EE7B1B /* ModelsTuner.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -313,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				CD7C568A2B9F050A0040ED3C /* DrawDataModel.swift */,
+				E99F9DB62F06DD2B00F5C31C /* DrawResultNumber.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -463,6 +494,7 @@
 				E989F2622D240A7E00AC7068 /* MiniLottoDrawResult.swift in Sources */,
 				E9D62DD42E67935C0020D33D /* CouponsGeneratorViewModel.swift in Sources */,
 				E9E1B7A82E91C53900FAE37B /* MainView.swift in Sources */,
+				E99F9DB72F06DD2B00F5C31C /* DrawResultNumber.swift in Sources */,
 				CD7C568B2B9F050A0040ED3C /* DrawDataModel.swift in Sources */,
 				E9C34CF82E5B7CA600F418FE /* BestFriendsModelResults.swift in Sources */,
 				E989F25D2D23EF2B00AC7068 /* AgingHelper.swift in Sources */,
@@ -478,11 +510,14 @@
 				E9B25FBA2E8E7B1500213CDA /* DependencyInjection.swift in Sources */,
 				E9CD52F62D593FCC0031D5FB /* CouponController.swift in Sources */,
 				E9BC05F12CFCCCD0008537D3 /* StatisticsComparatorData.swift in Sources */,
+				E99F9DBB2F06DFFD00F5C31C /* DrawResultHelper.swift in Sources */,
 				E9CD52F42D5938F00031D5FB /* StatisticsHandler.swift in Sources */,
+				E99F9DB92F06DE5F00F5C31C /* DrawType.swift in Sources */,
 				E9B1B79B2E6834CD00F28544 /* CouponsGeneratorProgresView.swift in Sources */,
 				CDF7700B2BB0D8D6003313FD /* AgesPerPositionModel.swift in Sources */,
 				E9BC05EF2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift in Sources */,
 				E9B25FB72E8E797100213CDA /* AppState.swift in Sources */,
+				E99F9DB52F06DC7C00F5C31C /* BestFriendNumber.swift in Sources */,
 				E9BC6E232E68DFD000111835 /* CouponListViewModel.swift in Sources */,
 				E9B25FB52E8E783100213CDA /* StateAction.swift in Sources */,
 				E9AFB2C22C4C01DA00FE3A1B /* AgesPerPositionResults.swift in Sources */,
@@ -491,6 +526,7 @@
 				E989F2602D240A5C00AC7068 /* LottoDrawResult.swift in Sources */,
 				CD7C56652B9F03260040ED3C /* Persistence.swift in Sources */,
 				CD7C565C2B9F03240040ED3C /* LotteryApp.swift in Sources */,
+				E99F9DB32F06DC6600F5C31C /* AgedNumber.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

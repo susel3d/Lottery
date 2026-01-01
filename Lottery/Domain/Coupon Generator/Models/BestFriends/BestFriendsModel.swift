@@ -93,7 +93,7 @@ class BestFriendsModel {
         }
 
         for commonResult in commonResults {
-            let concreteTypeResult = commonResult.numbers.compactMap { $0 as? DrawResultNumber }
+            let concreteTypeResult = commonResult.numbers.compactMap { $0 as? BestFriendNumber }
             for number in concreteTypeResult {
                 for theOther in concreteTypeResult where theOther != number {
                     let standarizedValue = 1 / Double(commonResults.count)
