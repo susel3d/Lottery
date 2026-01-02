@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import CouponGenerator
 import Observation
 
 @Observable

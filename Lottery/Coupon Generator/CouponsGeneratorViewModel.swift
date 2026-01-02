@@ -6,6 +6,8 @@
 //
 
 import Combine
+import CouponGenerator
+import Draw
 import Foundation
 
 enum Progress {
@@ -104,10 +106,13 @@ class CouponsGeneratorViewModel {
 
     private func loadTunedParameters() {
         let defaults = UserDefaults.standard
-        if let savedData = defaults.data(forKey: StateStore.state.drawType.stringKey),
-           let results = try? JSONDecoder().decode(TuneModelsResult.self, from: savedData) {
-            historyDeepth = results.roiLength
-            stdandardDeviation = results.stdDevFactor
-        }
+        
+        // TODO: Package API for ModelsTuner, TuneModelsResult
+        
+//        if let savedData = defaults.data(forKey: StateStore.state.drawType.stringKey),
+//           let results = try? JSONDecoder().decode(TuneModelsResult.self, from: savedData) {
+//            historyDeepth = results.roiLength
+//            stdandardDeviation = results.stdDevFactor
+//        }
     }
 }

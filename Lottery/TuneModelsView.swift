@@ -24,13 +24,14 @@ struct TuneModelsView: View {
 @Observable
 class TuneModelsViewModel {
 
-    let modelTuner: ModelsTuner
-
-    init(modelTuner: ModelsTuner = resolveDI(ModelsTuner.self)) {
-        self.modelTuner = modelTuner
-    }
-
+    //TODO: Package API for ModelsTuner
+//    let modelTuner: ModelsTuner
+//
+//    init(modelTuner: ModelsTuner = resolveDI(ModelsTuner.self)) {
+//        self.modelTuner = modelTuner
+//    }
+//
     func tune() {
-        modelTuner.tune()
+        //modelTuner.tune()
     }
 }

@@ -10,48 +10,25 @@
 		CD7C565C2B9F03240040ED3C /* LotteryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C565B2B9F03240040ED3C /* LotteryApp.swift */; };
 		CD7C56602B9F03260040ED3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7C565F2B9F03260040ED3C /* Assets.xcassets */; };
 		CD7C56632B9F03260040ED3C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7C56622B9F03260040ED3C /* Preview Assets.xcassets */; };
-		CD7C56652B9F03260040ED3C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C56642B9F03260040ED3C /* Persistence.swift */; };
-		CD7C56682B9F03260040ED3C /* Lottery.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD7C56662B9F03260040ED3C /* Lottery.xcdatamodeld */; };
-		CD7C568B2B9F050A0040ED3C /* DrawDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C568A2B9F050A0040ED3C /* DrawDataModel.swift */; };
 		CDA1392D2BB1BACB004A2D50 /* lotto.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDA1392C2BB1BACB004A2D50 /* lotto.txt */; };
-		CDB4B72A2BA44C5D00DFEE32 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4B7292BA44C5D00DFEE32 /* Number.swift */; };
-		CDB4B72C2BA44C6B00DFEE32 /* DrawResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4B72B2BA44C6B00DFEE32 /* DrawResult.swift */; };
-		CDF7700B2BB0D8D6003313FD /* AgesPerPositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF7700A2BB0D8D6003313FD /* AgesPerPositionModel.swift */; };
 		D37B900A2BE7DED50056D22C /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37B90092BE7DED50056D22C /* DataModelTests.swift */; };
 		D3A643A42BD65B4100C8AF8F /* DrawResultHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A643A32BD65B4100C8AF8F /* DrawResultHelperTests.swift */; };
-		E95241702E13257400EE7B1B /* ModelsTuner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E952416F2E13256D00EE7B1B /* ModelsTuner.swift */; };
-		E968CE582D61495300FAB2B6 /* AgesPerPositionModelTuner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E968CE572D61495300FAB2B6 /* AgesPerPositionModelTuner.swift */; };
-		E989F25D2D23EF2B00AC7068 /* AgingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989F25C2D23EF2B00AC7068 /* AgingHelper.swift */; };
-		E989F2602D240A5C00AC7068 /* LottoDrawResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989F25F2D240A5C00AC7068 /* LottoDrawResult.swift */; };
-		E989F2622D240A7E00AC7068 /* MiniLottoDrawResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E989F2612D240A7E00AC7068 /* MiniLottoDrawResult.swift */; };
-		E99F9DB32F06DC6600F5C31C /* AgedNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F9DB22F06DC6600F5C31C /* AgedNumber.swift */; };
-		E99F9DB52F06DC7C00F5C31C /* BestFriendNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F9DB42F06DC7C00F5C31C /* BestFriendNumber.swift */; };
-		E99F9DB72F06DD2B00F5C31C /* DrawResultNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F9DB62F06DD2B00F5C31C /* DrawResultNumber.swift */; };
-		E99F9DB92F06DE5F00F5C31C /* DrawType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F9DB82F06DE5F00F5C31C /* DrawType.swift */; };
-		E99F9DBB2F06DFFD00F5C31C /* DrawResultHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F9DBA2F06DEE400F5C31C /* DrawResultHelper.swift */; };
 		E9AF78BB2E69C48B007A7BA4 /* CouponGeneratorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AF78BA2E69C48B007A7BA4 /* CouponGeneratorViewModelTests.swift */; };
 		E9AF78BD2E69CAD9007A7BA4 /* CouponListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AF78BC2E69CAD9007A7BA4 /* CouponListViewModelTests.swift */; };
-		E9AFB2C22C4C01DA00FE3A1B /* AgesPerPositionResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFB2C12C4C01DA00FE3A1B /* AgesPerPositionResults.swift */; };
 		E9B1B79B2E6834CD00F28544 /* CouponsGeneratorProgresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1B79A2E6834CD00F28544 /* CouponsGeneratorProgresView.swift */; };
 		E9B1B79D2E68529500F28544 /* CouponListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1B79C2E68529500F28544 /* CouponListView.swift */; };
 		E9B25FB32E8E77A600213CDA /* StateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B25FB22E8E77A600213CDA /* StateStore.swift */; };
 		E9B25FB52E8E783100213CDA /* StateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B25FB42E8E783100213CDA /* StateAction.swift */; };
 		E9B25FB72E8E797100213CDA /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B25FB62E8E797100213CDA /* AppState.swift */; };
 		E9B25FBA2E8E7B1500213CDA /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B25FB92E8E7AF600213CDA /* DependencyInjection.swift */; };
-		E9BC05EF2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC05EE2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift */; };
-		E9BC05F12CFCCCD0008537D3 /* StatisticsComparatorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC05F02CFCCCD0008537D3 /* StatisticsComparatorData.swift */; };
 		E9BC6E232E68DFD000111835 /* CouponListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC6E222E68DFC700111835 /* CouponListViewModel.swift */; };
 		E9BDA8482D621D29009D2A7F /* AgingHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BDA8472D621D29009D2A7F /* AgingHelperTests.swift */; };
 		E9BDA84A2D62392F009D2A7F /* ResultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BDA8492D62392F009D2A7F /* ResultsTests.swift */; };
 		E9BDA84D2D6239E2009D2A7F /* MockDrawResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BDA84C2D6239E2009D2A7F /* MockDrawResult.swift */; };
-		E9C34CF62E5B7C6B00F418FE /* BestFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34CF52E5B7C6300F418FE /* BestFriendsModel.swift */; };
-		E9C34CF82E5B7CA600F418FE /* BestFriendsModelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34CF72E5B7CA100F418FE /* BestFriendsModelResults.swift */; };
-		E9C86FE22D5BD17F00D7B2B1 /* ExclusionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C86FE12D5BD17900D7B2B1 /* ExclusionModel.swift */; };
+		E9C3AE912F07B4A0008F2DDD /* CouponGenerator in Frameworks */ = {isa = PBXBuildFile; productRef = E9C3AE902F07B4A0008F2DDD /* CouponGenerator */; };
+		E9C3AE932F07B4A4008F2DDD /* Draw in Frameworks */ = {isa = PBXBuildFile; productRef = E9C3AE922F07B4A4008F2DDD /* Draw */; };
 		E9CD52F22D5932350031D5FB /* TODO.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9CD52F12D59322E0031D5FB /* TODO.txt */; };
-		E9CD52F42D5938F00031D5FB /* StatisticsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD52F32D5938E80031D5FB /* StatisticsHandler.swift */; };
-		E9CD52F62D593FCC0031D5FB /* CouponController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD52F52D593FBF0031D5FB /* CouponController.swift */; };
 		E9D1B3932E65FACE006A0030 /* CouponsGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D1B3922E65FACE006A0030 /* CouponsGeneratorView.swift */; };
-		E9D488FA2DD10EED00ED1DBB /* CouponGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D488F92DD10EED00ED1DBB /* CouponGenerator.swift */; };
 		E9D62DD42E67935C0020D33D /* CouponsGeneratorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D62DD32E67935C0020D33D /* CouponsGeneratorViewModel.swift */; };
 		E9DD6D7E2D27407E00469BF2 /* miniLotto.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9DD6D7D2D27407E00469BF2 /* miniLotto.txt */; };
 		E9E1B7A82E91C53900FAE37B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E1B7A72E91C53900FAE37B /* MainView.swift */; };
@@ -75,50 +52,27 @@
 		CD7C565B2B9F03240040ED3C /* LotteryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LotteryApp.swift; sourceTree = "<group>"; };
 		CD7C565F2B9F03260040ED3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD7C56622B9F03260040ED3C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CD7C56642B9F03260040ED3C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		CD7C56672B9F03260040ED3C /* Lotto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lotto.xcdatamodel; sourceTree = "<group>"; };
 		CD7C566D2B9F03260040ED3C /* LotteryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LotteryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD7C568A2B9F050A0040ED3C /* DrawDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawDataModel.swift; sourceTree = "<group>"; };
 		CD7C568C2B9F3BBE0040ED3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CDA1392C2BB1BACB004A2D50 /* lotto.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lotto.txt; sourceTree = "<group>"; };
-		CDB4B7292BA44C5D00DFEE32 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
-		CDB4B72B2BA44C6B00DFEE32 /* DrawResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawResult.swift; sourceTree = "<group>"; };
-		CDF7700A2BB0D8D6003313FD /* AgesPerPositionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgesPerPositionModel.swift; sourceTree = "<group>"; };
 		D37B90092BE7DED50056D22C /* DataModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
 		D3A643A32BD65B4100C8AF8F /* DrawResultHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawResultHelperTests.swift; sourceTree = "<group>"; };
-		E952416F2E13256D00EE7B1B /* ModelsTuner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTuner.swift; sourceTree = "<group>"; };
-		E968CE572D61495300FAB2B6 /* AgesPerPositionModelTuner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgesPerPositionModelTuner.swift; sourceTree = "<group>"; };
-		E989F25C2D23EF2B00AC7068 /* AgingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgingHelper.swift; sourceTree = "<group>"; };
-		E989F25F2D240A5C00AC7068 /* LottoDrawResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoDrawResult.swift; sourceTree = "<group>"; };
-		E989F2612D240A7E00AC7068 /* MiniLottoDrawResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniLottoDrawResult.swift; sourceTree = "<group>"; };
-		E99F9DB22F06DC6600F5C31C /* AgedNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgedNumber.swift; sourceTree = "<group>"; };
-		E99F9DB42F06DC7C00F5C31C /* BestFriendNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFriendNumber.swift; sourceTree = "<group>"; };
-		E99F9DB62F06DD2B00F5C31C /* DrawResultNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawResultNumber.swift; sourceTree = "<group>"; };
-		E99F9DB82F06DE5F00F5C31C /* DrawType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawType.swift; sourceTree = "<group>"; };
-		E99F9DBA2F06DEE400F5C31C /* DrawResultHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawResultHelper.swift; sourceTree = "<group>"; };
+		E99F9DC02F06EB7300F5C31C /* CouponGenerator */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CouponGenerator; path = Lottery/CouponGenerator; sourceTree = SOURCE_ROOT; };
 		E9AF78BA2E69C48B007A7BA4 /* CouponGeneratorViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponGeneratorViewModelTests.swift; sourceTree = "<group>"; };
 		E9AF78BC2E69CAD9007A7BA4 /* CouponListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewModelTests.swift; sourceTree = "<group>"; };
-		E9AFB2C12C4C01DA00FE3A1B /* AgesPerPositionResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgesPerPositionResults.swift; sourceTree = "<group>"; };
 		E9B1B79A2E6834CD00F28544 /* CouponsGeneratorProgresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponsGeneratorProgresView.swift; sourceTree = "<group>"; };
 		E9B1B79C2E68529500F28544 /* CouponListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListView.swift; sourceTree = "<group>"; };
 		E9B25FB22E8E77A600213CDA /* StateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateStore.swift; sourceTree = "<group>"; };
 		E9B25FB42E8E783100213CDA /* StateAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateAction.swift; sourceTree = "<group>"; };
 		E9B25FB62E8E797100213CDA /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E9B25FB92E8E7AF600213CDA /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
-		E9BC05EE2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsRangeOfInterest.swift; sourceTree = "<group>"; };
-		E9BC05F02CFCCCD0008537D3 /* StatisticsComparatorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsComparatorData.swift; sourceTree = "<group>"; };
 		E9BC6E222E68DFC700111835 /* CouponListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewModel.swift; sourceTree = "<group>"; };
 		E9BDA8472D621D29009D2A7F /* AgingHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgingHelperTests.swift; sourceTree = "<group>"; };
 		E9BDA8492D62392F009D2A7F /* ResultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTests.swift; sourceTree = "<group>"; };
 		E9BDA84C2D6239E2009D2A7F /* MockDrawResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDrawResult.swift; sourceTree = "<group>"; };
-		E9C34CF52E5B7C6300F418FE /* BestFriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFriendsModel.swift; sourceTree = "<group>"; };
-		E9C34CF72E5B7CA100F418FE /* BestFriendsModelResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFriendsModelResults.swift; sourceTree = "<group>"; };
-		E9C86FE12D5BD17900D7B2B1 /* ExclusionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusionModel.swift; sourceTree = "<group>"; };
+		E9C3AE8C2F07AD5E008F2DDD /* Draw */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Draw; path = Lottery/Draw; sourceTree = SOURCE_ROOT; };
 		E9CD52F12D59322E0031D5FB /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO.txt; sourceTree = "<group>"; };
-		E9CD52F32D5938E80031D5FB /* StatisticsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsHandler.swift; sourceTree = "<group>"; };
-		E9CD52F52D593FBF0031D5FB /* CouponController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponController.swift; sourceTree = "<group>"; };
 		E9D1B3922E65FACE006A0030 /* CouponsGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponsGeneratorView.swift; sourceTree = "<group>"; };
-		E9D488F92DD10EED00ED1DBB /* CouponGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponGenerator.swift; sourceTree = "<group>"; };
 		E9D62DD32E67935C0020D33D /* CouponsGeneratorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponsGeneratorViewModel.swift; sourceTree = "<group>"; };
 		E9DD6D7D2D27407E00469BF2 /* miniLotto.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = miniLotto.txt; sourceTree = "<group>"; };
 		E9E1B7A72E91C53900FAE37B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -131,6 +85,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9C3AE912F07B4A0008F2DDD /* CouponGenerator in Frameworks */,
+				E9C3AE932F07B4A4008F2DDD /* Draw in Frameworks */,
 				E9E528C92E8D13EF0092F13A /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				CD7C565A2B9F03240040ED3C /* Lottery */,
+				E9C3AE8F2F07B4A0008F2DDD /* Frameworks */,
 				CD7C56592B9F03240040ED3C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -175,8 +132,6 @@
 				CDB4B72D2BA44E6600DFEE32 /* Views */,
 				CDB4B7282BA44C3500DFEE32 /* Domain */,
 				CD7C565F2B9F03260040ED3C /* Assets.xcassets */,
-				CD7C56642B9F03260040ED3C /* Persistence.swift */,
-				CD7C56662B9F03260040ED3C /* Lottery.xcdatamodeld */,
 				D3A643A22BD65B0600C8AF8F /* Tests */,
 				CD7C56612B9F03260040ED3C /* Preview Content */,
 			);
@@ -194,11 +149,8 @@
 		CDB4B7282BA44C3500DFEE32 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				CDF770092BB0D8A1003313FD /* Coupon Generator */,
-				E989F25E2D240A3800AC7068 /* Draw Result Types */,
-				E99F9DB82F06DE5F00F5C31C /* DrawType.swift */,
-				E99F9DBC2F06E0DA00F5C31C /* Statistics */,
-				E9BC05EE2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift */,
+				E99F9DC02F06EB7300F5C31C /* CouponGenerator */,
+				E9C3AE8C2F07AD5E008F2DDD /* Draw */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -214,16 +166,6 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		CDF770092BB0D8A1003313FD /* Coupon Generator */ = {
-			isa = PBXGroup;
-			children = (
-				E9CD52F52D593FBF0031D5FB /* CouponController.swift */,
-				E9D488F92DD10EED00ED1DBB /* CouponGenerator.swift */,
-				E9D1B38F2E65D61B006A0030 /* Models */,
-			);
-			path = "Coupon Generator";
-			sourceTree = "<group>";
-		};
 		D3A643A22BD65B0600C8AF8F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,34 +179,6 @@
 				D37B90092BE7DED50056D22C /* DataModelTests.swift */,
 			);
 			path = Tests;
-			sourceTree = "<group>";
-		};
-		D3B563B42BF21A8D0057D3BC /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				E989F25C2D23EF2B00AC7068 /* AgingHelper.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		E989F25E2D240A3800AC7068 /* Draw Result Types */ = {
-			isa = PBXGroup;
-			children = (
-				CDB4B72B2BA44C6B00DFEE32 /* DrawResult.swift */,
-				E99F9DBA2F06DEE400F5C31C /* DrawResultHelper.swift */,
-				E989F25F2D240A5C00AC7068 /* LottoDrawResult.swift */,
-				E989F2612D240A7E00AC7068 /* MiniLottoDrawResult.swift */,
-			);
-			path = "Draw Result Types";
-			sourceTree = "<group>";
-		};
-		E99F9DBC2F06E0DA00F5C31C /* Statistics */ = {
-			isa = PBXGroup;
-			children = (
-				E9BC05F02CFCCCD0008537D3 /* StatisticsComparatorData.swift */,
-				E9CD52F32D5938E80031D5FB /* StatisticsHandler.swift */,
-			);
-			path = Statistics;
 			sourceTree = "<group>";
 		};
 		E99F9DBE2F06E1CF00F5C31C /* Coupon List */ = {
@@ -304,56 +218,11 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		E9C34CF42E5B793700F418FE /* BestFriends */ = {
+		E9C3AE8F2F07B4A0008F2DDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E9C34CF52E5B7C6300F418FE /* BestFriendsModel.swift */,
-				E99F9DB42F06DC7C00F5C31C /* BestFriendNumber.swift */,
-				E9C34CF72E5B7CA100F418FE /* BestFriendsModelResults.swift */,
 			);
-			path = BestFriends;
-			sourceTree = "<group>";
-		};
-		E9CB0E572DBE7C74000883BB /* AgesPerPosition */ = {
-			isa = PBXGroup;
-			children = (
-				E9AFB2C12C4C01DA00FE3A1B /* AgesPerPositionResults.swift */,
-				CDF7700A2BB0D8D6003313FD /* AgesPerPositionModel.swift */,
-				E99F9DB22F06DC6600F5C31C /* AgedNumber.swift */,
-				E968CE572D61495300FAB2B6 /* AgesPerPositionModelTuner.swift */,
-				D3B563B42BF21A8D0057D3BC /* Helpers */,
-			);
-			path = AgesPerPosition;
-			sourceTree = "<group>";
-		};
-		E9D1B38F2E65D61B006A0030 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				CDB4B7292BA44C5D00DFEE32 /* Number.swift */,
-				E952416F2E13256D00EE7B1B /* ModelsTuner.swift */,
-				E9CB0E572DBE7C74000883BB /* AgesPerPosition */,
-				E9C34CF42E5B793700F418FE /* BestFriends */,
-				E9D1B3902E65D64E006A0030 /* DataModel */,
-				E9D1B3912E65D65E006A0030 /* ExclusionModel */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		E9D1B3902E65D64E006A0030 /* DataModel */ = {
-			isa = PBXGroup;
-			children = (
-				CD7C568A2B9F050A0040ED3C /* DrawDataModel.swift */,
-				E99F9DB62F06DD2B00F5C31C /* DrawResultNumber.swift */,
-			);
-			path = DataModel;
-			sourceTree = "<group>";
-		};
-		E9D1B3912E65D65E006A0030 /* ExclusionModel */ = {
-			isa = PBXGroup;
-			children = (
-				E9C86FE12D5BD17900D7B2B1 /* ExclusionModel.swift */,
-			);
-			path = ExclusionModel;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,11 +240,15 @@
 			buildRules = (
 			);
 			dependencies = (
+				E9C3AE8E2F07AD93008F2DDD /* PBXTargetDependency */,
+				E99F9DC22F06EC1700F5C31C /* PBXTargetDependency */,
 				E9E528CB2E8D14360092F13A /* PBXTargetDependency */,
 			);
 			name = Lottery;
 			packageProductDependencies = (
 				E9E528C82E8D13EF0092F13A /* Swinject */,
+				E9C3AE902F07B4A0008F2DDD /* CouponGenerator */,
+				E9C3AE922F07B4A4008F2DDD /* Draw */,
 			);
 			productName = Lotto;
 			productReference = CD7C56582B9F03240040ED3C /* Lottery.app */;
@@ -491,42 +364,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9E1B7AA2E91C81400FAE37B /* TuneModelsView.swift in Sources */,
-				E989F2622D240A7E00AC7068 /* MiniLottoDrawResult.swift in Sources */,
 				E9D62DD42E67935C0020D33D /* CouponsGeneratorViewModel.swift in Sources */,
 				E9E1B7A82E91C53900FAE37B /* MainView.swift in Sources */,
-				E99F9DB72F06DD2B00F5C31C /* DrawResultNumber.swift in Sources */,
-				CD7C568B2B9F050A0040ED3C /* DrawDataModel.swift in Sources */,
-				E9C34CF82E5B7CA600F418FE /* BestFriendsModelResults.swift in Sources */,
-				E989F25D2D23EF2B00AC7068 /* AgingHelper.swift in Sources */,
-				CDB4B72A2BA44C5D00DFEE32 /* Number.swift in Sources */,
-				E968CE582D61495300FAB2B6 /* AgesPerPositionModelTuner.swift in Sources */,
-				E95241702E13257400EE7B1B /* ModelsTuner.swift in Sources */,
-				CD7C56682B9F03260040ED3C /* Lottery.xcdatamodeld in Sources */,
 				E9B25FB32E8E77A600213CDA /* StateStore.swift in Sources */,
-				CDB4B72C2BA44C6B00DFEE32 /* DrawResult.swift in Sources */,
-				E9C34CF62E5B7C6B00F418FE /* BestFriendsModel.swift in Sources */,
 				E9B1B79D2E68529500F28544 /* CouponListView.swift in Sources */,
-				E9C86FE22D5BD17F00D7B2B1 /* ExclusionModel.swift in Sources */,
 				E9B25FBA2E8E7B1500213CDA /* DependencyInjection.swift in Sources */,
-				E9CD52F62D593FCC0031D5FB /* CouponController.swift in Sources */,
-				E9BC05F12CFCCCD0008537D3 /* StatisticsComparatorData.swift in Sources */,
-				E99F9DBB2F06DFFD00F5C31C /* DrawResultHelper.swift in Sources */,
-				E9CD52F42D5938F00031D5FB /* StatisticsHandler.swift in Sources */,
-				E99F9DB92F06DE5F00F5C31C /* DrawType.swift in Sources */,
 				E9B1B79B2E6834CD00F28544 /* CouponsGeneratorProgresView.swift in Sources */,
-				CDF7700B2BB0D8D6003313FD /* AgesPerPositionModel.swift in Sources */,
-				E9BC05EF2CFCCCA7008537D3 /* ResultsRangeOfInterest.swift in Sources */,
 				E9B25FB72E8E797100213CDA /* AppState.swift in Sources */,
-				E99F9DB52F06DC7C00F5C31C /* BestFriendNumber.swift in Sources */,
 				E9BC6E232E68DFD000111835 /* CouponListViewModel.swift in Sources */,
 				E9B25FB52E8E783100213CDA /* StateAction.swift in Sources */,
-				E9AFB2C22C4C01DA00FE3A1B /* AgesPerPositionResults.swift in Sources */,
-				E9D488FA2DD10EED00ED1DBB /* CouponGenerator.swift in Sources */,
 				E9D1B3932E65FACE006A0030 /* CouponsGeneratorView.swift in Sources */,
-				E989F2602D240A5C00AC7068 /* LottoDrawResult.swift in Sources */,
-				CD7C56652B9F03260040ED3C /* Persistence.swift in Sources */,
 				CD7C565C2B9F03240040ED3C /* LotteryApp.swift in Sources */,
-				E99F9DB32F06DC6600F5C31C /* AgedNumber.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,6 +400,14 @@
 			isa = PBXTargetDependency;
 			target = CD7C56572B9F03240040ED3C /* Lottery */;
 			targetProxy = CD7C566E2B9F03260040ED3C /* PBXContainerItemProxy */;
+		};
+		E99F9DC22F06EC1700F5C31C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = E99F9DC12F06EC1700F5C31C /* CouponGenerator */;
+		};
+		E9C3AE8E2F07AD93008F2DDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = E9C3AE8D2F07AD93008F2DDD /* Draw */;
 		};
 		E9E528CB2E8D14360092F13A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -832,6 +688,22 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E99F9DC12F06EC1700F5C31C /* CouponGenerator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CouponGenerator;
+		};
+		E9C3AE8D2F07AD93008F2DDD /* Draw */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Draw;
+		};
+		E9C3AE902F07B4A0008F2DDD /* CouponGenerator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CouponGenerator;
+		};
+		E9C3AE922F07B4A4008F2DDD /* Draw */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Draw;
+		};
 		E9E528C82E8D13EF0092F13A /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E9E528C72E8D13EF0092F13A /* XCRemoteSwiftPackageReference "Swinject" */;
@@ -843,19 +715,6 @@
 			productName = Swinject;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		CD7C56662B9F03260040ED3C /* Lottery.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				CD7C56672B9F03260040ED3C /* Lotto.xcdatamodel */,
-			);
-			currentVersion = CD7C56672B9F03260040ED3C /* Lotto.xcdatamodel */;
-			path = Lottery.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = CD7C56502B9F03240040ED3C /* Project object */;
 }

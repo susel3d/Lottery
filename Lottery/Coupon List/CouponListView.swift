@@ -5,6 +5,7 @@
 //  Created by Łukasz Kmiotek on 03/09/2025.
 //
 
+import CouponGenerator
 import SwiftUI
 
 struct CouponListView: View {

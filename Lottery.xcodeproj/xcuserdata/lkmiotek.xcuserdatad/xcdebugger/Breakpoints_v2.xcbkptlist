@@ -18,6 +18,36 @@
             endingLineNumber = "17"
             landmarkName = "stateReducer(state:action:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "731CF18C-4364-4CF7-B04B-14E4D713E277 - 2d8d65169d9d5ed2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Lottery.StateStore.stateReducer(state: Lottery.AppState, action: Lottery.StateAction) -&gt; Lottery.AppState"
+                  moduleName = "Lottery.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lkmiotek/Desktop/Lottery/Lottery/App%20State/StateStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18">
+               </Location>
+               <Location
+                  uuid = "731CF18C-4364-4CF7-B04B-14E4D713E277 - 2d8d65169d9d5ed2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Lottery.StateStore.stateReducer(state: Lottery.AppState, action: Lottery.StateAction) -&gt; Lottery.AppState"
+                  moduleName = "Lottery.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lkmiotek/Desktop/Lottery/Lottery/App%20State/StateStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -33,6 +63,38 @@
             startingLineNumber = "120"
             endingLineNumber = "120"
             landmarkName = "checkResultComplianceWithStats(results:roi:validNumbersCount:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1168BCAC-1717-470A-B0CD-CEABDA21E3CC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lottery/CouponGenerator/Sources/CouponGenerator/Coupon Generator/DependencyInjection.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "init()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B263283E-07E9-4478-812F-8DAC751059A8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lottery/CouponGenerator/Sources/CouponGenerator/Coupon Generator/DependencyInjection.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "init()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -5,16 +5,11 @@
 //  Created by Łukasz Kmiotek on 09/02/2025.
 //
 
-
-// Separation between app and models, number types in each domain
-
-// Data models to separte framework stored in private repo, app repo has framework but without its source code.
-// New public repo with app, change existing repo to Lotto framework, make it private.
-
-// Number types - some abtrct common part handy?
+// fix generation...
+// remove force unwrapping in PersistenceController + clean up
+// Package API for ModelsTuner, TuneModelsResult
 
 // Review in context of code and architecture rules, smaller parts
-
 
 // UI Test
 
